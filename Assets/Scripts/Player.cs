@@ -34,13 +34,32 @@ public class Player
     {
         foreach (var unit in ownedUnits)
         {
-            unit.SetOwner(name);
+            bool isHumanControlled = false;
+            if (type == PlayerType.Human)
+            {
+                isHumanControlled = true;
+            }
+
+            unit.SetOwner(name, isHumanControlled);
+            unit.SetPlayerColor(playerColor);
         }
+    }
+
+    public PlayerString GetPlayerString()
+    {
+        return name;
     }
 
     public void AddUnit(Unit unit)
     {
-        unit.SetOwner(name);
+        bool isHumanControlled = false;
+        if (type == PlayerType.Human)
+        {
+            isHumanControlled = true;
+        }
+
+        unit.SetOwner(name, isHumanControlled);
+        unit.SetPlayerColor(playerColor);
         ownedUnits.Add(unit);        
     }
 
@@ -55,6 +74,7 @@ public class Player
         {
             if (ownedUnit == unit)
             {
+                Debug.Log(ownedUnit.name);
                 return true;
             }
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8410776073510133637}
   - component: {fileID: 3855786388124499353}
   - component: {fileID: 8154785217384142402}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BarText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2953764084139699657}
   - component: {fileID: 4095547075362481271}
   - component: {fileID: 2890295364987350491}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 8368114694029940206}
   - component: {fileID: 4654304872193648580}
   - component: {fileID: 1963640582469979121}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 243447423447427821}
   - component: {fileID: 2602054643163694172}
   - component: {fileID: 8949605292331385231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -146,7 +146,7 @@ MonoBehaviour:
   owner: 0
   unitLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   data: {fileID: 11400000, guid: 5a5b8d5525dcf434da2af94d9277a2cc, type: 2}
   spawn: {fileID: 6216928505551177456}
 --- !u!1001 &1723836204670353285
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9204825008284032459, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
@@ -229,15 +229,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 573251123932789255, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2541949892755907156, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4752585379119354389, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8445995050878369493, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}
       propertyPath: m_Pivot.x
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8450886599190607893, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e2faa000d3538e48b82e88a6b6e1b94, type: 3}

@@ -16,11 +16,13 @@ public class BuildMode : MonoBehaviour
     private RaycastHit hit;
     private bool onGrond;
     private bool canBuild;
+    private PlayerString player;
 
     #region UnityFunctions
 
     void Start()
     {
+        player = Game.Instance.PlayerManager.GetPlayerStringFromPlayer(PlayerType.Human);
         cam = Camera.main;
     }
    
@@ -105,8 +107,8 @@ public class BuildMode : MonoBehaviour
 
             if (ResRequirementsMet())
             {
-                Instantiate(activeObject, spawnPosition, Quaternion.identity);
-                Game.Instance.AddPlayerUnit(activeObject.GetComponent<Unit>(), PlayerType.Human);
+                var newBuilding = Instantiate(activeObject, spawnPosition, Quaternion.identity);           
+                Game.Instance.PlayerManager.AddUnit(newBuilding.GetComponent<Building>(), PlayerType.Human);
                 ConsumeRequiredRes();
                 //Debug.Log(activeObject.GetComponent<Unit>().name);
             }
@@ -114,10 +116,6 @@ public class BuildMode : MonoBehaviour
             {
                 Debug.LogError("NOT ENGOUGH RESOURCES TO BUILD");
             }
-            /*isActive = false;
-            Destroy(tempObject);
-            tempObject = null;
-            activeObject = null;*/
         }
     }
 
@@ -127,7 +125,7 @@ public class BuildMode : MonoBehaviour
 
         foreach (var resourceRequirement in rqRes)
         {
-            if (Game.Instance.CheckResRequirement(resourceRequirement.requiredAmount, resourceRequirement.ResoureData.Type))
+            if (Game.Instance.ResourceManager.CheckResourceRequirement(resourceRequirement.requiredAmount, resourceRequirement.ResoureData.Type))
             {
                 continue;
             }

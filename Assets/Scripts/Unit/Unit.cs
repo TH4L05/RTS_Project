@@ -6,6 +6,8 @@ public class Unit : MonoBehaviour
     protected float currentHealth;
     protected float currentMana;
     protected bool isDead;
+    protected bool humanConrolledUnit;
+    protected MeshRenderer mr;
 
     public float CurrentHealth => currentHealth;
     public float CurrentMana => currentMana;
@@ -20,6 +22,7 @@ public class Unit : MonoBehaviour
 
     protected UnitType unitType;
     public UnitType UnitType => unitType;
+    public bool HumanControlledUnit => humanConrolledUnit;
 
     private void OnEnable()
     {
@@ -32,13 +35,21 @@ public class Unit : MonoBehaviour
     }
 
 
-    public void SetOwner(PlayerString name)
+    public virtual void SetOwner(PlayerString name, bool humanControlled)
     {
         owner = name;
+        humanConrolledUnit = humanControlled;
+    }
+
+    public virtual void SetPlayerColor(Color color)
+    {
+        if (mr == null) return;
+        mr.material.color = color;
     }
 
     protected virtual void StartSetup()
     {
+        mr = GetComponent<MeshRenderer>();
         SetUnitType();
         ChangeHealthBarVisibility(false);
         ChangeSelectionCircleVisibility(false);
@@ -73,7 +84,7 @@ public class Unit : MonoBehaviour
     protected virtual void Death()
     {
         UnitIsDead?.Invoke(gameObject);
-        Game.Instance.RemovePlayerUnit(this, owner);
+        Game.Instance.PlayerManager.RemoveUnit(this, owner);
         Destroy(gameObject, 1f);
     }
 

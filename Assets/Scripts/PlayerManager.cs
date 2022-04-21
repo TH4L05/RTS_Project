@@ -59,12 +59,25 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public PlayerString GetPlayerStringFromPlayer(PlayerType type)
+    {
+        foreach (var player in players)
+        {
+            if (player.type == type)
+            {
+                player.GetPlayerString();
+            }
+        }
+        return PlayerString.Undefined;
+    }
+
     public bool HumanConrolledUnit(Unit unit)
     {
         foreach (var player in players)
         {
             if (player.type == PlayerType.Human)
             {
+                Debug.Log(player.name);
                 return player.PlayerOwnsUnit(unit);
             }
         }

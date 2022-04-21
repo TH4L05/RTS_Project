@@ -23,9 +23,8 @@ public class ActionsGrid : MonoBehaviour
         UpdateButtonsOnDeselection();
 
         if (unit == null) return;
-        if (Game.Instance.HumanContolledUnit(unit))
+        if (unit.HumanControlledUnit)
         {
-            Debug.Log("HUMAN UNIT");
             var index = 0;
             foreach (var actionButton in actionButtons)
             {
@@ -33,10 +32,6 @@ public class ActionsGrid : MonoBehaviour
                 index++;
             }
         }     
-        else
-        {
-            Debug.Log("Computer UNIT");
-        }
     }
 
     public void UpdateButtonsOnDeselection()

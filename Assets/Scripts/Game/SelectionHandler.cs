@@ -62,7 +62,7 @@ public class SelectionHandler : MonoBehaviour
             }
             else if(selectedUnits.Count > 0)
             {
-              if (selectedUnits[0].UnitType == UnitType.Character && Game.Instance.HumanContolledUnit(selectedUnits[0]))
+              if (selectedUnits[0].UnitType == UnitType.Character && selectedUnits[0].HumanControlledUnit)
                 {
                     var unit = selectedUnits[0].GetComponent<Character>();
                     unit.SetTarget(hit);

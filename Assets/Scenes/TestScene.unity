@@ -3272,7 +3272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48adc23626ef1624b89f82cac66cd021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resmgr: {fileID: 827324696}
+  resourceManager: {fileID: 827324696}
   selectionHandler: {fileID: 1492545084}
   playerManager: {fileID: 598089735}
 --- !u!114 &1492545084
