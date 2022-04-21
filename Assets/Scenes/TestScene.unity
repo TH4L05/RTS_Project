@@ -875,10 +875,6 @@ MonoBehaviour:
     playerColor: {r: 1, g: 0, b: 0.9397526, a: 1}
     ownedUnits:
     - {fileID: 279166868}
-  - name: 1
-    type: 1
-    playerColor: {r: 1, g: 0, b: 0.9397526, a: 1}
-    ownedUnits: []
 --- !u!1 &608241177
 GameObject:
   m_ObjectHideFlags: 0

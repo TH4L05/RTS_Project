@@ -73,7 +73,7 @@ public class Unit : MonoBehaviour
     protected virtual void Death()
     {
         UnitIsDead?.Invoke(gameObject);
-        Game.Instance.RemovePlayerUnit(this,owner);
+        Game.Instance.RemovePlayerUnit(this, owner);
         Destroy(gameObject, 1f);
     }
 

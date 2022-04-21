@@ -25,11 +25,25 @@ MonoBehaviour:
   manaRegen: 0
   amor: 0
   attackRange: 0
+  actionRange: 2
   attackSpeed: 0
-  damage: 0
-  producedUnits:
+  basedamage: 1
+  weapon: {fileID: 0}
+  producableUnits:
   - {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
-  - {fileID: 3542480766079491809, guid: 367201725d43ec64daf763bdbfc30d11, type: 3}
+  abilities:
+  - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
+  - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c4887be62e1ea8940990b92a6dd896c7, type: 2}
+  - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 21300000, guid: c57adb09047eaef4d8a316988578ae85, type: 3}
   actionButtonIcon: {fileID: 21300000, guid: c57adb09047eaef4d8a316988578ae85, type: 3}
   buildingType: 1

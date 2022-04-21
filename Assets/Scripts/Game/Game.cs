@@ -11,6 +11,11 @@ public class Game : MonoBehaviour
     [SerializeField] private SelectionHandler selectionHandler;
     [SerializeField] private PlayerManager playerManager; 
 
+    public ResourceManager ResourceManager => resmgr;
+    public SelectionHandler SelectionHandler => selectionHandler;
+    public PlayerManager PlayerManager => playerManager;
+
+
     void Awake()
     {
         Instance = this;

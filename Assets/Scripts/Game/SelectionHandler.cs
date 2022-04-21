@@ -14,6 +14,7 @@ public class SelectionHandler : MonoBehaviour
     private RaycastHit hit;
 
     public Unit ActiveUnit => selectedUnits[0];
+    public Vector3 RaycastHitPoint => hit.point;   
     
 
     private void Awake()

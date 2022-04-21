@@ -106,11 +106,9 @@ public class BuildMode : MonoBehaviour
             if (ResRequirementsMet())
             {
                 Instantiate(activeObject, spawnPosition, Quaternion.identity);
-                ConsumeRequiredRes();
-
-                Debug.Log(activeObject.GetComponent<Unit>().name);
-
                 Game.Instance.AddPlayerUnit(activeObject.GetComponent<Unit>(), PlayerType.Human);
+                ConsumeRequiredRes();
+                //Debug.Log(activeObject.GetComponent<Unit>().name);
             }
             else
             {

@@ -29,7 +29,20 @@ MonoBehaviour:
   attackSpeed: 2
   basedamage: 5
   weapon: {fileID: 3169857386294250524, guid: 328edf10180af3c43a1dd6dc99fdf11a, type: 3}
-  producedUnits: []
+  producableUnits: []
+  abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 21300000, guid: 60b4f878a4947ea42a4a51138b9a7305, type: 3}
   actionButtonIcon: {fileID: 21300000, guid: 815a3ec6e1d012a40a6acdaa574d65c4, type: 3}
   charType: 1

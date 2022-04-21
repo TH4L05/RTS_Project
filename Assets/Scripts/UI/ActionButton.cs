@@ -4,62 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-[System.Serializable]
-public class ActionData
-{
-    public ActionType ActionType;
-}
-
-public enum ActionType
-{
-    Default,
-    CharacterProduction,
-}
-
 public class ActionButton: MonoBehaviour
 {
     [SerializeField] private Button button;
     [SerializeField] private Image icon;
-    private int index;
 
-    public void SetAction(BuildingData data, int gridIndex)
+    public void SetAction(Unit unit,int gridIndex)
     {
-        SetBuildingAction(data, gridIndex);
-    }
+        UnitData data = null;
+        UnitType type = unit.UnitType;
 
-    public void SetAction(CharacterData data, int gridIndex)
-    {
-        
-    }
-
-    private void SetBuildingAction(BuildingData data, int idx)
-    {
-        index = idx;
-
-        switch (data.BuildingType)
+        switch (type)
         {
-            case BuildingType.Undefined:
+            case UnitType.Building:
+                data = unit.GetComponent<Building>().Data;
+                break;
+            case UnitType.Character:
+                data = unit.GetComponent<Character>().Data;
+                break;
             default:
-                return;
-
-
-            case BuildingType.ResourceProduction:
-                return;
-
-
-            case BuildingType.CharacterProduction:
-                button.interactable = true;             
-                button.onClick.AddListener(SpawnCharacter);
-                SetIconBuilding(data);
                 break;
         }
-    }
 
-    private void SetIconBuilding(BuildingData data)
+        if (data.Abilities[gridIndex] == null) return;
+
+        data.Abilities[gridIndex].SetObject(unit.gameObject);
+        button.interactable = true;
+        SetIcon(data.Abilities[gridIndex].Icon);
+        button.onClick.AddListener(data.Abilities[gridIndex].DoAction);
+    }
+     
+    private void SetIcon(Sprite sprite)
     {
-        var sprite = data.ProducedUnits[index].gameObject.GetComponent<Character>().Data.ActionButtonIcon;
-        Debug.Log(sprite);
         if (sprite == null) return;
+        if (icon == null) return;
         icon.sprite = sprite;
     }
 
@@ -68,28 +46,5 @@ public class ActionButton: MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.interactable = false;
         icon.sprite = null;
-        index = -1;
     }
-
-    #region ButtonActions
-
-    public void SpawnCharacter()
-    {
-        Debug.Log("SpawnACharacter");
-        var activeObj = Game.Instance.GetSelectedObj();
-        var building = activeObj.GetComponent<Building>();
-        var data = building.Data;
-
-        var character = data.ProducedUnits[index];
-
-        Instantiate(character, building.Spawn.position, Quaternion.identity);
-
-    }
-
-    public void Deselect()
-    {
-
-    }
-
-    #endregion
 }
