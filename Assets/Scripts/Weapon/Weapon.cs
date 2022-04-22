@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Animator anim;
     private float damage;
 
+
     #endregion
 
     #region Damage
@@ -65,6 +66,8 @@ public class Weapon : MonoBehaviour
     private void ProjectileAttack()
     {
         anim.SetBool("attack", false);
+        var projectile = Instantiate(weaponData.ProjectileTemplate, attackPoint.position, attackPoint.rotation);
+        projectile.GetComponent<Projectile>().Setup(weaponData);
     }
 
     #endregion

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 463797454472601266}
   - component: {fileID: 2147374723747385635}
-  - component: {fileID: 5022299767955417073}
   m_Layer: 5
   m_Name: ResourceInfoSlot
   m_TagString: Untagged
@@ -65,20 +64,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5022299767955417073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772864534521077427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d0c0e2dbbf79984dbdca950c8763801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 512088611600131074}
-  amountText: {fileID: 3428179169804757572}
 --- !u!1 &2782869827592300799
 GameObject:
   m_ObjectHideFlags: 0

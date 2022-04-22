@@ -10,9 +10,10 @@ public enum ResourceType
     Wood,
     Stone,
     Food,
+    Unit,
 }
 
-[CreateAssetMenu(fileName = "NewResoureceData", menuName = "Data/ResourceData")]
+[CreateAssetMenu(fileName = "NewResourece", menuName = "Data/Resource")]
 public class ResourceData : ScriptableObject
 {
     [SerializeField] private ResourceType type = ResourceType.Undefined;

@@ -33,6 +33,9 @@ public class WeaponData : ScriptableObject
     [SerializeField] private GameObject projectileTemplate;
     [SerializeField] private float projectileSpeed;
 
+    public GameObject ProjectileTemplate => projectileTemplate;
+    public float ProjectileSpeed => projectileSpeed;
+
     public float CalcDamage()
     {
         var damage = baseDamage;

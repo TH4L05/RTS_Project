@@ -60,14 +60,16 @@ public class BuildMode : MonoBehaviour
 
     private void CreateTempBuilding(GameObject obj)
     {
-        tempObject = new GameObject("TempBuilding");
-        var tempMesh = tempObject.AddComponent<MeshFilter>();
-        var mr = tempObject.AddComponent<MeshRenderer>();
+        //tempObject = new GameObject("TempBuilding");
+        //var tempMesh = tempObject.AddComponent<MeshFilter>();
+        //var mr = tempObject.AddComponent<MeshRenderer>();
+        /*var mesh = obj.AddComponent<MeshFilter>().sharedMesh;
+        tempMesh = mesh;*/
 
-        var mesh = obj.GetComponent<MeshFilter>().sharedMesh;
-        tempMesh.mesh = mesh;
+        tempObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        tempObject.name = "TempBuilding";
+        var mr = tempObject.GetComponent<MeshRenderer>();
         mr.material = previewMaterialIn;
-
     }
 
     private void CheckIfPossibleToBuild()
@@ -125,7 +127,7 @@ public class BuildMode : MonoBehaviour
 
         foreach (var resourceRequirement in rqRes)
         {
-            if (Game.Instance.ResourceManager.CheckResourceRequirement(resourceRequirement.requiredAmount, resourceRequirement.ResoureData.Type))
+            if (Game.Instance.PlayerManager.CheckResourceRequirement(player, resourceRequirement.amount, resourceRequirement.ResoureData.Type))
             {
                 continue;
             }
@@ -144,7 +146,7 @@ public class BuildMode : MonoBehaviour
 
         foreach (var resourceRequirement in rqRes)
         {
-            ResourceManager.RemoveResource(resourceRequirement.ResoureData.Type, resourceRequirement.requiredAmount);
+            ResourceManager.RemoveResource(player, resourceRequirement.ResoureData.Type, resourceRequirement.amount, true);
         }      
     }
 

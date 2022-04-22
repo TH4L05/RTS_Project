@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     protected float currentMana;
     protected bool isDead;
     protected bool humanConrolledUnit;
-    protected MeshRenderer mr;
+    protected MeshRenderer[] meshRenderers;
 
     public float CurrentHealth => currentHealth;
     public float CurrentMana => currentMana;
@@ -43,13 +43,17 @@ public class Unit : MonoBehaviour
 
     public virtual void SetPlayerColor(Color color)
     {
-        if (mr == null) return;
-        mr.material.color = color;
+        foreach (var mr in meshRenderers)
+        {
+            mr.material.color = color;
+        } 
     }
 
     protected virtual void StartSetup()
     {
-        mr = GetComponent<MeshRenderer>();
+        var model = transform.GetChild(0);
+        meshRenderers = model.GetComponentsInChildren<MeshRenderer>();
+
         SetUnitType();
         ChangeHealthBarVisibility(false);
         ChangeSelectionCircleVisibility(false);

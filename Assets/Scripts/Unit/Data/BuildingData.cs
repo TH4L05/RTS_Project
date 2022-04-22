@@ -20,7 +20,8 @@ public class BuildingData : UnitData
     [SerializeField] private ResourceType producedResource;
     [SerializeField] private int productionAmount = 1;
     [SerializeField] private float productionSpeed = 1f;
-    
+    [SerializeField] private ResourceSetup[] provideResourcesOnBuild;
+
     #endregion
 
     #region PublicFields
@@ -29,6 +30,7 @@ public class BuildingData : UnitData
     public ResourceType ProducedResource => producedResource;
     public int ProductionAmount => productionAmount;
     public float ProductionSpeed => productionSpeed;
+    public ResourceSetup[] ProvideResourcesOnBuild => provideResourcesOnBuild;
 
     #endregion
 

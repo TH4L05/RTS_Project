@@ -6,14 +6,17 @@ using UnityEngine.InputSystem;
 public class Game : MonoBehaviour
 {
     public static Game Instance;
+    public GameData gameData;
 
-    [SerializeField] private ResourceManager resourceManager;
+    //[SerializeField] private ResourceManager resourceManager;
     [SerializeField] private SelectionHandler selectionHandler;
     [SerializeField] private PlayerManager playerManager; 
+    [SerializeField] private ResourceInfo resourceInfo;
 
-    public ResourceManager ResourceManager => resourceManager;
+    //public ResourceManager ResourceManager => resourceManager;
     public SelectionHandler SelectionHandler => selectionHandler;
     public PlayerManager PlayerManager => playerManager;
+    public ResourceInfo ResourceInfo => resourceInfo;
 
     void Awake()
     {

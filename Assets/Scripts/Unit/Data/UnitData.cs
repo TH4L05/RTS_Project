@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ResourceRequirement
+public class ResourceSetup
 {
     public ResourceData ResoureData;
-    public int requiredAmount;
+    public int amount;
 }
-
 
 
 public enum UnitType
@@ -26,7 +25,7 @@ public class UnitData : ScriptableObject
     [SerializeField] private string tooltip;
     [SerializeField] private UnitType uType;
     [SerializeField] private float buildTime;
-    [SerializeField] private ResourceRequirement[] requiredResources;
+    [SerializeField] private ResourceSetup[] requiredResources;
 
     [Header("Stats")]
     [SerializeField] private float healthMax = 1f;
@@ -57,7 +56,7 @@ public class UnitData : ScriptableObject
     public string Name => name;
     public string Tooltip => tooltip;
     public UnitType UType => uType;
-    public ResourceRequirement[] RequiredResources => requiredResources;
+    public ResourceSetup[] RequiredResources => requiredResources;
     public float BuildTime => buildTime;
     public float HealthMax => healthMax;
     public float HealthRegen => healthRegen;

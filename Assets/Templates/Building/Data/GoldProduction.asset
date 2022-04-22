@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
+  m_Name: GoldProduction
+  m_EditorClassIdentifier: 
+  name: GoldProduction
+  tooltip: 
+  uType: 0
+  buildTime: 0
+  requiredResources:
+  - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
+    requiredAmount: 20
+  healthMax: 1000
+  healthRegen: 0
+  manaMax: 0
+  manaRegen: 0
+  amor: 0
+  attackRange: 0
+  actionRange: 2
+  attackSpeed: 0
+  basedamage: 1
+  weapon: {fileID: 0}
+  producableUnits: []
+  abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
+  selectionInfoIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
+  actionButtonIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
+  buildingType: 0
+  producedResource: 2
+  productionAmount: 1
+  productionSpeed: 5

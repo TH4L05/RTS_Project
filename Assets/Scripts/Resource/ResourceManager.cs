@@ -3,69 +3,94 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+[System.Serializable]
+public class ResourceManager /*: MonoBehaviour*/
 {
-    //private Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
-    public static Action<ResourceType, int> GainResource;
-    public static Action<ResourceType, int> RemoveResource;
-    public static Action<ResourceType> ResourceAmountCheck;
+    [SerializeField] private List<ResourceSlot> resources = new List<ResourceSlot>();
+    private PlayerString player;
 
-    [SerializeField] private List<ResourceSlot> resourceSlots = new List<ResourceSlot>();
-    private static int am;
+    public static Action<PlayerString, ResourceType, int, bool> GainResource;
+    public static Action<PlayerString, ResourceType, int, bool> RemoveResource;
+    public static Action<ResourceType, int> UpdateInfo;
 
-
-    private void Awake()
+    public ResourceManager(PlayerString player, List<ResourceSlot> resources)
     {
+        this.resources = resources;
+        this.player = player;
+
+        Setup();
+    }
+
+    public void Setup()
+    {
+        foreach (var resource in resources)
+        {
+            resource.IncreaseValue(0);
+        }
+
         GainResource += UpdateResourceAmountPlus;
         RemoveResource += UpdateResourceAmountMinus;
     }
 
-    private void Start()
-    {
-        foreach (var resource in resourceSlots)
-        {
-            resource.IncreaseValue(0);
-            resource.SetSprite();
-        }
-    }
-
-    private void OnDestroy()
+    public void Destroy()
     {
         GainResource -= UpdateResourceAmountPlus;
         RemoveResource -= UpdateResourceAmountMinus;
     }
 
-    private void UpdateResourceAmountPlus(ResourceType type, int amount)
+    private void UpdateResourceAmountPlus(PlayerString player, ResourceType type, int amount, bool updateInfo)
     {
-        foreach (var resource in resourceSlots)
+        if (this.player == player)
         {
-            if (resource.ResourceType == type)
+            foreach (var resource in resources)
             {
-                resource.IncreaseValue(amount);
-                return;
+                if (resource.ResourceType == type)
+                {
+                    resource.IncreaseValue(amount);
+
+                    if (updateInfo)
+                    {
+                        UpdateResourceInfo(resource);
+                    }
+
+                    return;
+                }
+            }
+        }     
+    }
+
+    private void UpdateResourceAmountMinus(PlayerString player, ResourceType type, int amount, bool updateInfo)
+    {
+        if (this.player == player)
+        {
+            foreach (var resource in resources)
+            {
+                if (resource.ResourceType == type)
+                {
+                    resource.DecreaseValue(amount);
+
+                    if (updateInfo)
+                    {
+                        UpdateResourceInfo(resource);
+                    }
+
+                    return;
+                }
             }
         }
     }
 
-    private void UpdateResourceAmountMinus(ResourceType type, int amount)
+    private void UpdateResourceInfo(ResourceSlot resource)
     {
-        foreach (var resource in resourceSlots)
-        {
-            if (resource.ResourceType == type)
-            {
-                resource.DecreaseValue(amount);
-                return;
-            }
-        }
+        UpdateInfo?.Invoke(resource.ResourceType, resource.Amount);
     }
 
     public int GetResoureAmount(ResourceType type)
     {
-        foreach (var resource in resourceSlots)
+        foreach (var resource in resources)
         {
             if (resource.ResourceType == type)
             {
-                am = resource.Amount;
                 return resource.Amount;
             }
         }

@@ -13,23 +13,24 @@ public class ResourceSlot
 
     public int Amount => amount;
     public ResourceType ResourceType => data.Type;
+    public ResourceData Data => data;
 
-    public void SetSprite()
+    public void SetAmount(int amount)
     {
-        resourceInfo.SetSprite(data.Icon);
+        this.amount = amount;
     }
 
     public void IncreaseValue(int amount)
     {
         if(amount < amountMax) this.amount += amount;
         if(amount > amountMax) this.amount = amountMax;
-        if(resourceInfo != null) resourceInfo.UpdateAmount(this.amount);
     }
+
+
 
     public void DecreaseValue(int amount)
     {
         if(amount > 0) this.amount -= amount;
         if(amount < 0) this.amount = 0;
-        if (resourceInfo != null) resourceInfo.UpdateAmount(this.amount);
     }
 }

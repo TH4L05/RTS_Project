@@ -8,6 +8,8 @@ public class Building : Unit
 
     [SerializeField] private BuildingData data;
     [SerializeField] private Transform spawn;
+    
+
 
     #endregion
 
@@ -24,6 +26,9 @@ public class Building : Unit
     {
         base.StartSetup();
         currentHealth = data.HealthMax;
+
+        if (data.ProvideResourcesOnBuild == null) return;
+        ProvideResources();
     }
 
     protected override void AdditionalSetup()
@@ -48,10 +53,34 @@ public class Building : Unit
         if (healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
     }
 
+
+    private void ProvideResources()
+    {
+        foreach (var resource in data.ProvideResourcesOnBuild)
+        {
+            if (humanConrolledUnit)
+            {
+                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, true);
+            }
+            else
+            {
+                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, false);
+            }
+        }
+    }
+
+
     private void ResourceProduced()
     {
         //Debug.Log($"Resource Produced: {data.ProducedResource}");
-        ResourceManager.GainResource?.Invoke(data.ProducedResource, data.ProductionAmount);
+        if (humanConrolledUnit)
+        {
+            ResourceManager.GainResource?.Invoke(owner, data.ProducedResource, data.ProductionAmount, true);
+        }
+        else
+        {
+            ResourceManager.GainResource?.Invoke(owner, data.ProducedResource, data.ProductionAmount, false);
+        }       
     }
 
     public void SetSpawnPos(Vector3 pos)

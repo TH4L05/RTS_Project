@@ -29,8 +29,9 @@ public class Player
     public Color playerColor;
 
     public List<Unit> ownedUnits = new List<Unit>();
+    public ResourceManager resourceManager;
 
-    public void Setup()
+    public void Setup(GameData data)
     {
         foreach (var unit in ownedUnits)
         {
@@ -43,6 +44,14 @@ public class Player
             unit.SetOwner(name, isHumanControlled);
             unit.SetPlayerColor(playerColor);
         }
+
+        resourceManager = new ResourceManager(name, data.resources);
+
+        if (type == PlayerType.Human)
+        {
+            Game.Instance.ResourceInfo.Setup(data.resources);
+        }
+
     }
 
     public PlayerString GetPlayerString()
