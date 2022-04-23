@@ -45,6 +45,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
   actionButtonIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
+  actionButtonIconHighlighted: {fileID: 21300000, guid: a6f266860a6037e4280438b39181d4f5, type: 3}
+  actionButtonIconPressed: {fileID: 21300000, guid: a245496cdc83ee049a200a348e78ce76, type: 3}
   buildingType: 0
   producedResource: 1
   productionAmount: 1

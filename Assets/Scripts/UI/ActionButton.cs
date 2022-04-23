@@ -9,62 +9,106 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] protected Button button;
     [SerializeField] protected Image icon;
-    protected GameObject go;
-    protected Unit unit;
+    private Sprite defaultSprite;
+    private Unit unit;
+    private int index;
 
-    public virtual void SetAction(Unit unit,int gridIndex)
+    void Start()
     {
+        defaultSprite = icon.sprite;
+    }
+
+    public virtual void SetAction(GameObject obj,int gridIndex)
+    {
+        var unit = obj.GetComponent<Unit>();
         this.unit = unit;
-        go = unit.gameObject;
+        index = gridIndex;
 
-        UnitData data = null;
-        UnitType type = unit.UnitType;
+        UnitData data = Game.Instance.GetUnitData(unit);     
+        if (data.Abilities[gridIndex] == null) return;
+    
+        button.interactable = true;
 
-        switch (type)
+        if (!data.Abilities[gridIndex].UseTemplateSprites)
         {
-            case UnitType.Building:
-                data = unit.GetComponent<Building>().Data;
-                break;
-            case UnitType.Character:
-                data = unit.GetComponent<Character>().Data;
-                break;
-            default:
-                break;
+            SetIcons(data.Abilities[gridIndex].Icon, data.Abilities[gridIndex].IconHighlighted, data.Abilities[gridIndex].IconPressed, data.Abilities[gridIndex].IconDisabled);       
+        }
+        else
+        {
+            SetIcons(data.Abilities[gridIndex].UnitTemplate.GetComponent<Unit>());
         }
 
-        if (data.Abilities[gridIndex] == null) return;
-
-        Debug.Log(unit.gameObject.name);
-        data.Abilities[gridIndex].SetObject(unit.gameObject);
-        button.interactable = true;
-        SetIcon(data.Abilities[gridIndex].Icon);
-        button.onClick.AddListener(data.Abilities[gridIndex].DoAction);
+        button.onClick.AddListener(delegate { data.Abilities[gridIndex].DoAction(obj); });
     }
      
-    protected virtual void SetIcon(Sprite sprite)
+    protected virtual void SetIcons(Sprite normalSprite, Sprite higlightedSprite, Sprite pressedSprite, Sprite disabledSprite)
     {
-        if (sprite == null) return;
-        if (icon == null) return;
-        icon.sprite = sprite;
+        icon.sprite = normalSprite;
+        var spriteState = new SpriteState();
+        spriteState.pressedSprite = higlightedSprite;
+        spriteState.highlightedSprite = higlightedSprite;
+        spriteState.disabledSprite = disabledSprite;
+
+        button.spriteState = spriteState;
+    }
+
+    protected virtual void SetIcons(Unit unit)
+    {
+        Debug.Log("SetICONSWITHUNIT");
+        UnitData data = Game.Instance.GetUnitData(unit);
+        Debug.Log(data.Name);
+
+        icon.sprite = data.ActionButtonIcon;
+        var spriteState = new SpriteState();
+        spriteState.pressedSprite = data.ActionButtonIconPressed;
+        spriteState.highlightedSprite = data.ActionButtonIconHighlighted;
+
+        button.spriteState = spriteState;
+    }
+
+    private void ResetIcons()
+    {
+        icon.sprite = defaultSprite;
+        var spriteState = new SpriteState();
+        spriteState.pressedSprite = null;
+        spriteState.highlightedSprite = null;
+        spriteState.disabledSprite = null;
+        button.spriteState = spriteState;
     }
 
     public virtual void RemoveAction()
     {
         button.onClick.RemoveAllListeners();
         button.interactable = false;
-        icon.sprite = null;
+        ResetIcons();
+        unit = null;
+        index = -1;
     }
 
     protected virtual void ShowTooltip()
     {
-        Game.Instance.tooltipUI.gameObject.SetActive(true);
-        //Game.Instance.tooltipUI.UpdateTooltip(null);
+        if(unit == null) return;
+        if (!button.interactable) return;
+
+        Game.Instance.TooltipUI.ResetText();
+        Game.Instance.TooltipUI.gameObject.SetActive(true);
+        UnitData data = Game.Instance.GetUnitData(unit);
+
+        if (data.Abilities[index].UnitTemplate == null)
+        {
+            Game.Instance.TooltipUI.UpdateTooltip(data.Abilities[index].Tooltip);
+        }
+        else
+        {
+            Unit tunit = data.Abilities[index].UnitTemplate.GetComponent<Unit>();
+            Game.Instance.TooltipUI.UpdateTooltip(tunit);
+        }
     }
 
     protected virtual void HideTooltip()
     {
-        Game.Instance.tooltipUI.gameObject.SetActive(false);
-        Game.Instance.tooltipUI.ResetText();
+        Game.Instance.TooltipUI.gameObject.SetActive(false);
+        Game.Instance.TooltipUI.ResetText();
     }
 
 

@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SetNewUnitSpawn
   tooltip: 
-  icon: {fileID: 21300000, guid: aab4e76f7350d834aa2802e4458de444, type: 3}
-  obj: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6514b04a29b6c5b43b63997ebc350413, type: 3}
+  iconHighlighted: {fileID: 21300000, guid: 0e24fc958b971df48bfb50a85fb60728, type: 3}
+  iconPressed: {fileID: 21300000, guid: 02a0f73b893d12b4c8a3252ff028ea40, type: 3}
+  iconDisabled: {fileID: 0}
+  unitTemplate: {fileID: 0}
+  useTemplateSprites: 0

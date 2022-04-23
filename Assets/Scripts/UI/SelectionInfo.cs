@@ -34,22 +34,10 @@ public class SelectionInfo : MonoBehaviour
 
     #region UpdateInfo
 
-    void UpdateInfoOnSelect(Unit unit)
+    void UpdateInfoOnSelect(GameObject obj)
     {
-        UnitData data = null; 
-
-        switch (unit.UnitType)  
-        {
-            case UnitType.Building:
-                data = unit.gameObject.GetComponent<Building>().Data;
-
-                break;
-            case UnitType.Character:
-                data = unit.gameObject.GetComponent<Character>().Data;
-                break;
-            default:
-                break;
-        }
+        var unit = obj.GetComponent<Unit>();
+        UnitData data = Game.Instance.GetUnitData(unit);
 
         if (nameInfo != null) nameInfo.text = data.Name;
         if (healthInfo != null) healthInfo.text = $"´{unit.CurrentHealth} / {data.HealthMax}";

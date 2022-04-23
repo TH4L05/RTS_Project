@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Produce Melee
   tooltip: 
-  icon: {fileID: 21300000, guid: 815a3ec6e1d012a40a6acdaa574d65c4, type: 3}
-  obj: {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
+  icon: {fileID: 0}
+  iconHighlighted: {fileID: 0}
+  iconPressed: {fileID: 0}
+  iconDisabled: {fileID: 0}
+  unitTemplate: {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
+  useTemplateSprites: 1

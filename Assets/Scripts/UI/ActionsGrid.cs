@@ -18,17 +18,18 @@ public class ActionsGrid : MonoBehaviour
         SelectionHandler.ObjectDeselected -= UpdateButtonsOnDeselection;
     }
 
-    public void UpdateButtonsOnSelection(Unit unit)
+    public void UpdateButtonsOnSelection(GameObject obj)
     {
         UpdateButtonsOnDeselection();
 
-        if (unit == null) return;
+        if (obj == null) return;
+        var unit = obj.GetComponent<Unit>();
         if (unit.HumanControlledUnit)
         {
             var index = 0;
             foreach (var actionButton in actionButtons)
             {
-                actionButton.SetAction(unit, index);
+                actionButton.SetAction(obj, index);
                 index++;
             }
         }     

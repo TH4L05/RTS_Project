@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: DeselectUnitAbility
   m_EditorClassIdentifier: 
   name: DeselectActiveUnit
-  tooltip: 
-  icon: {fileID: 21300000, guid: 65385c73e3c433f47bde162c2d92b72b, type: 3}
-  obj: {fileID: 0}
+  tooltip: Deslects the active selected Unit
+  icon: {fileID: 21300000, guid: f27249d6729283f4ebb613a83faf8f7c, type: 3}
+  iconHighlighted: {fileID: 21300000, guid: f907302d9520e9b4497876c1f0b94117, type: 3}
+  iconPressed: {fileID: 21300000, guid: 47187a81c5195814193ee86c834a1433, type: 3}
+  iconDisabled: {fileID: 0}
+  unitTemplate: {fileID: 0}
+  useTemplateSprites: 0

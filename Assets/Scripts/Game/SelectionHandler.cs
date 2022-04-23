@@ -1,21 +1,32 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SelectionHandler : MonoBehaviour
 {
-    public static Action<Unit> ObjectSelected;
+    #region Actions
+
+    public static Action<GameObject> ObjectSelected;
     public static Action ObjectDeselected;
 
+    #endregion
+
+    #region Fields
+
     private Camera cam;
-    public List<Unit> selectedUnits = new List<Unit>();
-    private int selectedIndex;
+    private List<Unit> selectedUnits = new List<Unit>();
     private RaycastHit hit;
+    private Unit hoveredUnit;
+    private bool pause;
 
     public Unit ActiveUnit => selectedUnits[0];
-    public Vector3 RaycastHitPoint => hit.point;   
-    
+    public Vector3 RaycastHitPoint => hit.point;
+
+    #endregion
+
+    #region UnityFunctions
 
     private void Awake()
     {
@@ -30,24 +41,23 @@ public class SelectionHandler : MonoBehaviour
 
     void Update()
     {
+        if (pause) return;
         MousePosRayCast();
-        //ShowHealthbar();
+        ShowHealthbar();
         CheckLeftMouseClick();
         CheckRightMouseClick();
     }
+
+    #endregion
 
     private void MousePosRayCast()
     {
         Ray ray = cam.ScreenPointToRay(Game.Instance.GetMousePosition());
         Physics.Raycast(ray, out hit, 999f);
+        //Debug.Log(hit.transform.gameObject.name);
     }
 
-    /*private void ShowHealthbar()
-    {
-        var selectable = hit.transform.GetComponent<Unit>();
-        if (!selectable) return;
-        Debug.Log("ShowHealthBar");
-    }*/
+    #region MouseClick
 
     void CheckLeftMouseClick()
     {
@@ -71,13 +81,26 @@ public class SelectionHandler : MonoBehaviour
         }
     }
 
+    private void CheckRightMouseClick()
+    {
+        if (Mouse.current.rightButton.wasPressedThisFrame && !BuildMode.IsActive)
+        {
+            if (selectedUnits.Count > 0)
+            {
+                DeselectUnit();
+            }
+        }
+    }
+
+    #endregion
+
     #region Select&Deselect
 
     public void SelectUnit(Unit unit)
     {
         selectedUnits.Add(unit);
         SelectionCircleVisibility(true);
-        ObjectSelected?.Invoke(selectedUnits[0]);
+        ObjectSelected?.Invoke(selectedUnits[0].gameObject);
     }
 
     public void DeselectUnit()
@@ -97,16 +120,23 @@ public class SelectionHandler : MonoBehaviour
 
     #endregion
 
-
-    private void CheckRightMouseClick()
+    #region Visuals
+    private void ShowHealthbar()
     {
-        if (Mouse.current.rightButton.wasPressedThisFrame && !BuildMode.IsActive)
+        var selectable = hit.transform.GetComponent<Unit>();
+        if (selectable)
         {
-            if (selectedUnits.Count > 0)
-            {
-                DeselectUnit();
-            }
+            hoveredUnit = selectable;
+            hoveredUnit.ChangeHealthBarVisibility(true);
         }
+        else
+        {
+            if (hoveredUnit != null)
+            {
+                hoveredUnit.ChangeHealthBarVisibility(false);
+                hoveredUnit = null;
+            }
+        }        
     }
 
     private void SelectionCircleVisibility(bool visible)
@@ -119,19 +149,21 @@ public class SelectionHandler : MonoBehaviour
         }
     }
 
+    #endregion
 
-    
+    #region Pause
 
-    /*public GameObject GetSelectedObject(string name)
+    public void Pause()
     {
-        foreach (var obj in selectedUnits)
-        {
-            if (obj.GetComponent<UnitData>().Name == name)
-            {
-                return obj;
-            }
-        }
+        pause = true;
+        StartCoroutine(ShortPause());
+    }
 
-        return null;
-    }*/
+    private IEnumerator ShortPause()
+    {
+        yield return new WaitForSeconds(0.2f);
+        pause = false;
+    }
+
+    #endregion
 }

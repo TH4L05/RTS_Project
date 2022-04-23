@@ -48,6 +48,8 @@ public class UnitData : ScriptableObject
     [Header("Visuals")]
     [SerializeField] private Sprite selectionInfoIcon;
     [SerializeField] private Sprite actionButtonIcon;
+    [SerializeField] private Sprite actionButtonIconHighlighted;
+    [SerializeField] private Sprite actionButtonIconPressed;
 
     #endregion
 
@@ -72,6 +74,8 @@ public class UnitData : ScriptableObject
     public Ability[] Abilities => abilities;
     public Sprite SelectionInfoIcon => selectionInfoIcon;
     public Sprite ActionButtonIcon => actionButtonIcon;
+    public Sprite ActionButtonIconHighlighted => actionButtonIconHighlighted;
+    public Sprite ActionButtonIconPressed => actionButtonIconPressed;
 
     #endregion
 }

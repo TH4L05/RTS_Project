@@ -6,14 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpawnNewUnitBuildingAbility", menuName = "Data/Abilities/SpawnNewBuilingAbility")]
 public class SpawnNewBuilding : Ability
 {
-    [SerializeField] private GameObject UnitTemplate;
-
-    public override void DoAction()
+    public override void DoAction(GameObject obj)
     {
-        Game.Instance.BuildMode.ActivateMode(UnitTemplate);
-    }
-
-    public override void SetObject(GameObject obj)
-    {
+        base.DoAction(obj);
+        Game.Instance.BuildMode.ActivateMode(unitTemplate);
     }
 }

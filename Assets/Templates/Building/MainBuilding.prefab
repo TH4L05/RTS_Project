@@ -1496,6 +1496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583802499616564617}
   - component: {fileID: 8075101711599410955}
+  - component: {fileID: 8896655732913044557}
   m_Layer: 0
   m_Name: MainBuilding
   m_TagString: Untagged
@@ -1540,6 +1541,19 @@ MonoBehaviour:
     m_Bits: 256
   data: {fileID: 11400000, guid: e30671da4a1ada749b1eb491bf2b1730, type: 2}
   spawn: {fileID: 0}
+--- !u!65 &8896655732913044557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2582668508750625498}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &3496620099199542654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5137,6 +5151,14 @@ PrefabInstance:
     - target: {fileID: 7124078141812275170, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124078141812275170, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124078141812275170, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7124078141812275170, guid: 4e08df9df1033244495fdc7247017c7f, type: 3}
       propertyPath: m_LocalPosition.x

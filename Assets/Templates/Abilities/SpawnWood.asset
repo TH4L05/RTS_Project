@@ -15,4 +15,8 @@ MonoBehaviour:
   name: SpawnWood
   tooltip: 
   icon: {fileID: 0}
-  obj: {fileID: 7279741513658185968, guid: 2876f8eb9a2df594db61479da50ded06, type: 3}
+  iconHighlighted: {fileID: 0}
+  iconPressed: {fileID: 0}
+  iconDisabled: {fileID: 0}
+  unitTemplate: {fileID: 7279741513658185968, guid: 2876f8eb9a2df594db61479da50ded06, type: 3}
+  useTemplateSprites: 1

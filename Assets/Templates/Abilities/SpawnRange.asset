@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Produce Range
   tooltip: 
-  icon: {fileID: 21300000, guid: 7a65d55b8a4191849b25014f089c4373, type: 3}
-  obj: {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}
+  icon: {fileID: 0}
+  iconHighlighted: {fileID: 0}
+  iconPressed: {fileID: 0}
+  iconDisabled: {fileID: 0}
+  unitTemplate: {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}
+  useTemplateSprites: 1

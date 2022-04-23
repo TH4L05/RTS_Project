@@ -65,4 +65,10 @@ public class Tooltip : MonoBehaviour
         }
     }
 
+    public void UpdateTooltip(string text)
+    {
+        ResetText();
+        description.text = text;
+
+    }
 }

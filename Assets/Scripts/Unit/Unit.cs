@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
 {  
@@ -8,7 +9,7 @@ public class Unit : MonoBehaviour
     protected bool isDead;
     protected bool humanConrolledUnit;
     protected MeshRenderer[] meshRenderers;
-
+    
     public float CurrentHealth => currentHealth;
     public float CurrentMana => currentMana;
 
@@ -100,5 +101,16 @@ public class Unit : MonoBehaviour
     public void ChangeSelectionCircleVisibility(bool visible)
     {
         if (selectionCircle != null) selectionCircle.gameObject.SetActive(visible);
+    }
+
+    private void OnMouseOver()
+    {
+        Debug.Log("MouseOver");
+        ChangeHealthBarVisibility(true);
+    }
+
+    private void OnMouseExit()
+    {
+        ChangeHealthBarVisibility(false);
     }
 }
