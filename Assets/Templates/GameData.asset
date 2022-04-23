@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resources:
   - data: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
-    amount: 5
+    amount: 60
     amountMax: 999
-    resourceInfo: {fileID: 0}
   - data: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
-    amount: 0
+    amount: 25
     amountMax: 999
-    resourceInfo: {fileID: 0}
   - data: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
     amount: 0
     amountMax: 999
-    resourceInfo: {fileID: 0}
   - data: {fileID: 11400000, guid: db67b6aabdd296342a76f19d90f0a1ec, type: 2}
     amount: 0
     amountMax: 999
-    resourceInfo: {fileID: 0}
-  reqs: []
+  reqs:
+  - ResoureData: {fileID: 0}
+    amount: 0
   buildingList:
   - {fileID: 2582668508750625498, guid: cd42e571c64424c4a806cca27b51aff0, type: 3}
   - {fileID: 801105074129667048, guid: 7ac1e05cb9a1c8a4c8363e94637f6806, type: 3}
   - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 7279741513658185968, guid: 2876f8eb9a2df594db61479da50ded06, type: 3}
+  - {fileID: 7279741513658185968, guid: 100f286720b8de54b9ceba4e8cc8f3a1, type: 3}
   characterList:
   - {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
   - {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}

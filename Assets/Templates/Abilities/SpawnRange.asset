@@ -15,5 +15,4 @@ MonoBehaviour:
   name: Produce Range
   tooltip: 
   icon: {fileID: 21300000, guid: 7a65d55b8a4191849b25014f089c4373, type: 3}
-  obj: {fileID: 0}
-  unit: {fileID: 3542480766079491809, guid: 367201725d43ec64daf763bdbfc30d11, type: 3}
+  obj: {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}

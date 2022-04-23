@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761d6b49ae3b39f44826018f1441e59e, type: 3}
-  m_Name: SpawnMelee
+  m_Script: {fileID: 11500000, guid: 5d2c9b5aac57e90489c67e630c0a00a7, type: 3}
+  m_Name: SpawnGold
   m_EditorClassIdentifier: 
-  name: Produce Melee
+  name: SpawnGold
   tooltip: 
-  icon: {fileID: 21300000, guid: 815a3ec6e1d012a40a6acdaa574d65c4, type: 3}
-  obj: {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
+  icon: {fileID: 0}
+  obj: {fileID: 7279741513658185968, guid: 100f286720b8de54b9ceba4e8cc8f3a1, type: 3}

@@ -18,9 +18,9 @@ MonoBehaviour:
   buildTime: 0
   requiredResources:
   - ResoureData: {fileID: 11400000, guid: db67b6aabdd296342a76f19d90f0a1ec, type: 2}
-    requiredAmount: 1
-  - ResoureData: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
-    requiredAmount: 15
+    amount: 1
+  - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
+    amount: 10
   healthMax: 100
   healthRegen: 0
   manaMax: 25

@@ -82,6 +82,7 @@ public class Character : Unit
 
     private void InstaniateWeapon()
     {
+        if (data.Weapon == null) return;
         var wp = Instantiate(data.Weapon, weaponPosition);
         weapon = wp.GetComponent<Weapon>();
     }

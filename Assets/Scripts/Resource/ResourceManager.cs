@@ -7,7 +7,7 @@ using UnityEngine;
 public class ResourceManager /*: MonoBehaviour*/
 {
     [SerializeField] private List<ResourceSlot> resources = new List<ResourceSlot>();
-    private PlayerString player;
+    private PlayerString player = PlayerString.Undefined;
 
     public static Action<PlayerString, ResourceType, int, bool> GainResource;
     public static Action<PlayerString, ResourceType, int, bool> RemoveResource;
@@ -15,7 +15,13 @@ public class ResourceManager /*: MonoBehaviour*/
 
     public ResourceManager(PlayerString player, List<ResourceSlot> resources)
     {
-        this.resources = resources;
+        foreach (var res in resources)
+        {
+            var slot = new ResourceSlot(res.Data, res.MaxAmount);
+            slot.IncreaseValue(res.Amount);
+            this.resources.Add(slot);
+        }
+
         this.player = player;
 
         Setup();

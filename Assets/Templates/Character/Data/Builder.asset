@@ -10,24 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a33beb314f2077498a37c7f2fd7c3ab, type: 3}
-  m_Name: MeleeEnemyUnit
+  m_Name: Builder
   m_EditorClassIdentifier: 
-  name: Enemy Unit Melee
+  name: 
   tooltip: 
-  uType: 1
+  uType: 0
   buildTime: 0
   requiredResources: []
-  healthMax: 100
+  healthMax: 1
   healthRegen: 0
-  manaMax: 25
+  manaMax: 0
   manaRegen: 0
   amor: 0
-  attackRange: 1.4
-  actionRange: 5
-  attackSpeed: 4
+  attackRange: 0.5
+  actionRange: 2
+  attackSpeed: 1
   basedamage: 1
-  weapon: {fileID: 3169857386294250524, guid: 328edf10180af3c43a1dd6dc99fdf11a, type: 3}
-  producableUnits: []
+  weapon: {fileID: 0}
+  producableUnits:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -41,9 +45,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  selectionInfoIcon: {fileID: 21300000, guid: 60b4f878a4947ea42a4a51138b9a7305, type: 3}
-  actionButtonIcon: {fileID: 21300000, guid: 815a3ec6e1d012a40a6acdaa574d65c4, type: 3}
-  charType: 1
-  movementType: 0
-  movementSpeed: 4
-  movementAccerlation: 8
+  selectionInfoIcon: {fileID: 0}
+  actionButtonIcon: {fileID: 0}
+  charType: -1
+  movementType: -1
+  movementSpeed: 1
+  movementAccerlation: 1

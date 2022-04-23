@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class ActionButton: MonoBehaviour
+public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Button button;
-    [SerializeField] private Image icon;
+    [SerializeField] protected Button button;
+    [SerializeField] protected Image icon;
+    protected GameObject go;
+    protected Unit unit;
 
-    public void SetAction(Unit unit,int gridIndex)
+    public virtual void SetAction(Unit unit,int gridIndex)
     {
+        this.unit = unit;
+        go = unit.gameObject;
+
         UnitData data = null;
         UnitType type = unit.UnitType;
 
@@ -28,23 +34,48 @@ public class ActionButton: MonoBehaviour
 
         if (data.Abilities[gridIndex] == null) return;
 
+        Debug.Log(unit.gameObject.name);
         data.Abilities[gridIndex].SetObject(unit.gameObject);
         button.interactable = true;
         SetIcon(data.Abilities[gridIndex].Icon);
         button.onClick.AddListener(data.Abilities[gridIndex].DoAction);
     }
      
-    private void SetIcon(Sprite sprite)
+    protected virtual void SetIcon(Sprite sprite)
     {
         if (sprite == null) return;
         if (icon == null) return;
         icon.sprite = sprite;
     }
 
-    public void RemoveAction()
+    public virtual void RemoveAction()
     {
         button.onClick.RemoveAllListeners();
         button.interactable = false;
         icon.sprite = null;
+    }
+
+    protected virtual void ShowTooltip()
+    {
+        Game.Instance.tooltipUI.gameObject.SetActive(true);
+        //Game.Instance.tooltipUI.UpdateTooltip(null);
+    }
+
+    protected virtual void HideTooltip()
+    {
+        Game.Instance.tooltipUI.gameObject.SetActive(false);
+        Game.Instance.tooltipUI.ResetText();
+    }
+
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ShowTooltip();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        HideTooltip();
     }
 }

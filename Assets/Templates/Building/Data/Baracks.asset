@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
   m_Name: Baracks
   m_EditorClassIdentifier: 
-  name: 
+  name: Baracks
   tooltip: 
   uType: 0
   buildTime: 0
   requiredResources:
   - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
-    amount: 0
+    amount: 25
+  - ResoureData: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
+    amount: 5
   healthMax: 1000
   healthRegen: 0
   manaMax: 0

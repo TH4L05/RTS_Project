@@ -9,15 +9,17 @@ public class ResourceSlot
     [SerializeField] private ResourceData data;
     [SerializeField] private int amount;
     [SerializeField] private int amountMax;
-    [SerializeField] private ResourceInfo resourceInfo;
 
     public int Amount => amount;
+    public int MaxAmount => amountMax;
     public ResourceType ResourceType => data.Type;
     public ResourceData Data => data;
 
-    public void SetAmount(int amount)
+
+    public ResourceSlot(ResourceData data, int amountMax)
     {
-        this.amount = amount;
+        this.data = data;
+        this.amountMax = amountMax;
     }
 
     public void IncreaseValue(int amount)
