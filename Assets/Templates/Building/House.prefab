@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1334894690821154444}
   - component: {fileID: 7681049771494607047}
-  m_Layer: 0
+  - component: {fileID: 2238404484850282051}
+  - component: {fileID: 5566511140713608488}
+  m_Layer: 8
   m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,8 +54,41 @@ MonoBehaviour:
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
+  unitType: 0
   data: {fileID: 11400000, guid: af2cdeb0663760d45b3a023cdb9b4004, type: 2}
-  spawn: {fileID: 0}
+  unitSpawn: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!65 &2238404484850282051
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801105074129667048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &5566511140713608488
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801105074129667048}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1032046210958355698
 GameObject:
   m_ObjectHideFlags: 0

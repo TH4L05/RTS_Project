@@ -20,7 +20,7 @@ public class SelectionHandler : MonoBehaviour
     private Camera cam;
     private List<Unit> selectedUnits = new List<Unit>();
     private Unit hoveredUnit;
-    private bool pause;
+    private bool paused;
 
     [Header("TEST")]
     public Vector3 pos1 = Vector3.zero;
@@ -62,7 +62,7 @@ public class SelectionHandler : MonoBehaviour
 
     void Update()
     {
-        if (pause) return;
+        if (paused) return;
         if (BuildMode.IsActive) return;
 
         ButtonPressed();       
@@ -326,24 +326,23 @@ public class SelectionHandler : MonoBehaviour
     #region Visuals
     private void ShowHealthbar()
     {
-        Unit unit = null;
-        Ray ray = cam.ScreenPointToRay(Game.Instance.GetMousePosition());
+        Vector2 mousePosition = Utils.GetMousePosition();
+        Ray ray = cam.ScreenPointToRay(mousePosition);
         RaycastHit hit;
+
         if (Physics.Raycast(ray, out hit, 999f, unitLayer))
         {
-            //Debug.Log(hit.transform.gameObject.name);
-            unit = hit.transform.GetComponent<Unit>();
+            hoveredUnit = hit.transform.GetComponent<Unit>();
+            hoveredUnit.ChangeHealthBarVisibility(true);
         }
-        
-        if (hoveredUnit != null)
+        else
         {
-            hoveredUnit.ChangeHealthBarVisibility(false);
-            hoveredUnit = null;
-        }
-
-        if (unit == null) return;
-        hoveredUnit = unit;
-        hoveredUnit.ChangeHealthBarVisibility(true);
+            if (hoveredUnit != null)
+            {
+                hoveredUnit.ChangeHealthBarVisibility(false);
+                hoveredUnit = null;
+            }
+        } 
     }
 
     private void SelectionCircleVisibility(bool visible)
@@ -360,16 +359,24 @@ public class SelectionHandler : MonoBehaviour
 
     #region Pause
 
-    public void Pause()
+    public void Pause(bool pause)
     {
-        pause = true;
-        StartCoroutine(ShortPause());
+        paused = pause;
+        isPressed = false;
     }
 
-    private IEnumerator ShortPause()
+    public void ShortPause()
+    {
+        paused = true;
+        isPressed = false;
+        StopAllCoroutines();
+        StartCoroutine(PauseShort());
+    }
+
+    private IEnumerator PauseShort()
     {
         yield return new WaitForSeconds(0.2f);
-        pause = false;
+        paused = false;
     }
 
     #endregion

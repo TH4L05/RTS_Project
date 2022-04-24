@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Baracks
   tooltip: 
-  uType: 0
   buildTime: 0
   requiredResources:
   - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
@@ -36,7 +35,7 @@ MonoBehaviour:
   - {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}
   abilities:
   - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
-  - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

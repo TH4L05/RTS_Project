@@ -24,14 +24,19 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         this.unit = unit;
         index = gridIndex;
 
-        UnitData data = Game.Instance.GetUnitData(unit);     
+        UnitData data = Utils.GetUnitData(unit); 
+        
         if (data.Abilities[gridIndex] == null) return;
     
         button.interactable = true;
 
         if (!data.Abilities[gridIndex].UseTemplateSprites)
         {
-            SetIcons(data.Abilities[gridIndex].Icon, data.Abilities[gridIndex].IconHighlighted, data.Abilities[gridIndex].IconPressed, data.Abilities[gridIndex].IconDisabled);       
+            SetIcons(
+                data.Abilities[gridIndex].Icon, 
+                data.Abilities[gridIndex].IconHighlighted, 
+                data.Abilities[gridIndex].IconPressed, 
+                data.Abilities[gridIndex].IconDisabled);       
         }
         else
         {
@@ -54,8 +59,7 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     protected virtual void SetIcons(Unit unit)
     {
-
-        UnitData data = Game.Instance.GetUnitData(unit);
+        UnitData data = Utils.GetUnitData(unit);
         icon.sprite = data.ActionButtonIcon;
         var spriteState = new SpriteState();
         spriteState.pressedSprite = data.ActionButtonIconPressed;
@@ -90,7 +94,7 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         Game.Instance.TooltipUI.ResetText();
         Game.Instance.TooltipUI.gameObject.SetActive(true);
-        UnitData data = Game.Instance.GetUnitData(unit);
+        UnitData data = Utils.GetUnitData(unit);
 
         if (data.Abilities[index].UnitTemplate == null)
         {

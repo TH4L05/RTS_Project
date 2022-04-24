@@ -37,7 +37,7 @@ public class SelectionInfo : MonoBehaviour
     void UpdateInfoOnSelect(GameObject obj)
     {
         var unit = obj.GetComponent<Unit>();
-        UnitData data = Game.Instance.GetUnitData(unit);
+        UnitData data = Utils.GetUnitData(unit);
 
         if (nameInfo != null) nameInfo.text = data.Name;
         if (healthInfo != null) healthInfo.text = $"´{unit.CurrentHealth} / {data.HealthMax}";

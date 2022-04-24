@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
     public PlayerString Owner => owner;
     public static Action<GameObject> UnitIsDead;
 
-    protected UnitType unitType;
+    [SerializeField] protected UnitType unitType = UnitType.Undefined;
     public UnitType UnitType => unitType;
     public bool HumanControlledUnit => humanConrolledUnit;
 
@@ -34,7 +34,6 @@ public class Unit : MonoBehaviour
     {
         AdditionalSetup();
     }
-
 
     public virtual void SetOwner(PlayerString name, bool humanControlled)
     {
@@ -55,14 +54,14 @@ public class Unit : MonoBehaviour
         var model = transform.GetChild(0);
         meshRenderers = model.GetComponentsInChildren<MeshRenderer>();
 
-        SetUnitType();
+        //SetUnitType();
         ChangeHealthBarVisibility(false);
         ChangeSelectionCircleVisibility(false);
     }
 
-    protected virtual void SetUnitType()
+    /*protected virtual void SetUnitType()
     {
-    }
+    }*/
 
     protected virtual void AdditionalSetup()
     {

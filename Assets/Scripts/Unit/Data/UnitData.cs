@@ -12,6 +12,7 @@ public class ResourceSetup
 
 public enum UnitType
 {
+    Undefined = -1,
     Building,
     Character
 }
@@ -23,7 +24,7 @@ public class UnitData : ScriptableObject
     [Header("Base")]
     [SerializeField] private new string name;
     [SerializeField] private string tooltip;
-    [SerializeField] private UnitType uType;
+    //[SerializeField] private UnitType uType;
     [SerializeField] private float buildTime;
     [SerializeField] private ResourceSetup[] requiredResources;
 
@@ -57,7 +58,7 @@ public class UnitData : ScriptableObject
 
     public string Name => name;
     public string Tooltip => tooltip;
-    public UnitType UType => uType;
+    //public UnitType UType => uType;
     public ResourceSetup[] RequiredResources => requiredResources;
     public float BuildTime => buildTime;
     public float HealthMax => healthMax;

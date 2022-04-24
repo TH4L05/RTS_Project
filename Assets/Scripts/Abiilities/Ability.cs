@@ -22,6 +22,6 @@ public class Ability : ScriptableObject
 
     public virtual void DoAction(GameObject obj)
     {
-        Game.Instance.SelectionHandler.Pause();
+        Game.Instance.SelectionHandler.ShortPause();
     }
 }

@@ -178,8 +178,12 @@ MonoBehaviour:
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
+  unitType: 0
   data: {fileID: 11400000, guid: a80dc122792bcd8479da77d2406243a3, type: 2}
-  spawn: {fileID: 0}
+  unitSpawn: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &6926388215450409090
 PrefabInstance:
   m_ObjectHideFlags: 0

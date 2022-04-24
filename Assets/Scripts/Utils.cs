@@ -34,4 +34,25 @@ public class Utils : MonoBehaviour
         GUI.DrawTexture(rect, texture);
         GUI.color = Color.white;
     }
+
+    public static UnitData GetUnitData(Unit unit)
+    {
+        UnitType type = unit.UnitType;
+
+        switch (type)
+        {
+            case UnitType.Undefined:
+            default:
+                return null;
+
+
+            case UnitType.Building:
+                return unit.GetComponent<Building>().Data;
+
+
+            case UnitType.Character:
+                return unit.GetComponent<Character>().Data;
+
+        }
+    }
 }

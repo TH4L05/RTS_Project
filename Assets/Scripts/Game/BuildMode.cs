@@ -29,11 +29,11 @@ public class BuildMode : MonoBehaviour
     void Update()
     {
         if (!IsActive) return;
-        LeftBuildMode();
+        RightMouseButtonPressed();
 
         if (tempObject != null)
         {         
-            Ray ray = cam.ScreenPointToRay(Game.Instance.GetMousePosition());
+            Ray ray = cam.ScreenPointToRay(Utils.GetMousePosition());
             
             if (Physics.Raycast(ray, out hit, 999f, groundLayer))
             {
@@ -78,18 +78,13 @@ public class BuildMode : MonoBehaviour
 
         for (int i = 0; i < objOnHitPoint.Length; i++)
         {
-            if (objOnHitPoint[i].gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                //Debug.Log(objOnHitPoint[i].gameObject.name);
-                continue;
-            }
-            else if (objOnHitPoint[i].gameObject.name == "TempBuilding")
+            if (objOnHitPoint[i].gameObject.layer == LayerMask.NameToLayer("Ground") |
+                objOnHitPoint[i].gameObject.name == "TempBuilding")
             {
                 continue;
             }
             else
             {
-                //Debug.LogError(objOnHitPoint[i].gameObject.name);
                 onGrond = false;
                 tempObject.GetComponent<MeshRenderer>().material = previewMaterialOut;
                 return;
@@ -112,7 +107,7 @@ public class BuildMode : MonoBehaviour
                 var newBuilding = Instantiate(activeObject, spawnPosition, Quaternion.identity);           
                 Game.Instance.PlayerManager.AddUnit(newBuilding.GetComponent<Building>(), PlayerType.Human);
                 ConsumeRequiredRes();
-                //Debug.Log(activeObject.GetComponent<Unit>().name);
+                LeftBuildMode();
             }
             else
             {
@@ -150,16 +145,23 @@ public class BuildMode : MonoBehaviour
         }      
     }
 
-    private void LeftBuildMode()
+    private void RightMouseButtonPressed()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            IsActive = false;
-            Destroy(tempObject);
-            tempObject = null;
-            activeObject = null;
+            LeftBuildMode();
         }
     }
+
+    private void LeftBuildMode()
+    {
+        IsActive = false;
+        Destroy(tempObject);
+        tempObject = null;
+        activeObject = null;
+    }
+
+
 
     private void OnDrawGizmos()
     {

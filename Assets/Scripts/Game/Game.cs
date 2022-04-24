@@ -25,27 +25,4 @@ public class Game : MonoBehaviour
         Instance = this;
         Application.targetFrameRate = 60;
     }
-
-    public Vector2 GetMousePosition()
-    {
-        return Mouse.current.position.ReadValue();
-    }
-
-    public UnitData GetUnitData(Unit unit)
-    {
-        UnitType type = unit.UnitType;
-
-        switch (type)
-        {
-            case UnitType.Building:
-                return unit.GetComponent<Building>().Data;
-
-            case UnitType.Character:
-                return unit.GetComponent<Character>().Data;
-
-            default:
-                break;
-        }
-        return null;
-    }
 }

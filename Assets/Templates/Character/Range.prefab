@@ -151,6 +151,7 @@ MonoBehaviour:
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
+  unitType: 1
   data: {fileID: 11400000, guid: f894e674fcb299e48b240b6a98c545d1, type: 2}
   navAgent: {fileID: 1888314300768914148}
   weaponPosition: {fileID: 5191625527662704971}

@@ -75,10 +75,10 @@ public class Character : Unit
         }        
     }
 
-    protected override void SetUnitType()
+    /*protected override void SetUnitType()
     {
         unitType = data.UType;
-    }
+    }*/
 
     private void InstaniateWeapon()
     {

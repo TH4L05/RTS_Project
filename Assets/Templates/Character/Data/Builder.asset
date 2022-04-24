@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Worker
   tooltip: 
-  uType: 1
   buildTime: 0
   requiredResources:
   - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
@@ -49,6 +48,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 0}
   actionButtonIcon: {fileID: 0}
+  actionButtonIconHighlighted: {fileID: 0}
+  actionButtonIconPressed: {fileID: 0}
   charType: 0
   movementType: 0
   movementSpeed: 7
