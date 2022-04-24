@@ -54,10 +54,8 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     protected virtual void SetIcons(Unit unit)
     {
-        Debug.Log("SetICONSWITHUNIT");
-        UnitData data = Game.Instance.GetUnitData(unit);
-        Debug.Log(data.Name);
 
+        UnitData data = Game.Instance.GetUnitData(unit);
         icon.sprite = data.ActionButtonIcon;
         var spriteState = new SpriteState();
         spriteState.pressedSprite = data.ActionButtonIconPressed;

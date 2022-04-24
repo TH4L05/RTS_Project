@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a33beb314f2077498a37c7f2fd7c3ab, type: 3}
   m_Name: RangeUnit
   m_EditorClassIdentifier: 
-  name: 
+  name: Range
   tooltip: 
   uType: 1
   buildTime: 0
@@ -47,6 +47,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 21300000, guid: ea9ea2b4cc584664d82f9e77a5fee315, type: 3}
   actionButtonIcon: {fileID: 21300000, guid: 7a65d55b8a4191849b25014f089c4373, type: 3}
+  actionButtonIconHighlighted: {fileID: 0}
+  actionButtonIconPressed: {fileID: 0}
   charType: 2
   movementType: 0
   movementSpeed: 6

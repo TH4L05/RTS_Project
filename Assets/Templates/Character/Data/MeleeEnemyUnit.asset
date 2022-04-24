@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a33beb314f2077498a37c7f2fd7c3ab, type: 3}
   m_Name: MeleeEnemyUnit
   m_EditorClassIdentifier: 
-  name: Enemy Unit Melee
+  name: EnemyMelee
   tooltip: 
   uType: 1
   buildTime: 0

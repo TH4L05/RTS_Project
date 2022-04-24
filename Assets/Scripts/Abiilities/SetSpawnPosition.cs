@@ -8,7 +8,7 @@ public class SetSpawnPosition : Ability
         base.DoAction(obj);
         var building = obj.GetComponent<Building>();
         if (building == null) return;
-        Vector3 position = Game.Instance.SelectionHandler.RaycastHitPoint;
-        building.SetSpawnPos(position);
+        //Vector3 position = Game.Instance.SelectionHandler.RaycastHitPoint;
+        //building.SetSpawnPos(position);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a33beb314f2077498a37c7f2fd7c3ab, type: 3}
   m_Name: MeleeUnit
   m_EditorClassIdentifier: 
-  name: Melee Unit
+  name: Melee
   tooltip: 
   uType: 1
   buildTime: 0
@@ -47,6 +47,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
   selectionInfoIcon: {fileID: 21300000, guid: 60b4f878a4947ea42a4a51138b9a7305, type: 3}
   actionButtonIcon: {fileID: 21300000, guid: 815a3ec6e1d012a40a6acdaa574d65c4, type: 3}
+  actionButtonIconHighlighted: {fileID: 0}
+  actionButtonIconPressed: {fileID: 0}
   charType: 1
   movementType: 0
   movementSpeed: 7

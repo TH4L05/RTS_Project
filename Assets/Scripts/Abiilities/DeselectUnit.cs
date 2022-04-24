@@ -6,6 +6,6 @@ public class DeselectUnit : Ability
     public override void DoAction(GameObject obj)
     {
         base.DoAction(obj);
-        Game.Instance.SelectionHandler.DeselectUnit();
+        Game.Instance.SelectionHandler.DeselectUnits();
     }
 }

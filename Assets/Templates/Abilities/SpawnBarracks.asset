@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2c9b5aac57e90489c67e630c0a00a7, type: 3}
   m_Name: SpawnBarracks
   m_EditorClassIdentifier: 
-  name: SpawnMainBuilding
+  name: SpawnBarracks
   tooltip: 
   icon: {fileID: 0}
   iconHighlighted: {fileID: 0}
   iconPressed: {fileID: 0}
   iconDisabled: {fileID: 0}
-  unitTemplate: {fileID: 2582668508750625498, guid: cd42e571c64424c4a806cca27b51aff0, type: 3}
+  unitTemplate: {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
   useTemplateSprites: 1
