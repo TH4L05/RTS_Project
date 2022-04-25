@@ -55,4 +55,10 @@ public class Utils : MonoBehaviour
 
         }
     }
+
+    public static float GetDistance(Vector3 vec1, Vector3 vec2)
+    {
+        float distance = Vector3.Distance(vec1, vec2);
+        return distance;
+    }
 }

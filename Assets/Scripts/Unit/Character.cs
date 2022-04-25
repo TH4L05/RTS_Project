@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,51 +13,39 @@ public enum CharacterState
 
 public class Character : Unit
 {
-    #region Fields
+    #region SerializedFields
 
     [SerializeField] private CharacterData data;
     [SerializeField] private NavMeshAgent navAgent;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] private Animator anim;
+    [SerializeField] private bool canAttack;
 
+    #endregion
+
+    #region PrivateFields
+
+    private Weapon weapon;
     private float lastAttackTime = 0f;
+    private float speed;
     private Vector3 targetPos;
     private CharacterState state;
+    private GameObject targetObj;
+
+    #endregion
+
+    #region PublicFields
 
     public CharacterData Data => data;
-    
-    [Header("TEST")]
-    [SerializeField] private Weapon weapon;
-    [SerializeField] private GameObject targetObj;
-
+    public Animator Animator => anim;
 
     #endregion
 
     #region UnityFunctions
 
     private void Update()
-    {        
-        switch (state)
-        {
-            case CharacterState.Idle:
-                CheckDetectionRange();
-                break;
-
-            case CharacterState.MoveToTarget:
-                break;
-
-            case CharacterState.MoveToPosition:
-                MoveToPosition();
-                break;
-
-            case CharacterState.Attack:               
-                AttackCheck();
-                CheckDetectionRange();
-                break;
-
-            default:
-                break;
-        }
+    {
+        UpdateState();
     }
 
     #endregion
@@ -70,49 +59,75 @@ public class Character : Unit
         if (navAgent) navAgent.speed = data.MovementSpeed;
         if (data != null)
         {
-            currentHealth = data.HealthMax;
-            InstaniateWeapon();          
+            currentHealth = data.HealthMax;          
         }        
     }
 
-    /*protected override void SetUnitType()
+    protected override void AdditionalSetup()
     {
-        unitType = data.UType;
-    }*/
+        if (data != null)
+        {
+            InstaniateWeapon();
+        }        
+    }
 
     private void InstaniateWeapon()
     {
         if (data.Weapon == null) return;
         var wp = Instantiate(data.Weapon, weaponPosition);
         weapon = wp.GetComponent<Weapon>();
+        weapon.Setup(anim, owner, unitLayer);
     }
 
     #endregion
 
+    #region Damage
+
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        if (anim != null) anim.SetTrigger("getHit");
         if(healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
     }
 
-    public void SetTarget(RaycastHit hit)
+    #endregion
+
+
+    private void UpdateState()
     {
-        if (hit.collider.gameObject.layer != gameObject.layer  
-            && hit.collider.gameObject.layer != LayerMask.NameToLayer("Ground") 
-            && hit.collider.gameObject.layer != LayerMask.NameToLayer("Environment"))
+        speed = navAgent.velocity.magnitude / navAgent.speed;
+
+        switch (state)
         {
-            targetObj = hit.collider.gameObject;
-            state = CharacterState.Attack;
+            case CharacterState.Idle:
+                if (anim != null) anim.SetFloat("speed", 0f);
+                if (canAttack)
+                {
+                    CheckDetectionRange();
+                }
+                break;
+
+            case CharacterState.MoveToTarget:
+                break;
+
+            case CharacterState.MoveToPosition:
+                if (anim != null) anim.SetFloat("speed", speed);
+                MoveToPosition();
+                break;
+
+            case CharacterState.Attack:
+                AttackCheck();
+                CheckDetectionRange();
+                break;
+
+            default:
+                break;
         }
-        else
-        {
-            targetPos = hit.point;
-            state = CharacterState.MoveToPosition;
-        }  
     }
 
     private void MoveToTarget()
     {
+        if (anim != null) anim.SetFloat("speed", speed);
         LookAtTarget(targetObj.transform.position);
         navAgent.isStopped = false;
         navAgent.speed = data.MovementSpeed;
@@ -124,7 +139,6 @@ public class Character : Unit
     public void MoveToPosition()
     {
         navAgent.isStopped = false;
-
         navAgent.SetDestination(targetPos);
 
         if (navAgent.remainingDistance < 0.1f)
@@ -148,7 +162,7 @@ public class Character : Unit
 
             if (unit.Owner == owner) continue;
 
-            var distance = Distance(target.transform.position);
+            var distance = Utils.GetDistance(transform.position,target.transform.position);
 
             if (distance < shortestDistance || shortestDistance == 0)
             {
@@ -167,16 +181,36 @@ public class Character : Unit
         }
     }
 
+    public void SetTarget(GameObject obj, RaycastHit hit)
+    {    
+        if (obj.layer == unitLayer)  
+        {
+            var unit = obj.GetComponent<Unit>();
+
+            if (unit.Owner != owner && canAttack)
+            {
+                targetObj = obj;
+                state = CharacterState.Attack;
+                return;
+            }
+        }
+        targetPos = hit.point;
+        state = CharacterState.MoveToPosition;      
+    }
+
     private void AttackCheck()
     {
         if (targetObj == null) return;
         if (isDead) return;
 
-        if (Distance(targetObj.transform.position) <= data.AttackRange)
+        var distance = Utils.GetDistance(transform.position, targetObj.transform.position);
+
+        if (distance <= data.AttackRange)
         {
             LookAtTarget(targetObj.transform.position);
             navAgent.stoppingDistance = 2f;
             navAgent.isStopped = true;
+            anim.SetFloat("speed", 0f);
             Attack();
         }
         else
@@ -189,8 +223,12 @@ public class Character : Unit
     {
         if (lastAttackTime >= data.AttackSpeed)
         {
-            lastAttackTime = 0f;
-            if (weapon != null) weapon.Attack();
+            lastAttackTime = 0f;          
+            if (weapon != null)
+            {
+                if (anim != null) anim.SetTrigger("Attack");
+                weapon.Attack();
+            }
         }
         else
         {
@@ -204,15 +242,15 @@ public class Character : Unit
         transform.LookAt(targetposition);
     }
 
-    private void StopNavAgent()
+    protected override void Death()
     {
-        navAgent.velocity = Vector3.zero;
+        base.Death();
+        if (anim != null) anim.SetBool("dead", true);
+        if (anim != null) anim.SetTrigger("death");
+        Destroy(gameObject, data.DeathTime);
     }
 
-    private float Distance(Vector3 target)
-    {
-        return Vector3.Distance(transform.position, target);
-    }
+    #region Gizmos
 
     private void OnDrawGizmos()
     {
@@ -233,4 +271,6 @@ public class Character : Unit
             Gizmos.DrawCube(weaponPosition.transform.position, new Vector3(0.25f, 0.25f, 0.25f));
         }       
     }
+
+    #endregion
 }

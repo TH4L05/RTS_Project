@@ -1,6 +1,7 @@
 
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,8 @@ public class Building : Unit
     [SerializeField] private Transform unitSpawn;
     [SerializeField] private LayerMask groundLayer;
     private bool changeGatheringPosition;
-    
+    public Queue<GameObject> buildQueue;
+
     #endregion
 
     #region PublicFields
@@ -28,6 +30,7 @@ public class Building : Unit
     {
         base.StartSetup();      
         currentHealth = data.HealthMax; 
+        buildQueue = new Queue<GameObject>();
     }
 
     protected override void AdditionalSetup()
@@ -51,6 +54,7 @@ public class Building : Unit
 
     private void OnDrawGizmosSelected()
     {
+        if(unitSpawn == null) return;
         Gizmos.color = Color.magenta;
         Gizmos.DrawCube(unitSpawn.position, new Vector3(0.5f, 0.5f, 0.5f));
     }
@@ -125,12 +129,13 @@ public class Building : Unit
         InvokeRepeating("SetGatheringPosition", 0, 0.025f);
     }
 
-    Queue buildQueue;
+
 
     public void AddToQueue(GameObject obj)
     {
-        //buildQueue.Enqueue(obj);
+        buildQueue.Enqueue(obj);
         StartCoroutine(CreateNewUnit(obj));
+        SelectionHandler.ObjectSelected?.Invoke(gameObject);
     }
 
     IEnumerator CreateNewUnit(GameObject unitTemplate)
@@ -142,7 +147,7 @@ public class Building : Unit
 
         var newUnit = Instantiate(unitTemplate, unitSpawn.position, Quaternion.identity);
         Game.Instance.PlayerManager.AddUnit(newUnit.GetComponent<Unit>(), PlayerType.Human);
-        //buildQueue.Dequeue();
+        buildQueue.Dequeue();
     }
 
 }

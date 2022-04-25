@@ -29,12 +29,17 @@ public class WeaponData : ScriptableObject
     [SerializeField] private int diceAmount = 1;
     [SerializeField] private int sidesPerDie = 1;
 
+    [Header("Normal")]
+    [SerializeField] private float damageTime;
+
     [Header("Projectile")]
     [SerializeField] private GameObject projectileTemplate;
     [SerializeField] private float projectileSpeed;
 
+    public AttackType AttackType => attackType;
     public GameObject ProjectileTemplate => projectileTemplate;
     public float ProjectileSpeed => projectileSpeed;
+    public float DamageTime => damageTime;
 
     public float CalcDamage()
     {

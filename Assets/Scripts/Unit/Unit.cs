@@ -1,29 +1,46 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
-{  
-    protected float currentHealth;
-    protected float currentMana;
-    protected bool isDead;
-    protected bool humanConrolledUnit;
-    protected MeshRenderer[] meshRenderers;
-    
-    public float CurrentHealth => currentHealth;
-    public float CurrentMana => currentMana;
+{
+    #region Actions
+
+    public static Action<GameObject> UnitIsDead;
+
+    #endregion
+
+    #region SerializedFields
 
     [SerializeField] protected UIBar healthBar;
     [SerializeField] protected GameObject selectionCircle;
     [SerializeField] protected PlayerString owner = PlayerString.Undefined;
+    [SerializeField] protected UnitType unitType = UnitType.Undefined;
     [SerializeField] protected LayerMask unitLayer;
 
-    public PlayerString Owner => owner;
-    public static Action<GameObject> UnitIsDead;
+    #endregion
 
-    [SerializeField] protected UnitType unitType = UnitType.Undefined;
+    #region PrivateFields
+
+    protected float currentHealth;
+    protected float currentMana;
+    protected bool isDead;
+    protected bool humanConrolledUnit;
+    protected Renderer[] meshRenderers;
+
+    #endregion
+
+    #region PublicFields
+
+    public PlayerString Owner => owner;
+
+    public float CurrentHealth => currentHealth;
+    public float CurrentMana => currentMana;
     public UnitType UnitType => unitType;
     public bool HumanControlledUnit => humanConrolledUnit;
+
+    #endregion
+
+    #region UnityFunctions
 
     private void OnEnable()
     {
@@ -35,6 +52,26 @@ public class Unit : MonoBehaviour
         AdditionalSetup();
     }
 
+    private void OnDestroy()
+    {
+        DeathSetup();
+    }
+
+    private void OnMouseOver()
+    {
+        //Debug.Log("MouseOver");
+        ChangeHealthBarVisibility(true);
+    }
+
+    private void OnMouseExit()
+    {
+        ChangeHealthBarVisibility(false);
+    }
+
+    #endregion;
+
+    #region Setup
+
     public virtual void SetOwner(PlayerString name, bool humanControlled)
     {
         owner = name;
@@ -43,6 +80,8 @@ public class Unit : MonoBehaviour
 
     public virtual void SetPlayerColor(Color color)
     {
+        //if (meshRenderers.Length == 0) return;
+
         foreach (var mr in meshRenderers)
         {
             mr.material.color = color;
@@ -52,16 +91,11 @@ public class Unit : MonoBehaviour
     protected virtual void StartSetup()
     {
         var model = transform.GetChild(0);
-        meshRenderers = model.GetComponentsInChildren<MeshRenderer>();
+        meshRenderers = model.GetComponentsInChildren<Renderer>();
 
-        //SetUnitType();
         ChangeHealthBarVisibility(false);
         ChangeSelectionCircleVisibility(false);
     }
-
-    /*protected virtual void SetUnitType()
-    {
-    }*/
 
     protected virtual void AdditionalSetup()
     {
@@ -70,7 +104,9 @@ public class Unit : MonoBehaviour
     protected virtual void DeathSetup()
     {
     }
- 
+
+    #endregion
+
     public virtual void TakeDamage(float damage)
     {
         if (isDead) return;
@@ -88,9 +124,11 @@ public class Unit : MonoBehaviour
     protected virtual void Death()
     {
         UnitIsDead?.Invoke(gameObject);
-        Game.Instance.PlayerManager.RemoveUnit(this, owner);
-        Destroy(gameObject, 1f);
+        Game.Instance.PlayerManager.RemoveUnit(this, owner);       
     }
+
+
+    #region Visuals
 
     public void ChangeHealthBarVisibility(bool visible)
     {
@@ -102,14 +140,6 @@ public class Unit : MonoBehaviour
         if (selectionCircle != null) selectionCircle.gameObject.SetActive(visible);
     }
 
-    private void OnMouseOver()
-    {
-        Debug.Log("MouseOver");
-        ChangeHealthBarVisibility(true);
-    }
+    #endregion
 
-    private void OnMouseExit()
-    {
-        ChangeHealthBarVisibility(false);
-    }
 }

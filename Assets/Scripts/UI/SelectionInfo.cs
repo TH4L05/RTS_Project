@@ -12,6 +12,7 @@ public class SelectionInfo : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI healthInfo;
     [SerializeField] private TextMeshProUGUI manaInfo;
+    private GameObject selectedObj;
 
     #endregion
 
@@ -36,6 +37,7 @@ public class SelectionInfo : MonoBehaviour
 
     void UpdateInfoOnSelect(GameObject obj)
     {
+        selectedObj = obj;
         var unit = obj.GetComponent<Unit>();
         UnitData data = Utils.GetUnitData(unit);
 
@@ -54,6 +56,7 @@ public class SelectionInfo : MonoBehaviour
    
     void UpdateInfoOnDeselect()
     {
+        selectedObj = null;
         if (nameInfo != null) nameInfo.text = "";
         if (healthInfo != null) healthInfo.text = "";
         if (manaInfo != null) manaInfo.text = "";

@@ -25,12 +25,12 @@ public class SelectionHandler : MonoBehaviour
     [Header("TEST")]
     public Vector3 pos1 = Vector3.zero;
     public Vector3 pos2 = Vector3.zero;
-    public Vector3 posHit = Vector3.zero;
+
     private RaycastHit rayhit1;
     private RaycastHit rayhit2;
 
-    public GameObject obj1 => rayhit1.transform.gameObject;
-    public GameObject obj2 => rayhit2.transform.gameObject;
+    public GameObject obj1;
+    public GameObject obj2;
 
     public LayerMask unitLayer;
     public LayerMask groundLayer;
@@ -38,8 +38,6 @@ public class SelectionHandler : MonoBehaviour
     private bool isPressed;
     private float time;
 
-    private MeshCollider selectionBox;
-    private Mesh selectionMesh;
 
     #endregion
 
@@ -101,20 +99,23 @@ public class SelectionHandler : MonoBehaviour
         {
             time = 0f;
 
-            pos1 = Utils.GetMousePosition();
-            Ray ray = cam.ScreenPointToRay(pos1);
+            Vector2 mousePosition = Utils.GetMousePosition();
+            pos1 = mousePosition;
+
+            Ray ray = cam.ScreenPointToRay(mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 999f))
             {
                 rayhit1 = hit;
+                obj1 = rayhit1.collider.gameObject;
 
             }
 
             if (Physics.Raycast(ray, out hit, 999f, unitLayer))
             {
                 rayhit2 = hit;
-
+                obj2 = rayhit2.collider.gameObject;
             }
         }
     }
@@ -156,9 +157,10 @@ public class SelectionHandler : MonoBehaviour
     }
 
     private void LeftMouseButtonEvent()
-    {
+    { 
         if (selectedUnits.Count > 0 && time < 0.25f)
         {
+            Debug.Log("TEST");
             SelectionTask();
         }
         else if (time < 0.25f)
@@ -177,8 +179,9 @@ public class SelectionHandler : MonoBehaviour
         {
             if (unit.UnitType == UnitType.Character && unit.HumanControlledUnit)
             {
+                Debug.Log("TEST");
                 var character = unit.GetComponent<Character>();
-                character.SetTarget(rayhit1);
+                character.SetTarget(obj1,rayhit1);
             }
         }
     }
@@ -187,8 +190,9 @@ public class SelectionHandler : MonoBehaviour
 
     private void SingleSelection()
     {
-        var unit = rayhit2.transform.GetComponent<Unit>();
+        if (obj2 == null) return;
         DeselectUnits();
+        var unit = obj2.GetComponent<Unit>();
         SelectUnit(unit);
     }
 
@@ -269,8 +273,10 @@ public class SelectionHandler : MonoBehaviour
     {      
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
+            obj1 = null;
+            obj2 = null;
             if (selectedUnits.Count == 0) return;  
-             DeselectUnits();         
+            DeselectUnits();         
         }
     }
 

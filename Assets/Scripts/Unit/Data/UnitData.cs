@@ -24,8 +24,8 @@ public class UnitData : ScriptableObject
     [Header("Base")]
     [SerializeField] private new string name;
     [SerializeField] private string tooltip;
-    //[SerializeField] private UnitType uType;
     [SerializeField] private float buildTime;
+    [SerializeField] private float deathTime;
     [SerializeField] private ResourceSetup[] requiredResources;
 
     [Header("Stats")]
@@ -41,6 +41,7 @@ public class UnitData : ScriptableObject
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float basedamage = 1f;
     [SerializeField] private GameObject weapon;
+    [SerializeField] private float weaponAttackOffsetTime;
 
     [Header("Other")]
     [SerializeField] private GameObject[] producableUnits;
@@ -58,9 +59,9 @@ public class UnitData : ScriptableObject
 
     public string Name => name;
     public string Tooltip => tooltip;
-    //public UnitType UType => uType;
     public ResourceSetup[] RequiredResources => requiredResources;
     public float BuildTime => buildTime;
+    public float DeathTime => deathTime;
     public float HealthMax => healthMax;
     public float HealthRegen => healthRegen;
     public float ManaMax => manaMax;
@@ -71,6 +72,7 @@ public class UnitData : ScriptableObject
     public float AttackSpeed => attackSpeed;
     public float Damage => basedamage;
     public GameObject Weapon => weapon;
+    public float WeaponAttackOffsetTime => weaponAttackOffsetTime;
     public GameObject[] ProducableUnits => producableUnits;
     public Ability[] Abilities => abilities;
     public Sprite SelectionInfoIcon => selectionInfoIcon;

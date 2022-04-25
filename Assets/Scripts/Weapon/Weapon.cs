@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Weapon : MonoBehaviour
 {
     #region Fíelds
 
     [SerializeField] private WeaponData weaponData;
-    [SerializeField] private Transform attackPoint;
-    [SerializeField] private Vector3 attackPointSize = Vector3.one;
-    [SerializeField] private Animator anim;
-    private float damage;
+    [SerializeField] private LayerMask unitLayer;
+    [SerializeField] private Transform projectileSpawn;
+    [SerializeField] private Collider coll;
 
+    private float damage;
+    private PlayerString owner;
 
     #endregion
+
+    public void Setup(Animator anim, PlayerString p, LayerMask unitLayer)
+    {
+        owner = p;
+        this.unitLayer = unitLayer;
+    }
 
     #region Damage
 
@@ -38,46 +43,45 @@ public class Weapon : MonoBehaviour
     public void Attack()
     {
         SetDamage();
+        Debug.Log("Projectile");
 
-        if (anim == null)
+        switch (weaponData.AttackType)
         {
-            Debug.LogError("NO Animator assigned !!");
-            return;
-        }
-        anim.Play("Attack");
+            case AttackType.Undifned:
+                break;
+            case AttackType.Normal:
+                break;
+            case AttackType.Projectile:
+                Debug.Log("Projectile");
+                ProjectileAttack();
+                break;
+            default:
+                break;
+        }          
     }
 
-
-    private void NormalAttack()
+    private void OnTriggerEnter(Collider other)
     {
-        anim.SetBool("attack", false);
-        Collider[] targets = Physics.OverlapBox(attackPoint.position, attackPointSize/2);
-
-        foreach (var target in targets)
-        {
-            var unit = target.GetComponent<Unit>();
-            if (unit.name != transform.parent.name)
-            {
-                unit.TakeDamage(damage);
-            }                     
-        }       
+        var unit = other.GetComponent<Unit>();
+        if (unit.Owner == owner) return;
+        Debug.Log(other.gameObject.name + "takes Damage");
+        unit.TakeDamage(damage);     
     }
 
     private void ProjectileAttack()
     {
-        anim.SetBool("attack", false);
-        var projectile = Instantiate(weaponData.ProjectileTemplate, attackPoint.position, attackPoint.rotation);
+        var projectile = Instantiate(weaponData.ProjectileTemplate, projectileSpawn.position, projectileSpawn.rotation);
         projectile.GetComponent<Projectile>().Setup(weaponData);
     }
 
     #endregion
 
     private void OnDrawGizmos()
-    {       
-        if (attackPoint != null)
+    {
+        if (projectileSpawn != null)
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireCube(attackPoint.position, attackPointSize);
-        }       
+            Gizmos.DrawWireCube(projectileSpawn.position, new Vector3(0.25f, 0.25f, 0.25f));
+        }    
     } 
 }
