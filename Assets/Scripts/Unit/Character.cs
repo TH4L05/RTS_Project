@@ -198,6 +198,13 @@ public class Character : Unit
         state = CharacterState.MoveToPosition;      
     }
 
+    public void SetTarget(Vector3 position)
+    {
+        targetPos = position;
+        state = CharacterState.MoveToPosition;
+    }
+
+
     private void AttackCheck()
     {
         if (targetObj == null) return;

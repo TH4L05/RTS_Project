@@ -80,11 +80,12 @@ public class Unit : MonoBehaviour
 
     public virtual void SetPlayerColor(Color color)
     {
-        //if (meshRenderers.Length == 0) return;
-
         foreach (var mr in meshRenderers)
         {
-            mr.material.color = color;
+            foreach (var material in mr.materials)
+            {
+                material.color = color;
+            }   
         } 
     }
 

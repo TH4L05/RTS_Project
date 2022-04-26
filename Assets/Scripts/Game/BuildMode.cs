@@ -68,13 +68,14 @@ public class BuildMode : MonoBehaviour
 
         tempObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
         tempObject.name = "TempBuilding";
+        tempObject.transform.localScale = new Vector3(5f, 5f, 5f);
         var mr = tempObject.GetComponent<MeshRenderer>();
         mr.material = previewMaterialIn;
     }
 
     private void CheckIfPossibleToBuild()
     {
-        Collider[] objOnHitPoint = Physics.OverlapSphere(hit.point, 2f);
+        Collider[] objOnHitPoint = Physics.OverlapBox(hit.point, new Vector3(3.5f, 3.5f, 3.5f), Quaternion.identity);
 
         for (int i = 0; i < objOnHitPoint.Length; i++)
         {
@@ -166,7 +167,7 @@ public class BuildMode : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(hit.point, 2f);
+        Gizmos.DrawWireCube(hit.point, new Vector3(7f, 7f, 7f));
     }
 
 }

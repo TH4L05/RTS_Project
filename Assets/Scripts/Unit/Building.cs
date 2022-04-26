@@ -11,6 +11,7 @@ public class Building : Unit
 
     [SerializeField] private BuildingData data;
     [SerializeField] private Transform unitSpawn;
+    [SerializeField] private Transform gatheringPoint;
     [SerializeField] private LayerMask groundLayer;
     private bool changeGatheringPosition;
     public Queue<GameObject> buildQueue;
@@ -112,7 +113,7 @@ public class Building : Unit
 
         if (Physics.Raycast(ray, out hit, 999f, groundLayer))
         {
-            unitSpawn.position = new Vector3(hit.point.x, hit.point.y + 0.25f, hit.point.z);
+            gatheringPoint.position = new Vector3(hit.point.x, hit.point.y + 1.25f, hit.point.z);
         }
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -129,8 +130,6 @@ public class Building : Unit
         InvokeRepeating("SetGatheringPosition", 0, 0.025f);
     }
 
-
-
     public void AddToQueue(GameObject obj)
     {
         buildQueue.Enqueue(obj);
@@ -146,8 +145,14 @@ public class Building : Unit
         yield return new WaitForSeconds(data.BuildTime);
 
         var newUnit = Instantiate(unitTemplate, unitSpawn.position, Quaternion.identity);
+
+        if (gatheringPoint != null)
+        {
+            var character = newUnit.GetComponent<Character>();
+            character.SetTarget(gatheringPoint.position);
+        }
+       
         Game.Instance.PlayerManager.AddUnit(newUnit.GetComponent<Unit>(), PlayerType.Human);
         buildQueue.Dequeue();
     }
-
 }
