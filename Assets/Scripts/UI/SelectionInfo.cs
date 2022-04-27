@@ -22,6 +22,7 @@ public class SelectionInfo : MonoBehaviour
     {
         SelectionHandler.ObjectSelected += UpdateInfoOnSelect;
         SelectionHandler.ObjectDeselected += UpdateInfoOnDeselect;
+        Unit.HealthChanged += UpdateInfoHealth;
         UpdateInfoOnDeselect();
     }
 
@@ -29,6 +30,7 @@ public class SelectionInfo : MonoBehaviour
     {
         SelectionHandler.ObjectSelected -= UpdateInfoOnSelect;
         SelectionHandler.ObjectDeselected -= UpdateInfoOnDeselect;
+        Unit.HealthChanged -= UpdateInfoHealth;
     }
 
     #endregion
@@ -42,8 +44,8 @@ public class SelectionInfo : MonoBehaviour
         UnitData data = Utils.GetUnitData(unit);
 
         if (nameInfo != null) nameInfo.text = data.Name;
-        if (healthInfo != null) healthInfo.text = $"´{unit.CurrentHealth} / {data.HealthMax}";
-        if (manaInfo != null) manaInfo.text = $"´{unit.CurrentMana} / {data.ManaMax}";
+        if (healthInfo != null) healthInfo.text = $"{unit.CurrentHealth} / {data.HealthMax}";
+        if (manaInfo != null) manaInfo.text = $"{unit.CurrentMana} / {data.ManaMax}";
 
         if (icon != null)
         {
@@ -66,6 +68,14 @@ public class SelectionInfo : MonoBehaviour
             icon.sprite = null;
             icon.gameObject.SetActive(false);
         }            
+    }
+
+    void UpdateInfoHealth(GameObject obj)
+    {
+        if (obj != selectedObj) return;
+        var unit = obj.GetComponent<Unit>();
+        UnitData data = Utils.GetUnitData(unit);
+        if (healthInfo != null) healthInfo.text = $"´{unit.CurrentHealth} / {data.HealthMax}";
     }
 
     #endregion

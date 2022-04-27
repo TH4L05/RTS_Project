@@ -37,7 +37,7 @@ public class Utils : MonoBehaviour
 
     public static UnitData GetUnitData(Unit unit)
     {
-        UnitType type = unit.UnitType;
+        UnitType type = unit.UnitData.Type;
 
         switch (type)
         {
@@ -47,11 +47,11 @@ public class Utils : MonoBehaviour
 
 
             case UnitType.Building:
-                return unit.GetComponent<Building>().Data;
+                return unit.UnitData as BuildingData;
 
 
             case UnitType.Character:
-                return unit.GetComponent<Character>().Data;
+                return unit.UnitData as CharacterData;
 
         }
     }

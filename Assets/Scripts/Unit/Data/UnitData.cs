@@ -21,8 +21,9 @@ public class UnitData : ScriptableObject
 {
     #region SerializedFields
 
-    [Header("Base")]
+    [Header("UnitBase")]
     [SerializeField] private new string name;
+    [SerializeField] private UnitType type = UnitType.Undefined;
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;
@@ -31,8 +32,10 @@ public class UnitData : ScriptableObject
     [Header("Stats")]
     [SerializeField] private float healthMax = 1f;
     [SerializeField] private float healthRegen;
+    [SerializeField] private float healthRegenRate;
     [SerializeField] private float manaMax;
     [SerializeField] private float manaRegen;
+    [SerializeField] private float manaRegenRate;
     [SerializeField] private float amor;
 
     [Header("Fighting")]
@@ -58,6 +61,7 @@ public class UnitData : ScriptableObject
     #region PublicFields
 
     public string Name => name;
+    public UnitType Type => type;
     public string Tooltip => tooltip;
     public ResourceSetup[] RequiredResources => requiredResources;
     public float BuildTime => buildTime;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -13,9 +14,13 @@ public enum CharacterState
 
 public class Character : Unit
 {
+    #region Actions
+    #endregion
+
+
     #region SerializedFields
 
-    [SerializeField] private CharacterData data;
+    //[SerializeField] private CharacterData data;
     [SerializeField] private NavMeshAgent navAgent;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] private Animator anim;
@@ -25,6 +30,7 @@ public class Character : Unit
 
     #region PrivateFields
 
+    private CharacterData data => unitData as CharacterData;
     private Weapon weapon;
     private float lastAttackTime = 0f;
     private float speed;
@@ -36,7 +42,7 @@ public class Character : Unit
 
     #region PublicFields
 
-    public CharacterData Data => data;
+    //public CharacterData Data => unitData as CharacterData;
     public Animator Animator => anim;
 
     #endregion
@@ -56,11 +62,7 @@ public class Character : Unit
     {
         base.StartSetup();
         state = CharacterState.Idle;
-        if (navAgent) navAgent.speed = data.MovementSpeed;
-        if (data != null)
-        {
-            currentHealth = data.HealthMax;          
-        }        
+        if (navAgent) navAgent.speed = data.MovementSpeed;       
     }
 
     protected override void AdditionalSetup()
@@ -87,7 +89,7 @@ public class Character : Unit
     {
         base.TakeDamage(damage);
         if (anim != null) anim.SetTrigger("getHit");
-        if(healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
+        //if(healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
     }
 
     #endregion
@@ -256,6 +258,12 @@ public class Character : Unit
         if (anim != null) anim.SetTrigger("death");
         Destroy(gameObject, data.DeathTime);
     }
+
+    /*public override void ChangeHealthBarVisibility(bool visible)
+    {
+        base.ChangeHealthBarVisibility(visible);
+        healthBar.UpdateValue(currentHealth, data.HealthMax);
+    }*/
 
     #region Gizmos
 

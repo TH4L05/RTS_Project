@@ -17,6 +17,11 @@ public class UIBar : MonoBehaviour
         {
             cam = Camera.main;
         }
+
+        if (!showBarText)
+        {
+            barText.gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()

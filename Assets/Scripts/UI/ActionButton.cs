@@ -1,22 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
 public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    #region Actions
+
+
+
+    #endregion
+
+    #region SerializedFields
+
     [SerializeField] protected Button button;
     [SerializeField] protected Image icon;
+
+    #endregion
+
+    #region PrivateFields
+
     private Sprite defaultSprite;
     private Unit unit;
     private int index;
+
+    #endregion
+
+    #region PublicFields
+
+
+
+    #endregion
+
+    #region UnityFunctions
 
     void Start()
     {
         defaultSprite = icon.sprite;
     }
+
+    #endregion
+
+    #region Action
 
     public virtual void SetAction(GameObject obj,int gridIndex)
     {
@@ -45,7 +70,20 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         button.onClick.AddListener(delegate { data.Abilities[gridIndex].DoAction(obj); });
     }
-     
+
+    public virtual void RemoveAction()
+    {
+        button.onClick.RemoveAllListeners();
+        button.interactable = false;
+        ResetIcons();
+        unit = null;
+        index = -1;
+    }
+
+    #endregion
+
+    #region Icons
+
     protected virtual void SetIcons(Sprite normalSprite, Sprite higlightedSprite, Sprite pressedSprite, Sprite disabledSprite)
     {
         icon.sprite = normalSprite;
@@ -78,42 +116,34 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         button.spriteState = spriteState;
     }
 
-    public virtual void RemoveAction()
-    {
-        button.onClick.RemoveAllListeners();
-        button.interactable = false;
-        ResetIcons();
-        unit = null;
-        index = -1;
-    }
+    #endregion
+
+    #region Tooltip
 
     protected virtual void ShowTooltip()
     {
         if(unit == null) return;
         if (!button.interactable) return;
 
-        Game.Instance.TooltipUI.ResetText();
-        Game.Instance.TooltipUI.gameObject.SetActive(true);
+        Tooltip.ResetText();
+        Tooltip.ShowTooltip(true);
         UnitData data = Utils.GetUnitData(unit);
 
         if (data.Abilities[index].UnitTemplate == null)
         {
-            Game.Instance.TooltipUI.UpdateTooltip(data.Abilities[index].Tooltip);
+            Tooltip.UpdateTooltip(data.Abilities[index].name, data.Abilities[index].Tooltip);
         }
         else
         {
             Unit tunit = data.Abilities[index].UnitTemplate.GetComponent<Unit>();
-            Game.Instance.TooltipUI.UpdateTooltip(tunit);
+            Tooltip.UpdateTooltip(tunit);
         }
     }
 
     protected virtual void HideTooltip()
     {
-        Game.Instance.TooltipUI.gameObject.SetActive(false);
-        Game.Instance.TooltipUI.ResetText();
+        Tooltip.ShowTooltip(false);      
     }
-
-
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -124,4 +154,6 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         HideTooltip();
     }
+
+    #endregion
 }

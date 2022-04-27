@@ -22,11 +22,9 @@ public class buildQueueBar : MonoBehaviour
     private void OnSelection(GameObject obj)
     {
         var unit = obj.GetComponent<Unit>();
-        if (unit.UnitType != UnitType.Building) return;
+        if (unit.UnitData.Type != UnitType.Building) return;
         var building = obj.GetComponent<Building>();
-        UpdateQueue(building.buildQueue);
-
-
+        UpdateQueue(building.buildCount);
     }
 
     private void OnDeselection()
@@ -37,20 +35,18 @@ public class buildQueueBar : MonoBehaviour
         }
     }
 
-    private void UpdateQueue(Queue<GameObject> buildQueue)
+    private void UpdateQueue(int count)
     {
-
         int index = 0;
         foreach (var button in queueButtons)
         {
-            button.ChangeVisibility(false);
+            button.ChangeVisibility(false);          
+            index++;
         }
 
-        index = 0;
-        foreach (var item in buildQueue)
+        for (int i = 0; i < count; i++)
         {
-            queueButtons[index].ChangeVisibility(true);
-            index++;
+            queueButtons[i].ChangeVisibility(true);
         }
     }
 }

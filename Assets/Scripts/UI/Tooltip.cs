@@ -5,20 +5,25 @@ using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI description;
-    [SerializeField] private TextMeshProUGUI text2;
-    [SerializeField] private TextMeshProUGUI text3;
+    [SerializeField] private static TextMeshProUGUI nameField;
+    [SerializeField] private static TextMeshProUGUI descriptionField;
+    [SerializeField] private static TextMeshProUGUI text2;
+    [SerializeField] private static TextMeshProUGUI text3;
 
-    [SerializeField] private TextMeshProUGUI[] textFields;
+    [SerializeField] private static TextMeshProUGUI[] textFields;
+
+    private static GameObject obj;
 
     private void Awake()
     {
+        obj = gameObject;
         ResetText();
     }
 
-    public void ResetText()
-    {
-        description.text = "";
+    public static void ResetText()
+    {       
+        nameField.text = "";
+        descriptionField.text = "";
         text2.text = "";
         text3.text = "";
 
@@ -28,47 +33,51 @@ public class Tooltip : MonoBehaviour
         }
     }
 
-    public void UpdateTooltip(Unit unit)
+    public static void ShowTooltip(bool visible)
     {
+        if (visible)
+        {
+            obj.SetActive(false);
+        }
+        else
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public static void UpdateTooltip(Unit unit)
+    {
+        obj.SetActive(false);
         ResetText();
+        obj.SetActive(true);
+
 
         if (unit == null)
         {
-            description.text = "NO UNIT !!!";
+            descriptionField.text = "NO UNIT !!!";
             return;
         }
 
-        UnitData data = null;
-        UnitType type = unit.UnitType;
+        var data = Utils.GetUnitData(unit);
+        if (data == null) return;
 
-        switch (type)
-        {
-            case UnitType.Building:
-                data = unit.GetComponent<Building>().Data;
-                break;
-            case UnitType.Character:
-                data = unit.GetComponent<Character>().Data;
-                break;
-            default:
-                break;
-        }
-
-        description.text = data.Tooltip;
+        nameField.text = data.name;
+        descriptionField.text = data.Tooltip;
 
         int resAmount = data.RequiredResources.Length;
 
         int index = 0;
         foreach (var resource in data.RequiredResources)
         {
-            textFields[index].text = resource.ResoureData.Type.ToString() + " : " + resource.amount.ToString("000");
+            textFields[index].text = resource.ResoureData.Type.ToString() + " : " + resource.amount.ToString();
             index++;
         }
     }
 
-    public void UpdateTooltip(string text)
+    public static void UpdateTooltip(string name, string description)
     {
         ResetText();
-        description.text = text;
-
+        nameField.text = name;
+        descriptionField.text = description;
     }
 }

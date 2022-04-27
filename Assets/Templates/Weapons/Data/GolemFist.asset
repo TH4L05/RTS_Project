@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   type: 0
-  baseDamage: 25
+  baseDamage: 40
   diceAmount: 1
   sidesPerDie: 8
   damageTime: 1.25

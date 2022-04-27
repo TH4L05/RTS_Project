@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2582668508750625498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.574, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7048635877348897674}
@@ -48,14 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ea274e5183ce1448230878904268f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 6418648422952638398}
+  selectionType: -1
   selectionCircle: {fileID: 5668408449026770338}
+  healthBar: {fileID: 6418648422952638398}
   owner: -1
   unitType: 0
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
-  data: {fileID: 11400000, guid: e30671da4a1ada749b1eb491bf2b1730, type: 2}
+  data: {fileID: 0}
   unitSpawn: {fileID: 0}
   gatheringPoint: {fileID: 0}
   groundLayer:

@@ -13,12 +13,14 @@ public class Game : MonoBehaviour
     [SerializeField] private ResourceInfo resourceInfo;
     [SerializeField] private BuildMode buildMode;
     [SerializeField] private Tooltip tooltipUI;
+    [SerializeField] private CameraRig cameraRig;
 
     public SelectionHandler SelectionHandler => selectionHandler;
     public PlayerManager PlayerManager => playerManager;
     public ResourceInfo ResourceInfo => resourceInfo;
     public BuildMode BuildMode => buildMode;
     public Tooltip TooltipUI => tooltipUI;
+    public CameraRig CameraRig => cameraRig;
 
     void Awake()
     {

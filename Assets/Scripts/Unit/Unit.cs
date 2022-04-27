@@ -1,29 +1,30 @@
 using System;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+
+
+public class Unit : Selectable, IDamagable
 {
     #region Actions
 
     public static Action<GameObject> UnitIsDead;
+    public static Action<GameObject> UnitHealthChanged;
+    public static Action<GameObject> HealthChanged;
 
     #endregion
 
     #region SerializedFields
 
+    [SerializeField] protected UnitData unitData;
     [SerializeField] protected UIBar healthBar;
-    [SerializeField] protected GameObject selectionCircle;
     [SerializeField] protected PlayerString owner = PlayerString.Undefined;
-    [SerializeField] protected UnitType unitType = UnitType.Undefined;
+    //[SerializeField] protected UnitType unitType = UnitType.Undefined;
     [SerializeField] protected LayerMask unitLayer;
-
+  
     #endregion
 
     #region PrivateFields
 
-    protected float currentHealth;
-    protected float currentMana;
-    protected bool isDead;
     protected bool humanConrolledUnit;
     protected Renderer[] meshRenderers;
 
@@ -31,11 +32,8 @@ public class Unit : MonoBehaviour
 
     #region PublicFields
 
+    public UnitData UnitData => unitData;
     public PlayerString Owner => owner;
-
-    public float CurrentHealth => currentHealth;
-    public float CurrentMana => currentMana;
-    public UnitType UnitType => unitType;
     public bool HumanControlledUnit => humanConrolledUnit;
 
     #endregion
@@ -57,17 +55,6 @@ public class Unit : MonoBehaviour
         DeathSetup();
     }
 
-    private void OnMouseOver()
-    {
-        //Debug.Log("MouseOver");
-        ChangeHealthBarVisibility(true);
-    }
-
-    private void OnMouseExit()
-    {
-        ChangeHealthBarVisibility(false);
-    }
-
     #endregion;
 
     #region Setup
@@ -80,30 +67,27 @@ public class Unit : MonoBehaviour
 
     public virtual void SetPlayerColor(Color color)
     {
+        var model = transform.GetChild(0);
+        meshRenderers = model.GetComponentsInChildren<Renderer>();
+
         foreach (var mr in meshRenderers)
         {
             foreach (var material in mr.materials)
             {
                 material.color = color;
             }   
-        } 
+        }
     }
 
-    protected virtual void StartSetup()
+    protected override void StartSetup()
     {
-        var model = transform.GetChild(0);
-        meshRenderers = model.GetComponentsInChildren<Renderer>();
-
+        base.StartSetup();
+        if (unitData != null)
+        {
+            currentHealth = unitData.HealthMax;
+        }
         ChangeHealthBarVisibility(false);
         ChangeSelectionCircleVisibility(false);
-    }
-
-    protected virtual void AdditionalSetup()
-    {
-    }
-
-    protected virtual void DeathSetup()
-    {
     }
 
     #endregion
@@ -114,6 +98,7 @@ public class Unit : MonoBehaviour
 
         Debug.Log(name + "take Damage ");
         currentHealth -= damage;
+        HealthChanged?.Invoke(gameObject);
         
         if (currentHealth < 1)
         {
@@ -122,18 +107,19 @@ public class Unit : MonoBehaviour
         }
     }
 
-    protected virtual void Death()
+    protected override void Death()
     {
         UnitIsDead?.Invoke(gameObject);
         Game.Instance.PlayerManager.RemoveUnit(this, owner);       
     }
 
-
     #region Visuals
 
-    public void ChangeHealthBarVisibility(bool visible)
+    public  virtual void ChangeHealthBarVisibility(bool visible)
     {
-        if (healthBar != null) healthBar.gameObject.SetActive(visible);       
+        if (healthBar == null) return;
+        healthBar.gameObject.SetActive(visible);
+        healthBar.UpdateValue(currentHealth, unitData.HealthMax);
     }
 
     public void ChangeSelectionCircleVisibility(bool visible)

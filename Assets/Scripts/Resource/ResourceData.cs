@@ -8,7 +8,7 @@ public enum ResourceType
     Undefined = -1,
     None = 0,
     Wood,
-    Stone,
+    Gold,
     Food,
     Unit,
 }

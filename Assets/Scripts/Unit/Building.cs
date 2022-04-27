@@ -1,5 +1,6 @@
 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,21 +8,32 @@ using UnityEngine.InputSystem;
 
 public class Building : Unit
 {
+    #region Actions
+    #endregion
+
     #region SerializedFields
 
-    [SerializeField] private BuildingData data;
     [SerializeField] private Transform unitSpawn;
     [SerializeField] private Transform gatheringPoint;
     [SerializeField] private LayerMask groundLayer;
-    private bool changeGatheringPosition;
-    public Queue<GameObject> buildQueue;
 
     #endregion
+
+    #region PrivateFields
+
+    private BuildingData data => unitData as BuildingData;
+    private bool changeGatheringPosition;
+    private Queue<GameObject> buildQueue;
+    
+
+    #endregion
+
 
     #region PublicFields
 
     public BuildingData Data => data;
     public Transform UnitSpawn => unitSpawn;
+    public int buildCount => buildQueue.Count;
 
     #endregion
 
@@ -29,8 +41,7 @@ public class Building : Unit
 
     protected override void StartSetup()
     {
-        base.StartSetup();      
-        currentHealth = data.HealthMax; 
+        base.StartSetup();       
         buildQueue = new Queue<GameObject>();
     }
 
@@ -46,11 +57,6 @@ public class Building : Unit
         ProvideResources();
     }
 
-    /*protected override void SetUnitType()
-    {
-        unitType = data.UType;
-    }*/
-
     #endregion
 
     private void OnDrawGizmosSelected()
@@ -58,6 +64,7 @@ public class Building : Unit
         if(unitSpawn == null) return;
         Gizmos.color = Color.magenta;
         Gizmos.DrawCube(unitSpawn.position, new Vector3(0.5f, 0.5f, 0.5f));
+        Gizmos.DrawIcon(unitSpawn.position, "unitSpawn");
     }
 
     public override void TakeDamage(float damage)
@@ -154,5 +161,11 @@ public class Building : Unit
        
         Game.Instance.PlayerManager.AddUnit(newUnit.GetComponent<Unit>(), PlayerType.Human);
         buildQueue.Dequeue();
+    }
+
+    public override void ChangeHealthBarVisibility(bool visible)
+    {
+        base.ChangeHealthBarVisibility(visible);
+        healthBar.UpdateValue(currentHealth, data.HealthMax);
     }
 }

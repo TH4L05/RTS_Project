@@ -15,12 +15,25 @@ public class SelectionHandler : MonoBehaviour
 
     #endregion
 
-    #region Fields
+    #region SerializedFields
+
+    [SerializeField] private LayerMask unitLayer;
+    [SerializeField] private LayerMask groundLayer;
+
+    #endregion
+
+    #region PrivateFields
 
     private Camera cam;
     private List<Unit> selectedUnits = new List<Unit>();
     private Unit hoveredUnit;
     private bool paused;
+    private bool isPressed;
+    private float time;
+
+    #endregion
+
+    #region PublicFields
 
     [Header("TEST")]
     public Vector3 pos1 = Vector3.zero;
@@ -31,13 +44,6 @@ public class SelectionHandler : MonoBehaviour
 
     public GameObject obj1;
     public GameObject obj2;
-
-    public LayerMask unitLayer;
-    public LayerMask groundLayer;
-
-    private bool isPressed;
-    private float time;
-
 
     #endregion
 
@@ -160,7 +166,11 @@ public class SelectionHandler : MonoBehaviour
     { 
         if (selectedUnits.Count > 0 && time < 0.25f)
         {
-            Debug.Log("TEST");
+            if (selectedUnits.Count == 1)
+            {
+                SingleSelection();
+            }
+
             SelectionTask();
         }
         else if (time < 0.25f)
@@ -177,9 +187,8 @@ public class SelectionHandler : MonoBehaviour
     {
         foreach (var unit in selectedUnits)
         {
-            if (unit.UnitType == UnitType.Character && unit.HumanControlledUnit)
-            {
-                Debug.Log("TEST");
+            if (unit.UnitData.Type == UnitType.Character && unit.HumanControlledUnit)
+            {              
                 var character = unit.GetComponent<Character>();
                 character.SetTarget(obj1,rayhit1);
             }
@@ -287,7 +296,7 @@ public class SelectionHandler : MonoBehaviour
     public void SelectUnit(Unit unit)
     {
         selectedUnits.Add(unit);
-        SelectionCircleVisibility(true);
+        if(unit.HumanControlledUnit) SelectionCircleVisibility(true);
         ObjectSelected?.Invoke(selectedUnits[0].gameObject);
     }
 
