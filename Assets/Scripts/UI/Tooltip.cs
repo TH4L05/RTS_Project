@@ -3,31 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
 public class Tooltip : MonoBehaviour
 {
-    [SerializeField] private static TextMeshProUGUI nameField;
-    [SerializeField] private static TextMeshProUGUI descriptionField;
-    [SerializeField] private static TextMeshProUGUI text2;
-    [SerializeField] private static TextMeshProUGUI text3;
+    #region SerializedFields
+ 
+    [SerializeField] private TextMeshProUGUI nameField;
+    [SerializeField] private TextMeshProUGUI descriptionField;
+    [SerializeField] private TextMeshProUGUI text2;
+    [SerializeField] private TextMeshProUGUI text3;
+    [SerializeField] private TextMeshProUGUI[] textFields;
 
-    [SerializeField] private static TextMeshProUGUI[] textFields;
+    #endregion
 
+    #region PrivateFields
+
+    private static TextMeshProUGUI nameFieldStatic;
+    private static TextMeshProUGUI descriptionFieldStatic;
+    private static TextMeshProUGUI text2Static;
+    private static TextMeshProUGUI text3Static;
+    private static TextMeshProUGUI[] textFieldsStatic;
     private static GameObject obj;
+
+    #endregion
+
+    #region UnityFunctions
 
     private void Awake()
     {
+        nameFieldStatic = nameField;
+        descriptionFieldStatic = descriptionField;
+        text2Static = text2;
+        text3Static = text3;
+        textFieldsStatic = textFields;
+
         obj = gameObject;
+        obj.SetActive(false);
         ResetText();
     }
 
-    public static void ResetText()
-    {       
-        nameField.text = "";
-        descriptionField.text = "";
-        text2.text = "";
-        text3.text = "";
+    #endregion
 
-        foreach (var textfield in textFields)
+    public static void ResetText()
+    {
+        nameFieldStatic.text = "";
+        descriptionFieldStatic.text = "";
+        text2Static.text = "";
+        text3Static.text = "";
+
+        foreach (var textfield in textFieldsStatic)
         {
             textfield.text = "";
         }
@@ -54,30 +78,33 @@ public class Tooltip : MonoBehaviour
 
         if (unit == null)
         {
-            descriptionField.text = "NO UNIT !!!";
+            descriptionFieldStatic.text = "NO UNIT !!!";
             return;
         }
 
         var data = Utils.GetUnitData(unit);
         if (data == null) return;
 
-        nameField.text = data.name;
-        descriptionField.text = data.Tooltip;
+        nameFieldStatic.text = data.name;
+        descriptionFieldStatic.text = data.Tooltip;
 
         int resAmount = data.RequiredResources.Length;
 
         int index = 0;
         foreach (var resource in data.RequiredResources)
         {
-            textFields[index].text = resource.ResoureData.Type.ToString() + " : " + resource.amount.ToString();
+            textFieldsStatic[index].text = resource.ResoureData.Type.ToString() + " : " + resource.amount.ToString();
             index++;
         }
     }
 
     public static void UpdateTooltip(string name, string description)
     {
+        obj.SetActive(false);
         ResetText();
-        nameField.text = name;
-        descriptionField.text = description;
+        obj.SetActive(true);
+
+        nameFieldStatic.text = name;
+        descriptionFieldStatic.text = description;
     }
 }

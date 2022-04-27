@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Worker
   type: 1
-  tooltip: 
+  tooltip: can create new Buildings
   buildTime: 5
   deathTime: 2
   requiredResources:

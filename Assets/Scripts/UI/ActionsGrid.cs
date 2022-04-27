@@ -8,14 +8,14 @@ public class ActionsGrid : MonoBehaviour
 
     private void Start()
     {
-        SelectionHandler.ObjectSelected += UpdateButtonsOnSelection;
-        SelectionHandler.ObjectDeselected += UpdateButtonsOnDeselection;
+        UnitSelection.ObjectSelected += UpdateButtonsOnSelection;
+        UnitSelection.ObjectDeselected += UpdateButtonsOnDeselection;
     }
 
     private void OnDestroy()
     {
-        SelectionHandler.ObjectSelected -= UpdateButtonsOnSelection;
-        SelectionHandler.ObjectDeselected -= UpdateButtonsOnDeselection;
+        UnitSelection.ObjectSelected -= UpdateButtonsOnSelection;
+        UnitSelection.ObjectDeselected -= UpdateButtonsOnDeselection;
     }
 
     public void UpdateButtonsOnSelection(GameObject obj)

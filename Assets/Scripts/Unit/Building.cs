@@ -25,9 +25,7 @@ public class Building : Unit
     private bool changeGatheringPosition;
     private Queue<GameObject> buildQueue;
     
-
     #endregion
-
 
     #region PublicFields
 
@@ -43,6 +41,9 @@ public class Building : Unit
     {
         base.StartSetup();       
         buildQueue = new Queue<GameObject>();
+        gatheringPoint.gameObject.SetActive(false);
+        unitSpawn.position = new Vector3( unitSpawn.position.x, transform.position.y, unitSpawn.position.z);
+        gatheringPoint.position = new Vector3(unitSpawn.position.x, unitSpawn.position.y + 1.25f , unitSpawn.position.z);
     }
 
     protected override void AdditionalSetup()
@@ -58,20 +59,6 @@ public class Building : Unit
     }
 
     #endregion
-
-    private void OnDrawGizmosSelected()
-    {
-        if(unitSpawn == null) return;
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawCube(unitSpawn.position, new Vector3(0.5f, 0.5f, 0.5f));
-        Gizmos.DrawIcon(unitSpawn.position, "unitSpawn");
-    }
-
-    public override void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-        if (healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
-    }
 
     private void ProvideResources()
     {
@@ -105,7 +92,7 @@ public class Building : Unit
         if (unitSpawn == null) return;
         changeGatheringPosition = true;
         StartCoroutine("Wait");
-        //InvokeRepeating("SetGatheringPosition", 0, 0.1f);
+        InvokeRepeating("SetGatheringPosition", 0, 0.1f);
         Game.Instance.SelectionHandler.Pause(true);
     }
 
@@ -141,7 +128,7 @@ public class Building : Unit
     {
         buildQueue.Enqueue(obj);
         StartCoroutine(CreateNewUnit(obj));
-        SelectionHandler.ObjectSelected?.Invoke(gameObject);
+        UnitSelection.ObjectSelected?.Invoke(gameObject);
     }
 
     IEnumerator CreateNewUnit(GameObject unitTemplate)
@@ -163,9 +150,14 @@ public class Building : Unit
         buildQueue.Dequeue();
     }
 
-    public override void ChangeHealthBarVisibility(bool visible)
+    protected override void ChangeSelectionVisibility(Unit unit, bool visible)
     {
-        base.ChangeHealthBarVisibility(visible);
-        healthBar.UpdateValue(currentHealth, data.HealthMax);
+        base.ChangeSelectionVisibility(unit, visible);
+
+        if (gatheringPoint == null) return;
+        if (unit.UnitData.Type != UnitType.Building) return;
+
+        Debug.Log("BuildingVisible" + visible);
+        gatheringPoint.gameObject.SetActive(visible);
     }
 }

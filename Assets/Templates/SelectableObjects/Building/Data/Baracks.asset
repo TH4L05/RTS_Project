@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Baracks
   type: 0
-  tooltip: create units
+  tooltip: create melee and range units
   buildTime: 5
   deathTime: 0
   requiredResources:

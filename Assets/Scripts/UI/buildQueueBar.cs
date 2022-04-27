@@ -8,14 +8,14 @@ public class buildQueueBar : MonoBehaviour
 
     private void Start()
     {
-        SelectionHandler.ObjectSelected += OnSelection;
-        SelectionHandler.ObjectDeselected += OnDeselection;
+        UnitSelection.ObjectSelected += OnSelection;
+        UnitSelection.ObjectDeselected += OnDeselection;
     }
 
     private void OnDestroy()
     {
-        SelectionHandler.ObjectSelected -= OnSelection;
-        SelectionHandler.ObjectDeselected -= OnDeselection;
+        UnitSelection.ObjectSelected -= OnSelection;
+        UnitSelection.ObjectDeselected -= OnDeselection;
     }
 
 

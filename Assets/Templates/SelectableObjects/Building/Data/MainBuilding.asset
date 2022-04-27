@@ -37,7 +37,7 @@ MonoBehaviour:
   weaponAttackOffsetTime: 0
   producableUnits: []
   abilities:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 919588046570b394ea8fef4a6a2c3fab, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

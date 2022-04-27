@@ -20,16 +20,16 @@ public class SelectionInfo : MonoBehaviour
 
     void Start()
     {
-        SelectionHandler.ObjectSelected += UpdateInfoOnSelect;
-        SelectionHandler.ObjectDeselected += UpdateInfoOnDeselect;
+        UnitSelection.ObjectSelected += UpdateInfoOnSelect;
+        UnitSelection.ObjectDeselected += UpdateInfoOnDeselect;
         Unit.HealthChanged += UpdateInfoHealth;
         UpdateInfoOnDeselect();
     }
 
     private void OnDestroy()
     {
-        SelectionHandler.ObjectSelected -= UpdateInfoOnSelect;
-        SelectionHandler.ObjectDeselected -= UpdateInfoOnDeselect;
+        UnitSelection.ObjectSelected -= UpdateInfoOnSelect;
+        UnitSelection.ObjectDeselected -= UpdateInfoOnDeselect;
         Unit.HealthChanged -= UpdateInfoHealth;
     }
 

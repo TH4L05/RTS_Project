@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Knight
   type: 1
-  tooltip: 
+  tooltip: Melee Unit
   buildTime: 5
   deathTime: 2
   requiredResources:

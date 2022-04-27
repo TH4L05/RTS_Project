@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: WoodProduction
   type: 0
-  tooltip: producesWood
+  tooltip: produce wood
   buildTime: 5
   deathTime: 0
   requiredResources:

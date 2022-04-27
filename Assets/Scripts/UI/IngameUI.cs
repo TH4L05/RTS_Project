@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class IngameUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+	#region Actions
+
+
+
+	#endregion
+
+	#region SerializedFields
+
+	[SerializeField] private Tooltip tooltip;
+
+
+	#endregion
+
+	#region PrivateFields
+
+
+
+	#endregion
+
+	#region PublicFields
+
+
+
+	#endregion
+
+	#region UnityFunctions
+
+	void Awake()
+	{
+		
+	}
+	
+
+	void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
     }
+
+	#endregion
 }

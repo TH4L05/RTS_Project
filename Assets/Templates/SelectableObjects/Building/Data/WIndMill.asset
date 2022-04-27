@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: WindMill
   type: 0
-  tooltip: produces Food
+  tooltip: produce food
   buildTime: 5
   deathTime: 0
   requiredResources:

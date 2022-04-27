@@ -18,7 +18,6 @@ public class Unit : Selectable, IDamagable
     [SerializeField] protected UnitData unitData;
     [SerializeField] protected UIBar healthBar;
     [SerializeField] protected PlayerString owner = PlayerString.Undefined;
-    //[SerializeField] protected UnitType unitType = UnitType.Undefined;
     [SerializeField] protected LayerMask unitLayer;
   
     #endregion
@@ -37,25 +36,6 @@ public class Unit : Selectable, IDamagable
     public bool HumanControlledUnit => humanConrolledUnit;
 
     #endregion
-
-    #region UnityFunctions
-
-    private void OnEnable()
-    {
-        StartSetup();
-    }
-
-    private void Start()
-    {
-        AdditionalSetup();
-    }
-
-    private void OnDestroy()
-    {
-        DeathSetup();
-    }
-
-    #endregion;
 
     #region Setup
 
@@ -86,8 +66,20 @@ public class Unit : Selectable, IDamagable
         {
             currentHealth = unitData.HealthMax;
         }
-        ChangeHealthBarVisibility(false);
-        ChangeSelectionCircleVisibility(false);
+
+        if (healthBar != null) healthBar.gameObject.SetActive(false);
+        if (selectionCircle != null) selectionCircle.gameObject.SetActive(false);
+
+        UnitSelection.UnitOnSelection += ChangeSelectionVisibility;
+        UnitSelection.UnitOnHover += ChangeHealthBarVisibility;
+
+    }
+
+    protected override void DeathSetup()
+    {
+        base.DeathSetup();
+        UnitSelection.UnitOnSelection -= ChangeSelectionVisibility;
+        UnitSelection.UnitOnHover -= ChangeHealthBarVisibility;
     }
 
     #endregion
@@ -98,6 +90,7 @@ public class Unit : Selectable, IDamagable
 
         Debug.Log(name + "take Damage ");
         currentHealth -= damage;
+        if (healthBar != null) healthBar.UpdateValue(currentHealth, unitData.HealthMax);
         HealthChanged?.Invoke(gameObject);
         
         if (currentHealth < 1)
@@ -110,21 +103,23 @@ public class Unit : Selectable, IDamagable
     protected override void Death()
     {
         UnitIsDead?.Invoke(gameObject);
-        Game.Instance.PlayerManager.RemoveUnit(this, owner);       
+        Game.Instance.PlayerManager.RemoveUnit(this, owner);
     }
 
     #region Visuals
 
-    public  virtual void ChangeHealthBarVisibility(bool visible)
+    public  virtual void ChangeHealthBarVisibility(Unit unit, bool visible)
     {
         if (healthBar == null) return;
+        if (unit != this) return;
         healthBar.gameObject.SetActive(visible);
         healthBar.UpdateValue(currentHealth, unitData.HealthMax);
     }
 
-    public void ChangeSelectionCircleVisibility(bool visible)
+    protected virtual void ChangeSelectionVisibility(Unit unit, bool visible)
     {
-        if (selectionCircle != null) selectionCircle.gameObject.SetActive(visible);
+        if(unit != this) return;
+        if (selectionCircle != null) selectionCircle.SetActive(visible);
     }
 
     #endregion

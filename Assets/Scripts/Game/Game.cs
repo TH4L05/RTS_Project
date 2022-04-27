@@ -8,19 +8,19 @@ public class Game : MonoBehaviour
     public static Game Instance;
     public GameData gameData;
 
-    [SerializeField] private SelectionHandler selectionHandler;
+    [SerializeField] private UnitSelection selectionHandler;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private ResourceInfo resourceInfo;
     [SerializeField] private BuildMode buildMode;
-    [SerializeField] private Tooltip tooltipUI;
     [SerializeField] private CameraRig cameraRig;
+    [SerializeField] private IngameUI ingameUI;
 
-    public SelectionHandler SelectionHandler => selectionHandler;
+    public UnitSelection SelectionHandler => selectionHandler;
     public PlayerManager PlayerManager => playerManager;
     public ResourceInfo ResourceInfo => resourceInfo;
     public BuildMode BuildMode => buildMode;
-    public Tooltip TooltipUI => tooltipUI;
     public CameraRig CameraRig => cameraRig;
+    public IngameUI IngameUI => ingameUI;
 
     void Awake()
     {

@@ -20,7 +20,6 @@ public class Character : Unit
 
     #region SerializedFields
 
-    //[SerializeField] private CharacterData data;
     [SerializeField] private NavMeshAgent navAgent;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] private Animator anim;
@@ -41,10 +40,6 @@ public class Character : Unit
     #endregion
 
     #region PublicFields
-
-    //public CharacterData Data => unitData as CharacterData;
-    public Animator Animator => anim;
-
     #endregion
 
     #region UnityFunctions
@@ -82,18 +77,6 @@ public class Character : Unit
     }
 
     #endregion
-
-    #region Damage
-
-    public override void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-        if (anim != null) anim.SetTrigger("getHit");
-        //if(healthBar != null) healthBar.UpdateValue(currentHealth, data.HealthMax);
-    }
-
-    #endregion
-
 
     private void UpdateState()
     {
@@ -258,12 +241,6 @@ public class Character : Unit
         if (anim != null) anim.SetTrigger("death");
         Destroy(gameObject, data.DeathTime);
     }
-
-    /*public override void ChangeHealthBarVisibility(bool visible)
-    {
-        base.ChangeHealthBarVisibility(visible);
-        healthBar.UpdateValue(currentHealth, data.HealthMax);
-    }*/
 
     #region Gizmos
 

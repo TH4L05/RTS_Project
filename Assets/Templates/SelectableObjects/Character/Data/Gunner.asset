@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Range
   type: 1
-  tooltip: 
+  tooltip: Range Unit
   buildTime: 5
   deathTime: 2
   requiredResources:

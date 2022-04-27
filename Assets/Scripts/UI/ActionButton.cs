@@ -129,14 +129,14 @@ public class ActionButton: MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Tooltip.ShowTooltip(true);
         UnitData data = Utils.GetUnitData(unit);
 
-        if (data.Abilities[index].UnitTemplate == null)
-        {
-            Tooltip.UpdateTooltip(data.Abilities[index].name, data.Abilities[index].Tooltip);
-        }
-        else
+        if (data.Abilities[index].UseTemplateSprites)
         {
             Unit tunit = data.Abilities[index].UnitTemplate.GetComponent<Unit>();
             Tooltip.UpdateTooltip(tunit);
+        }
+        else
+        {
+            Tooltip.UpdateTooltip(data.Abilities[index].Name, data.Abilities[index].Tooltip);            
         }
     }
 
