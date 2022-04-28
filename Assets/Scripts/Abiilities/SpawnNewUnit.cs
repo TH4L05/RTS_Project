@@ -8,7 +8,7 @@ public class SpawnNewUnit : Ability
         base.DoAction(obj);
         Building building = obj.GetComponent<Building>();
         if (building == null) return;
-        building.AddToQueue(unitTemplate);
+        building.BuildNewUnit(unitTemplate);
 
     }
 }

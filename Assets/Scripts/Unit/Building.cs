@@ -9,6 +9,9 @@ using UnityEngine.InputSystem;
 public class Building : Unit
 {
     #region Actions
+
+    public static Action<GameObject, List<FillTest>> UpdateFill;
+
     #endregion
 
     #region SerializedFields
@@ -16,6 +19,8 @@ public class Building : Unit
     [SerializeField] private Transform unitSpawn;
     [SerializeField] private Transform gatheringPoint;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private int maxBuildSlots;
+    public List<FillTest> activeFills = new List<FillTest>();
 
     #endregion
 
@@ -41,7 +46,7 @@ public class Building : Unit
     {
         base.StartSetup();       
         buildQueue = new Queue<GameObject>();
-        gatheringPoint.gameObject.SetActive(false);
+        if(gatheringPoint != null) gatheringPoint.gameObject.SetActive(false);
         unitSpawn.position = new Vector3( unitSpawn.position.x, transform.position.y, unitSpawn.position.z);
         gatheringPoint.position = new Vector3(unitSpawn.position.x, unitSpawn.position.y + 1.25f , unitSpawn.position.z);
     }
@@ -59,6 +64,14 @@ public class Building : Unit
     }
 
     #endregion
+
+    private void Update()
+    {
+        if (buildCount > 0)
+        {
+            UpdateFill?.Invoke(gameObject, activeFills);
+        }
+    }
 
     private void ProvideResources()
     {
@@ -124,19 +137,48 @@ public class Building : Unit
         InvokeRepeating("SetGatheringPosition", 0, 0.025f);
     }
 
-    public void AddToQueue(GameObject obj)
+    public void BuildNewUnit(GameObject obj)
     {
-        buildQueue.Enqueue(obj);
+        var unit = obj.GetComponent<Unit>();
+        var data = Utils.GetUnitData(unit);
+
+        if (buildQueue.Count == maxBuildSlots -1)
+        {
+            Debug.LogError("NO SLOT AVIALABLE");
+            return;
+        }
+
+        buildQueue.Enqueue(obj);  
         StartCoroutine(CreateNewUnit(obj));
         UnitSelection.ObjectSelected?.Invoke(gameObject);
     }
 
     IEnumerator CreateNewUnit(GameObject unitTemplate)
-    {
+    {           
         var unit = unitTemplate.GetComponent<Unit>();
         var data = Utils.GetUnitData(unit);
+        var name = data.Name + (buildCount);
+        var job = new FillTest(name, data.ActionButtonIcon);
+        activeFills.Add(job);
 
-        yield return new WaitForSeconds(data.BuildTime);
+        float fillamount = 0f;
+        float updateAmount = 1 / data.BuildTime / 60;
+
+        while (fillamount < 1)
+        {
+            fillamount += updateAmount;
+
+            foreach (var item in activeFills)
+            {
+                if (item.name == name)
+                {
+                    item.fillamount = fillamount;
+                }
+            }
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(data.BuildTime);
 
         var newUnit = Instantiate(unitTemplate, unitSpawn.position, Quaternion.identity);
 
@@ -147,17 +189,60 @@ public class Building : Unit
         }
        
         Game.Instance.PlayerManager.AddUnit(newUnit.GetComponent<Unit>(), PlayerType.Human);
-        buildQueue.Dequeue();
+        activeFills.Remove(job);       
+        buildQueue.Dequeue();      
     }
 
-    protected override void ChangeSelectionVisibility(Unit unit, bool visible)
+    protected override void ChangeSelectionVisibility( bool visible)
     {
-        base.ChangeSelectionVisibility(unit, visible);
+        base.ChangeSelectionVisibility(visible);
 
         if (gatheringPoint == null) return;
-        if (unit.UnitData.Type != UnitType.Building) return;
+        /*if(this.gameObject != unit.gameObject) return;
+        if (unit.UnitData.Type != UnitType.Building) return;*/
 
-        Debug.Log("BuildingVisible" + visible);
+        //Debug.Log("BuildingVisible" + visible);
         gatheringPoint.gameObject.SetActive(visible);
+    }
+
+    public override void OnSelect()
+    {
+        base.OnSelect();
+    }
+
+    public override void OnDeselect()
+    {
+        base.OnDeselect();
+    }
+
+}
+
+[System.Serializable]
+public class FillTest
+{
+    public string name;
+    public float fillamount;
+    public float fillamountTest;
+    public Sprite sprite;
+
+    public FillTest(string name, Sprite sprite)
+    {
+        this.name = name;
+        this.sprite = sprite;
+        Start();
+    }
+
+    void Start()
+    {
+        Game.Instance.StartCoroutine(Test());
+    }
+
+    IEnumerator Test()
+    {
+        while (fillamountTest < 1)
+        {
+            fillamountTest += 0.0033f;
+            yield return null;
+        }
     }
 }

@@ -12,7 +12,7 @@ public class UnitSelection : MonoBehaviour
 
     public static Action<GameObject> ObjectSelected;
     public static Action ObjectDeselected;
-    public static Action<Unit, bool> UnitOnSelection;
+    //public static Action<Unit, bool> UnitOnSelection;
     public static Action<Unit, bool> UnitOnHover;
 
     #endregion
@@ -105,6 +105,8 @@ public class UnitSelection : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            obj1 = null;
+            obj2 = null;
             time = 0f;
 
             Vector2 mousePosition = Utils.GetMousePosition();
@@ -168,11 +170,6 @@ public class UnitSelection : MonoBehaviour
     { 
         if (selectedUnits.Count > 0 && time < 0.25f)
         {
-            if (selectedUnits.Count == 1)
-            {
-                SingleSelection();
-            }
-
             SelectionTask();
         }
         else if (time < 0.25f)
@@ -186,15 +183,24 @@ public class UnitSelection : MonoBehaviour
     }
 
     private void SelectionTask()
-    {
-        foreach (var unit in selectedUnits)
+    {   
+        foreach (var selectedUnit in selectedUnits)
         {
-            if (unit.UnitData.Type == UnitType.Character && unit.HumanControlledUnit)
-            {              
-                var character = unit.GetComponent<Character>();
+            Debug.Log("TEST");
+            if (selectedUnit.UnitData.Type == UnitType.Character && selectedUnit.HumanControlledUnit)
+            {
+                Debug.Log("TESTTTT");
+                var character = selectedUnit.GetComponent<Character>();
                 character.SetTarget(obj1,rayhit1);
             }
         }
+
+        if (obj2 != null)
+        {
+            var unit = obj2.GetComponent<Unit>();
+            if(unit.HumanControlledUnit) SingleSelection();
+        }
+        //SingleSelection();
     }
 
     #region Selection
@@ -204,7 +210,7 @@ public class UnitSelection : MonoBehaviour
         if (obj2 == null) return;
         DeselectUnits();
         var unit = obj2.GetComponent<Unit>();
-        SelectUnit(unit);
+        if(unit.HumanControlledUnit) SelectUnit(unit);
     }
 
     private void DragSelection()
@@ -298,7 +304,7 @@ public class UnitSelection : MonoBehaviour
     public void SelectUnit(Unit unit)
     {
         selectedUnits.Add(unit);
-        if(unit.HumanControlledUnit) UnitOnSelection?.Invoke(unit, true);
+        unit.OnSelect();
         ObjectSelected?.Invoke(selectedUnits[0].gameObject);        
     }
 
@@ -308,18 +314,15 @@ public class UnitSelection : MonoBehaviour
         if (colliders.Length == 1)
         {
             var unit = colliders[0].gameObject.GetComponent<Unit>();
-            SelectUnit(unit);
+            if(unit.HumanControlledUnit) SelectUnit(unit);
         }
-
 
         foreach (Collider collider in colliders)
         {
+
             var unit = collider.gameObject.GetComponent<Unit>();
-            if (unit.HumanControlledUnit)
-            {
-                selectedUnits.Add(unit);
-                UnitOnSelection?.Invoke(unit,true);
-            }
+            unit.OnSelect();
+            selectedUnits.Add(unit);
         }
     }
 
@@ -331,7 +334,7 @@ public class UnitSelection : MonoBehaviour
     {
         foreach (var unit in selectedUnits)
         {
-            UnitOnSelection?.Invoke(unit, false);
+            unit.OnDeselect();
         }
 
         selectedUnits.Clear();

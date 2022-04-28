@@ -75,5 +75,20 @@ public class Selectable : MonoBehaviour
     {
     }
 
+    protected virtual void ChangeSelectionVisibility(bool visible)
+    {
+        if (selectionCircle != null) selectionCircle.SetActive(visible);
+    }
+
+    public virtual void OnSelect()
+    {
+        ChangeSelectionVisibility(true);
+    }
+
+    public virtual void OnDeselect()
+    {
+        ChangeSelectionVisibility(false);
+    }
+
     #endregion
 }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Worker
   type: 1
-  tooltip: can create new Buildings
-  buildTime: 5
+  tooltip: create new Buildings
+  buildTime: 15
   deathTime: 2
   requiredResources:
   - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}

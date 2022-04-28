@@ -9,26 +9,72 @@ public class QueueButton : MonoBehaviour
     [SerializeField] protected Button button;
     [SerializeField] protected Image backImage;
     [SerializeField] protected Image fillImage;
-    private GameObject selectedObject;
-    private float fillamount;
-    private int index;
+    [SerializeField] protected Sprite defaultSprite;
+
+    private void Awake()
+    {
+        backImage.sprite = defaultSprite;
+    }
+
+    public void SetIcon(Sprite sprite)
+    {
+        backImage.sprite = sprite;
+    }
 
     public void ChangeVisibility(bool visible)
     {
-        button.gameObject.SetActive(visible);
+        gameObject.SetActive(visible);
 
-        if (visible)
+        if (!visible)
         {
-            StartFill(5f);
+            backImage.sprite = defaultSprite;
         }
 
     }
 
+    public void SetFillAmount(float amount)
+    {
+        fillImage.fillAmount = amount;
+    }
+
+
+    /*public void RestartFill()
+    {
+        fillamount = lastfillamount;
+        StartCoroutine(UpdateFill());
+    }
+
     public void StartFill(float time)
     {
+        if (fillstartet)
+        {
+            RestartFill();
+            return;
+        }
+
+        fillstartet = true;
         fillamount = 0;
-        index = (int)(time * 10);
-        InvokeRepeating("UpdateIconFillAmount", 0, 0.05f);
+        //Debug.Log(updateAmount);
+        //InvokeRepeating("UpdateIconFillAmount", 0, 0.05f);
+        StartCoroutine(UpdateFill());
+    }
+
+    IEnumerator UpdateFill()
+    {
+        while (fillamount < 1)
+        {
+            fillImage.fillAmount = fillamount;
+            fillamount += updateAmount;
+            lastfillamount = fillamount;
+            yield return null;
+        }
+
+        fillstartet=false;
+        fillamount = 0f;
+        lastfillamount = 0f;
+        button.gameObject.SetActive(false);
+        backImage.sprite = defaultSprite;
+
     }
 
     private void UpdateIconFillAmount()
@@ -41,6 +87,7 @@ public class QueueButton : MonoBehaviour
         {
             CancelInvoke("UpdateIconFillAmount");
             button.gameObject.SetActive(false);
+            backImage.sprite = defaultSprite;
         }
-    }
+    }*/
 }

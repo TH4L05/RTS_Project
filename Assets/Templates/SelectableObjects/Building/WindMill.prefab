@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086198755650470042}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: -5.684342e-14}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 2086198755650903230}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2086198755649608858
 MeshFilter:
@@ -195,8 +195,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 3884622669616305255}
   - {fileID: 2086198755650903226}
+  - {fileID: 3884622669616305255}
   m_Father: {fileID: 7048635877348897674}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -197.898, z: 0}
@@ -248,7 +248,7 @@ Transform:
   m_Children:
   - {fileID: 2086198755650903228}
   m_Father: {fileID: 2086198755650903230}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2582668508750625498
 GameObject:
@@ -303,16 +303,16 @@ MonoBehaviour:
   unitData: {fileID: 11400000, guid: ec902e4a488ef4e449f1bde872f61cf8, type: 2}
   healthBar: {fileID: 6418648422952638398}
   owner: -1
-  unitType: 0
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
-  data: {fileID: 11400000, guid: ec902e4a488ef4e449f1bde872f61cf8, type: 2}
   unitSpawn: {fileID: 0}
   gatheringPoint: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  maxBuildSlots: 0
+  activeFills: []
 --- !u!65 &8896655732913044557
 BoxCollider:
   m_ObjectHideFlags: 0

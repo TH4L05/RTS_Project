@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionType: 0
   selectionCircle: {fileID: 2875393436844296323}
-  unitData: {fileID: 11400000, guid: 6cdeed2eb010f6a4fa90be36c2539911, type: 2}
+  unitData: {fileID: 11400000, guid: f894e674fcb299e48b240b6a98c545d1, type: 2}
   healthBar: {fileID: 8144500385365450866}
   owner: -1
   unitLayer:
@@ -151,13 +151,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8953696152070325183}
-  m_LocalRotation: {x: -0.00012338163, y: -0.70710677, z: 0.70710677, w: 0.00012338163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -121.6, y: -0, z: 0}
   m_LocalScale: {x: 100.00002, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 8813798559027671533}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 89.98, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &951510122971210237
 PrefabInstance:
   m_ObjectHideFlags: 0

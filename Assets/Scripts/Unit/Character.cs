@@ -35,6 +35,7 @@ public class Character : Unit
     private float speed;
     private Vector3 targetPos;
     private CharacterState state;
+    private CharacterState lastState;
     private GameObject targetObj;
 
     #endregion
@@ -46,6 +47,7 @@ public class Character : Unit
 
     private void Update()
     {
+        if (isDead) return;
         UpdateState();
     }
 
@@ -108,6 +110,9 @@ public class Character : Unit
             default:
                 break;
         }
+
+        lastState = state;
+
     }
 
     private void MoveToTarget()
@@ -126,7 +131,7 @@ public class Character : Unit
         navAgent.isStopped = false;
         navAgent.SetDestination(targetPos);
 
-        if (navAgent.remainingDistance < 0.1f)
+        if (navAgent.remainingDistance < 1f)
         {
             state = CharacterState.Idle;
         }
@@ -161,8 +166,8 @@ public class Character : Unit
             state = CharacterState.Attack;
         }
         else
-        {  
-            state = CharacterState.Idle;
+        {
+            state = lastState;
         }
     }
 
@@ -239,7 +244,6 @@ public class Character : Unit
         base.Death();
         if (anim != null) anim.SetBool("dead", true);
         if (anim != null) anim.SetTrigger("death");
-        Destroy(gameObject, data.DeathTime);
     }
 
     #region Gizmos

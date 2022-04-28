@@ -70,7 +70,7 @@ public class Unit : Selectable, IDamagable
         if (healthBar != null) healthBar.gameObject.SetActive(false);
         if (selectionCircle != null) selectionCircle.gameObject.SetActive(false);
 
-        UnitSelection.UnitOnSelection += ChangeSelectionVisibility;
+        //UnitSelection.UnitOnSelection += ChangeSelectionVisibility;
         UnitSelection.UnitOnHover += ChangeHealthBarVisibility;
 
     }
@@ -78,7 +78,7 @@ public class Unit : Selectable, IDamagable
     protected override void DeathSetup()
     {
         base.DeathSetup();
-        UnitSelection.UnitOnSelection -= ChangeSelectionVisibility;
+        //UnitSelection.UnitOnSelection -= ChangeSelectionVisibility;
         UnitSelection.UnitOnHover -= ChangeHealthBarVisibility;
     }
 
@@ -104,6 +104,7 @@ public class Unit : Selectable, IDamagable
     {
         UnitIsDead?.Invoke(gameObject);
         Game.Instance.PlayerManager.RemoveUnit(this, owner);
+        Destroy(gameObject, unitData.DeathTime);
     }
 
     #region Visuals
@@ -116,12 +117,13 @@ public class Unit : Selectable, IDamagable
         healthBar.UpdateValue(currentHealth, unitData.HealthMax);
     }
 
-    protected virtual void ChangeSelectionVisibility(Unit unit, bool visible)
-    {
-        if(unit != this) return;
-        if (selectionCircle != null) selectionCircle.SetActive(visible);
-    }
-
     #endregion
+
+    public override void OnSelect()
+    {
+        if(!humanConrolledUnit) return;
+        base.OnSelect();
+
+    }
 
 }
