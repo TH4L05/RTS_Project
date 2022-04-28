@@ -319,7 +319,6 @@ public class UnitSelection : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-
             var unit = collider.gameObject.GetComponent<Unit>();
             unit.OnSelect();
             selectedUnits.Add(unit);

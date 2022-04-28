@@ -21,15 +21,16 @@ public class QueueButton : MonoBehaviour
         backImage.sprite = sprite;
     }
 
-    public void ChangeVisibility(bool visible)
+    public void ShowButton()
     {
-        gameObject.SetActive(visible);
+        gameObject.SetActive(true);
+    }
 
-        if (!visible)
-        {
-            backImage.sprite = defaultSprite;
-        }
-
+    public void HideButton()
+    {
+        gameObject.SetActive(false);
+        fillImage.fillAmount = 0;
+        backImage.sprite = defaultSprite;
     }
 
     public void SetFillAmount(float amount)

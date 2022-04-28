@@ -8,14 +8,14 @@ public class Game : MonoBehaviour
     public static Game Instance;
     public GameData gameData;
 
-    [SerializeField] private UnitSelection selectionHandler;
+    [SerializeField] private UnitSelection unitSelection;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private ResourceInfo resourceInfo;
     [SerializeField] private BuildMode buildMode;
     [SerializeField] private CameraRig cameraRig;
     [SerializeField] private IngameUI ingameUI;
 
-    public UnitSelection SelectionHandler => selectionHandler;
+    public UnitSelection Unitselection => unitSelection;
     public PlayerManager PlayerManager => playerManager;
     public ResourceInfo ResourceInfo => resourceInfo;
     public BuildMode BuildMode => buildMode;

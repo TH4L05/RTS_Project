@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7279741513658185963}
-  - component: {fileID: 7279741513658185966}
   - component: {fileID: 7279741513658185967}
+  - component: {fileID: 7279741513658185966}
   - component: {fileID: 533032861719979280}
   m_Layer: 8
   m_Name: WoodProductionBuilding
@@ -67,19 +67,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7279741513658185966
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279741513658185968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 5, z: 10}
-  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &7279741513658185967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,16 +84,29 @@ MonoBehaviour:
   unitData: {fileID: 11400000, guid: 33245957047dfc145a11b80ac6a0d716, type: 2}
   healthBar: {fileID: 271804496459890199}
   owner: -1
-  unitType: 0
   unitLayer:
     serializedVersion: 2
     m_Bits: 256
-  data: {fileID: 11400000, guid: 33245957047dfc145a11b80ac6a0d716, type: 2}
   unitSpawn: {fileID: 0}
   gatheringPoint: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  maxBuildSlots: 0
+  activeFills: []
+--- !u!65 &7279741513658185966
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279741513658185968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!208 &533032861719979280
 NavMeshObstacle:
   m_ObjectHideFlags: 0

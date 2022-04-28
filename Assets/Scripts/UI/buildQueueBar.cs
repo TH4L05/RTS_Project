@@ -36,7 +36,7 @@ public class buildQueueBar : MonoBehaviour
         selectedObject = null;
         foreach (var button in queueButtons)
         {
-            button.ChangeVisibility(false);
+            button.HideButton();
         }
     }
 
@@ -44,26 +44,21 @@ public class buildQueueBar : MonoBehaviour
     {
         if (obj != selectedObject) return;
 
+        foreach (var item in queueButtons)
+        {
+            item.HideButton();
+        }
+
         var index = 0;
         foreach (var item in jobs)
-        {          
-            if (item.fillamount > 0.99f)
-            {
-                queueButtons[index].ChangeVisibility(false);
-                index++;
-                continue;
-            }
-
-            queueButtons[index].ChangeVisibility(true);
+        {
+            queueButtons[index].ShowButton();
             queueButtons[index].SetIcon(item.sprite);
             queueButtons[index].SetFillAmount(item.fillamount);
+                       
             index++;
-
         }
     }
-
-
-
 
     /*private void UpdateQueue(int count)
     {

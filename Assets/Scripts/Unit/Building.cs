@@ -29,6 +29,7 @@ public class Building : Unit
     private BuildingData data => unitData as BuildingData;
     private bool changeGatheringPosition;
     private Queue<GameObject> buildQueue;
+    private bool onSelection;
     
     #endregion
 
@@ -46,9 +47,17 @@ public class Building : Unit
     {
         base.StartSetup();       
         buildQueue = new Queue<GameObject>();
-        if(gatheringPoint != null) gatheringPoint.gameObject.SetActive(false);
-        unitSpawn.position = new Vector3( unitSpawn.position.x, transform.position.y, unitSpawn.position.z);
-        gatheringPoint.position = new Vector3(unitSpawn.position.x, unitSpawn.position.y + 1.25f , unitSpawn.position.z);
+
+        if (unitSpawn != null)
+        {
+            unitSpawn.position = new Vector3(unitSpawn.position.x, transform.position.y, unitSpawn.position.z);
+        }
+
+        if (gatheringPoint != null)
+        {
+            gatheringPoint.gameObject.SetActive(false);
+            gatheringPoint.position = new Vector3(unitSpawn.position.x, unitSpawn.position.y + 1.25f, unitSpawn.position.z);
+        }
     }
 
     protected override void AdditionalSetup()
@@ -67,7 +76,7 @@ public class Building : Unit
 
     private void Update()
     {
-        if (buildCount > 0)
+        if (onSelection)
         {
             UpdateFill?.Invoke(gameObject, activeFills);
         }
@@ -106,12 +115,12 @@ public class Building : Unit
         changeGatheringPosition = true;
         StartCoroutine("Wait");
         InvokeRepeating("SetGatheringPosition", 0, 0.1f);
-        Game.Instance.SelectionHandler.Pause(true);
+        Game.Instance.Unitselection.Pause(true);
     }
 
     public void SetGatheringPosition()
     {
-        Game.Instance.SelectionHandler.Pause(true);
+        Game.Instance.Unitselection.Pause(true);
 
         var cam = Camera.main;
         Vector2 mousePosition = Utils.GetMousePosition();
@@ -127,7 +136,7 @@ public class Building : Unit
         {
             changeGatheringPosition = false;
             CancelInvoke("SetGatheringPosition");
-            Game.Instance.SelectionHandler.Pause(false);
+            Game.Instance.Unitselection.Pause(false);
         }
     }
 
@@ -208,14 +217,17 @@ public class Building : Unit
     public override void OnSelect()
     {
         base.OnSelect();
+        onSelection = true;
     }
 
     public override void OnDeselect()
     {
         base.OnDeselect();
+        onSelection = false;
     }
 
 }
+
 
 [System.Serializable]
 public class FillTest

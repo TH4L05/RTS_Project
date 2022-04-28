@@ -11,7 +11,6 @@ public class CameraRig : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private float scrollSpeed = 1f;
     [SerializeField] private float movetime = 5f;
-    [SerializeField] private float scrolltime = 5f;
     private Vector3 position;
     private float height;
 
@@ -128,11 +127,11 @@ public class CameraRig : MonoBehaviour
 
         if (mouseScroll.y > 0)
         {
-            height += 0.5f;
+            height += scrollSpeed;
         }       
         else if (mouseScroll.y < 0)
         {
-            height -= 0.5f;
+            height -= scrollSpeed;
         }
 
         position.y = height;
