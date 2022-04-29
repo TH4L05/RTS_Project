@@ -8,9 +8,9 @@ using UnityEngine.InputSystem;
 
 public class Building : Unit
 {
-    #region Actions
+    #region Events
 
-    public static Action<GameObject, List<FillTest>> UpdateFill;
+    public static Action<GameObject, List<BuildJob>> UpdateFill;
 
     #endregion
 
@@ -18,9 +18,7 @@ public class Building : Unit
 
     [SerializeField] private Transform unitSpawn;
     [SerializeField] private Transform gatheringPoint;
-    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private int maxBuildSlots;
-    public List<FillTest> activeFills = new List<FillTest>();
 
     #endregion
 
@@ -29,13 +27,13 @@ public class Building : Unit
     private BuildingData data => unitData as BuildingData;
     private bool changeGatheringPosition;
     private Queue<GameObject> buildQueue;
+    private List<BuildJob> buildJobs = new List<BuildJob>();
     private bool onSelection;
     
     #endregion
 
     #region PublicFields
 
-    public BuildingData Data => data;
     public Transform UnitSpawn => unitSpawn;
     public int buildCount => buildQueue.Count;
 
@@ -78,7 +76,7 @@ public class Building : Unit
     {
         if (onSelection)
         {
-            UpdateFill?.Invoke(gameObject, activeFills);
+            UpdateFill?.Invoke(gameObject, buildJobs);
         }
     }
 
@@ -113,12 +111,11 @@ public class Building : Unit
     {
         if (unitSpawn == null) return;
         changeGatheringPosition = true;
-        StartCoroutine("Wait");
-        InvokeRepeating("SetGatheringPosition", 0, 0.1f);
         Game.Instance.Unitselection.Pause(true);
+        InvokeRepeating("SetNewGatheringPosition", 0, 0.01f);
     }
 
-    public void SetGatheringPosition()
+    public void SetNewGatheringPosition()
     {
         Game.Instance.Unitselection.Pause(true);
 
@@ -134,16 +131,11 @@ public class Building : Unit
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            Debug.Log("CLICK");
             changeGatheringPosition = false;
-            CancelInvoke("SetGatheringPosition");
+            CancelInvoke("SetNewGatheringPosition");
             Game.Instance.Unitselection.Pause(false);
         }
-    }
-
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(1f);
-        InvokeRepeating("SetGatheringPosition", 0, 0.025f);
     }
 
     public void BuildNewUnit(GameObject obj)
@@ -151,11 +143,29 @@ public class Building : Unit
         var unit = obj.GetComponent<Unit>();
         var data = Utils.GetUnitData(unit);
 
-        if (buildQueue.Count == maxBuildSlots -1)
+        bool canbuild = false;
+
+        foreach (var resource in data.RequiredResources)
+        {
+            canbuild = Game.Instance.PlayerManager.CheckResourceRequirement(owner, resource.amount, resource.ResoureData.Type);
+        }
+
+        if (!canbuild)
+        {
+            Debug.LogError("NOT ENOUGH RESOURCES to build a new " + unit.name);
+            return;
+        }
+        else if (buildQueue.Count == maxBuildSlots)
         {
             Debug.LogError("NO SLOT AVIALABLE");
             return;
         }
+
+        foreach (var resourceRequirement in data.RequiredResources)
+        {
+            ResourceManager.RemoveResource(owner, resourceRequirement.ResoureData.Type, resourceRequirement.amount, true);
+        }
+
 
         buildQueue.Enqueue(obj);  
         StartCoroutine(CreateNewUnit(obj));
@@ -166,9 +176,9 @@ public class Building : Unit
     {           
         var unit = unitTemplate.GetComponent<Unit>();
         var data = Utils.GetUnitData(unit);
-        var name = data.Name + (buildCount);
-        var job = new FillTest(name, data.ActionButtonIcon);
-        activeFills.Add(job);
+        var name = data.Name + "_" + buildCount + "_" + Time.time;
+        var job = new BuildJob(name, data.ActionButtonIcon);
+        buildJobs.Add(job);
 
         float fillamount = 0f;
         float updateAmount = 1 / data.BuildTime / 60;
@@ -177,7 +187,7 @@ public class Building : Unit
         {
             fillamount += updateAmount;
 
-            foreach (var item in activeFills)
+            foreach (var item in buildJobs)
             {
                 if (item.name == name)
                 {
@@ -198,7 +208,7 @@ public class Building : Unit
         }
        
         Game.Instance.PlayerManager.AddUnit(newUnit.GetComponent<Unit>(), PlayerType.Human);
-        activeFills.Remove(job);       
+        buildJobs.Remove(job);       
         buildQueue.Dequeue();      
     }
 
@@ -207,10 +217,6 @@ public class Building : Unit
         base.ChangeSelectionVisibility(visible);
 
         if (gatheringPoint == null) return;
-        /*if(this.gameObject != unit.gameObject) return;
-        if (unit.UnitData.Type != UnitType.Building) return;*/
-
-        //Debug.Log("BuildingVisible" + visible);
         gatheringPoint.gameObject.SetActive(visible);
     }
 
@@ -230,14 +236,14 @@ public class Building : Unit
 
 
 [System.Serializable]
-public class FillTest
+public class BuildJob
 {
     public string name;
     public float fillamount;
     public float fillamountTest;
     public Sprite sprite;
 
-    public FillTest(string name, Sprite sprite)
+    public BuildJob(string name, Sprite sprite)
     {
         this.name = name;
         this.sprite = sprite;

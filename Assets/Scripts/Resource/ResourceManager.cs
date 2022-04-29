@@ -1,17 +1,34 @@
+
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ResourceManager /*: MonoBehaviour*/
 {
-    [SerializeField] private List<ResourceSlot> resources = new List<ResourceSlot>();
-    private PlayerString player = PlayerString.Undefined;
-
+    #region Events
+    
     public static Action<PlayerString, ResourceType, int, bool> GainResource;
     public static Action<PlayerString, ResourceType, int, bool> RemoveResource;
     public static Action<ResourceType, int> UpdateInfo;
+
+    #endregion
+
+    #region SerializedFields
+
+    [SerializeField] private List<ResourceSlot> resources = new List<ResourceSlot>();
+
+    #endregion
+
+    #region PublicFields
+    #endregion
+
+    #region PrivateFields
+
+    private PlayerString player = PlayerString.Undefined;
+
+    #endregion
 
     public ResourceManager(PlayerString player, List<ResourceSlot> resources)
     {
@@ -26,6 +43,7 @@ public class ResourceManager /*: MonoBehaviour*/
 
         Setup();
     }
+
 
     public void Setup()
     {

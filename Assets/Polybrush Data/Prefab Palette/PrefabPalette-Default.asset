@@ -63,13 +63,13 @@ MonoBehaviour:
     name: PT_Fruit_Tree_01_green_cut
   - gameObject: {fileID: 5119624223843650245, guid: e8ad7df251368134f8ad89a6925ea1f7, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 1
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
       m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
+      m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
       m_ZRotationBool: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     name: Tree1
   - gameObject: {fileID: 4824148887561710556, guid: 97644c26e7928b24794311aacf053705, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 1
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}

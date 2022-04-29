@@ -40,7 +40,7 @@ public class buildQueueBar : MonoBehaviour
         }
     }
 
-    private void UpdateButtons(GameObject obj, List<FillTest> jobs)
+    private void UpdateButtons(GameObject obj, List<BuildJob> jobs)
     {
         if (obj != selectedObject) return;
 

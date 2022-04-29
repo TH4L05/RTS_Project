@@ -3,12 +3,11 @@ using UnityEngine;
 
 
 
-public class Unit : Selectable, IDamagable
+public class Unit : MonoBehaviour, IDamagable, ISelectable
 {
-    #region Actions
+    #region Events
 
     public static Action<GameObject> UnitIsDead;
-    public static Action<GameObject> UnitHealthChanged;
     public static Action<GameObject> HealthChanged;
 
     #endregion
@@ -17,14 +16,19 @@ public class Unit : Selectable, IDamagable
 
     [SerializeField] protected UnitData unitData;
     [SerializeField] protected UIBar healthBar;
-    [SerializeField] protected PlayerString owner = PlayerString.Undefined;
+    [SerializeField] protected GameObject selectionCircle;
     [SerializeField] protected LayerMask unitLayer;
-  
+    [SerializeField] protected LayerMask groundLayer;
+
     #endregion
 
     #region PrivateFields
 
+    protected PlayerString owner = PlayerString.Undefined;
     protected bool humanConrolledUnit;
+    protected float currentHealth;
+    protected float currentMana;
+    protected bool isDead;
     protected Renderer[] meshRenderers;
 
     #endregion
@@ -34,8 +38,31 @@ public class Unit : Selectable, IDamagable
     public UnitData UnitData => unitData;
     public PlayerString Owner => owner;
     public bool HumanControlledUnit => humanConrolledUnit;
+    public float CurrentHealth => currentHealth;
+    public float CurrentMana => currentMana;
+
 
     #endregion
+
+    #region UnityFunctions
+
+    private void OnEnable()
+    {
+        StartSetup();
+    }
+
+    private void Start()
+    {
+        AdditionalSetup();
+    }
+
+    private void OnDestroy()
+    {
+        DeathSetup();
+    }
+
+    #endregion;
+
 
     #region Setup
 
@@ -59,9 +86,8 @@ public class Unit : Selectable, IDamagable
         }
     }
 
-    protected override void StartSetup()
+    protected virtual void StartSetup()
     {
-        base.StartSetup();
         if (unitData != null)
         {
             currentHealth = unitData.HealthMax;
@@ -73,11 +99,17 @@ public class Unit : Selectable, IDamagable
         //UnitSelection.UnitOnSelection += ChangeSelectionVisibility;
         UnitSelection.UnitOnHover += ChangeHealthBarVisibility;
 
+        unitLayer = 1 << gameObject.layer;
+        groundLayer = 1 << LayerMask.NameToLayer("Ground");
+
     }
 
-    protected override void DeathSetup()
+    protected virtual void AdditionalSetup()
     {
-        base.DeathSetup();
+    }
+
+    protected virtual void DeathSetup()
+    {
         //UnitSelection.UnitOnSelection -= ChangeSelectionVisibility;
         UnitSelection.UnitOnHover -= ChangeHealthBarVisibility;
     }
@@ -100,7 +132,7 @@ public class Unit : Selectable, IDamagable
         }
     }
 
-    protected override void Death()
+    protected virtual void Death()
     {
         UnitIsDead?.Invoke(gameObject);
         Game.Instance.PlayerManager.RemoveUnit(this, owner);
@@ -119,11 +151,24 @@ public class Unit : Selectable, IDamagable
 
     #endregion
 
-    public override void OnSelect()
+    public virtual void OnSelect()
     {
         if(!humanConrolledUnit) return;
-        base.OnSelect();
-
+        ChangeSelectionVisibility(true);
     }
 
+    public virtual void OnDeselect()
+    {
+        ChangeSelectionVisibility(false);
+    }
+
+    protected virtual void ChangeSelectionVisibility(bool visible)
+    {
+        if (selectionCircle != null) selectionCircle.SetActive(visible);
+    }
+
+    public void OnDeSelect()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -186,10 +186,10 @@ public class UnitSelection : MonoBehaviour
     {   
         foreach (var selectedUnit in selectedUnits)
         {
-            Debug.Log("TEST");
+            //Debug.Log("TEST");
             if (selectedUnit.UnitData.Type == UnitType.Character && selectedUnit.HumanControlledUnit)
             {
-                Debug.Log("TESTTTT");
+                //Debug.Log("TESTTTT");
                 var character = selectedUnit.GetComponent<Character>();
                 character.SetTarget(obj1,rayhit1);
             }
@@ -378,8 +378,11 @@ public class UnitSelection : MonoBehaviour
 
     public void Pause(bool pause)
     {
+        time = 0f;
         paused = pause;
         isPressed = false;
+        obj1 = null;
+        obj2 = null;
     }
 
     public void ShortPause()

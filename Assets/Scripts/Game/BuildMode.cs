@@ -52,6 +52,7 @@ public class BuildMode : MonoBehaviour
 
     public void ActivateMode(GameObject obj)
     {
+        Game.Instance.Unitselection.Pause(true);
         activeObject = obj;
         IsActive = true;
         CreateGhostBuilding(obj);
@@ -178,9 +179,10 @@ public class BuildMode : MonoBehaviour
 
     private bool ResRequirementsMet()
     {
-        var rqRes = activeObject.GetComponent<Building>().Data.RequiredResources;
+        var unit = activeObject.GetComponent<Unit>();
+        var data = Utils.GetUnitData(unit);
 
-        foreach (var resourceRequirement in rqRes)
+        foreach (var resourceRequirement in data.RequiredResources)
         {
             if (Game.Instance.PlayerManager.CheckResourceRequirement(player, resourceRequirement.amount, resourceRequirement.ResoureData.Type))
             {
@@ -197,9 +199,10 @@ public class BuildMode : MonoBehaviour
 
     private void ConsumeRequiredRes()
     {
-        var rqRes = activeObject.GetComponent<Building>().Data.RequiredResources;
+        var unit = activeObject.GetComponent<Unit>();
+        var data = Utils.GetUnitData(unit);
 
-        foreach (var resourceRequirement in rqRes)
+        foreach (var resourceRequirement in data.RequiredResources)
         {
             ResourceManager.RemoveResource(player, resourceRequirement.ResoureData.Type, resourceRequirement.amount, true);
         }      
@@ -215,6 +218,7 @@ public class BuildMode : MonoBehaviour
 
     private void LeftBuildMode()
     {
+        Game.Instance.Unitselection.Pause(false);
         IsActive = false;
         Destroy(ghostObject);
         ghostObject = null;
