@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resources:
   - data: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
-    amount: 60
+    amount: 100
     amountMax: 999
   - data: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
-    amount: 25
+    amount: 100
     amountMax: 999
   - data: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
-    amount: 0
+    amount: 100
     amountMax: 999
   - data: {fileID: 11400000, guid: db67b6aabdd296342a76f19d90f0a1ec, type: 2}
-    amount: 0
-    amountMax: 999
+    amount: 50
+    amountMax: 100
   reqs:
   - ResoureData: {fileID: 0}
     amount: 0

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7279741513658185966}
   - component: {fileID: 7410571008247711155}
   m_Layer: 8
-  m_Name: GoldProductionBuilding
+  m_Name: GoldMIne
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

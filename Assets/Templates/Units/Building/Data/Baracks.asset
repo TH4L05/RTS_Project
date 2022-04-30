@@ -35,9 +35,7 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  producableUnits:
-  - {fileID: 3542480766079491809, guid: 9152c8e0948395647812d382f4048689, type: 3}
-  - {fileID: 3542480766079491809, guid: cd49789609a48484b97e99411191cd99, type: 3}
+  producableUnits: []
   abilities:
   - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
   - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}

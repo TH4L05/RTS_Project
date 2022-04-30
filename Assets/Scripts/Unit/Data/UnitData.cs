@@ -46,8 +46,7 @@ public class UnitData : ScriptableObject
     [SerializeField] private GameObject weapon;
     [SerializeField] private float weaponAttackOffsetTime;
 
-    [Header("Other")]
-    [SerializeField] private GameObject[] producableUnits;
+    [Header("Abilities")]
     [SerializeField] private Ability[] abilities = new Ability[12];
 
     [Header("Visuals")]
@@ -77,7 +76,6 @@ public class UnitData : ScriptableObject
     public float Damage => basedamage;
     public GameObject Weapon => weapon;
     public float WeaponAttackOffsetTime => weaponAttackOffsetTime;
-    public GameObject[] ProducableUnits => producableUnits;
     public Ability[] Abilities => abilities;
     public Sprite SelectionInfoIcon => selectionInfoIcon;
     public Sprite ActionButtonIcon => actionButtonIcon;

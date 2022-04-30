@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2c9b5aac57e90489c67e630c0a00a7, type: 3}
   m_Name: SpawnMainBuilding
   m_EditorClassIdentifier: 
-  name: SpawnMainBuilding
+  name: Spawn Main Building
   tooltip: 
   icon: {fileID: 0}
   iconHighlighted: {fileID: 0}

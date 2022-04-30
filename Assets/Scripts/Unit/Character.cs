@@ -22,7 +22,7 @@ public class Character : Unit
     [SerializeField] private NavMeshAgent navAgent;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] private Animator anim;
-    [SerializeField] private bool canAttack;
+    [SerializeField] private bool canAttack = false;
 
     #endregion
 

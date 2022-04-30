@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
-  m_Name: WoodProduction
+  m_Name: SawMill
   m_EditorClassIdentifier: 
-  name: WoodProduction
+  name: Sawmill
   type: 0
   tooltip: produce wood
   buildTime: 5
@@ -33,7 +33,6 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  producableUnits: []
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -51,8 +50,8 @@ MonoBehaviour:
   actionButtonIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
   actionButtonIconHighlighted: {fileID: 21300000, guid: a6f266860a6037e4280438b39181d4f5, type: 3}
   actionButtonIconPressed: {fileID: 21300000, guid: a245496cdc83ee049a200a348e78ce76, type: 3}
-  buildingType: 0
-  producedResource: 1
-  productionAmount: 1
-  productionSpeed: 2
-  provideResourcesOnBuild: []
+  producedResources:
+  - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
+    amount: 1
+  productionSpeed: 3
+  suppliedResourcesOnStart: []

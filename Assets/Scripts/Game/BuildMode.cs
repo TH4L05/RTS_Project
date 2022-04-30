@@ -218,14 +218,18 @@ public class BuildMode : MonoBehaviour
 
     private void LeftBuildMode()
     {
-        Game.Instance.Unitselection.Pause(false);
         IsActive = false;
         Destroy(ghostObject);
         ghostObject = null;
         activeObject = null;
+        StartCoroutine(ReactivateUnitSelcection());
     }
 
-
+    IEnumerator ReactivateUnitSelcection()
+    {
+        yield return new WaitForSeconds(1f);
+        Game.Instance.Unitselection.Pause(false);
+    }
 
     private void OnDrawGizmos()
     {

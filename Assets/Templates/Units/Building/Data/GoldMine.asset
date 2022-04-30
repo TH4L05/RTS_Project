@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
-  m_Name: GoldProduction
+  m_Name: GoldMine
   m_EditorClassIdentifier: 
-  name: GoldProduction
+  name: Gold Mine
   type: 0
   tooltip: produce gold
   buildTime: 5
@@ -33,7 +33,6 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  producableUnits: []
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -47,12 +46,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
-  selectionInfoIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
-  actionButtonIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
+  selectionInfoIcon: {fileID: 21300000, guid: f059d88dc39627d4ba4cff426c216de0, type: 3}
+  actionButtonIcon: {fileID: 21300000, guid: f059d88dc39627d4ba4cff426c216de0, type: 3}
   actionButtonIconHighlighted: {fileID: 21300000, guid: 071e434dc724fb84099a5ae577303a2a, type: 3}
   actionButtonIconPressed: {fileID: 21300000, guid: 7c0332762ce28f54c88597ce2517c54e, type: 3}
-  buildingType: 0
-  producedResource: 2
-  productionAmount: 1
+  producedResources:
+  - ResoureData: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
+    amount: 1
   productionSpeed: 5
-  provideResourcesOnBuild: []
+  suppliedResourcesOnStart: []

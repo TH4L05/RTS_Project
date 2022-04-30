@@ -61,13 +61,13 @@ public class Building : Unit
     protected override void AdditionalSetup()
     {
         base.AdditionalSetup();
-        if (data.BuildingType == BuildingType.ResourceProduction)
+        if (data.ProducedResources.Length != 0)
         {
             InvokeRepeating("ResourceProduced", 1, data.ProductionSpeed);
         }
 
-        if (data.ProvideResourcesOnBuild == null) return;
-        ProvideResources();
+        if (data.SuppliedResourcesOnStart.Length == 0) return;
+        SupplyResources();
     }
 
     #endregion
@@ -80,9 +80,9 @@ public class Building : Unit
         }
     }
 
-    private void ProvideResources()
+    private void SupplyResources()
     {
-        foreach (var resource in data.ProvideResourcesOnBuild)
+        foreach (var resource in data.SuppliedResourcesOnStart)
         {
             if (humanConrolledUnit)
             {
@@ -95,16 +95,21 @@ public class Building : Unit
         }
     }
 
-    private void ResourceProduced()
+    private void ProduceResources()
     {
-        if (humanConrolledUnit)
+        foreach (var resource in data.ProducedResources)
         {
-            ResourceManager.GainResource?.Invoke(owner, data.ProducedResource, data.ProductionAmount, true);
+            if (humanConrolledUnit)
+            {
+                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, true);
+            }
+            else
+            {
+                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, false);
+            }
         }
-        else
-        {
-            ResourceManager.GainResource?.Invoke(owner, data.ProducedResource, data.ProductionAmount, false);
-        }       
+
+             
     }
 
     public void ChangeGatheringPosition()

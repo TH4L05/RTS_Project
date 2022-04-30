@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
   m_Name: WIndMill
   m_EditorClassIdentifier: 
-  name: WindMill
+  name: Windmill
   type: 0
   tooltip: produce food
   buildTime: 5
@@ -33,7 +33,6 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  producableUnits: []
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -51,8 +50,8 @@ MonoBehaviour:
   actionButtonIcon: {fileID: 21300000, guid: 1f3da93987bf1604dbbaafdf88eef84c, type: 3}
   actionButtonIconHighlighted: {fileID: 21300000, guid: 7e936bf5d952722489408a81838633fb, type: 3}
   actionButtonIconPressed: {fileID: 21300000, guid: 33ea901391d9f90499369476197201c3, type: 3}
-  buildingType: 0
-  producedResource: 3
-  productionAmount: 1
+  producedResources:
+  - ResoureData: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
+    amount: 1
   productionSpeed: 7
-  provideResourcesOnBuild: []
+  suppliedResourcesOnStart: []

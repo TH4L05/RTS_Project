@@ -4907,7 +4907,7 @@ MonoBehaviour:
     m_Bits: 0
   unitSpawn: {fileID: 695474634171222628}
   gatheringPoint: {fileID: 2617732155109496589}
-  maxBuildSlots: 0
+  maxBuildSlots: 6
 --- !u!65 &1626219693210837309
 BoxCollider:
   m_ObjectHideFlags: 0

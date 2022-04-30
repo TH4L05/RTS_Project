@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7279741513658185966}
   - component: {fileID: 533032861719979280}
   m_Layer: 8
-  m_Name: WoodProductionBuilding
+  m_Name: SawMill
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

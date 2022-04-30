@@ -33,7 +33,6 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  producableUnits: []
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -51,12 +50,8 @@ MonoBehaviour:
   actionButtonIcon: {fileID: 21300000, guid: 427928c4bdf222842837f9ef69d241ea, type: 3}
   actionButtonIconHighlighted: {fileID: 21300000, guid: e47df347cc7329343a552eb7e1683c67, type: 3}
   actionButtonIconPressed: {fileID: 21300000, guid: ffdfca898f8257e42adf80f170a9f9b7, type: 3}
-  buildingType: -1
-  producedResource: 0
-  productionAmount: 1
+  producedResources: []
   productionSpeed: 1
-  provideResourcesOnBuild:
+  suppliedResourcesOnStart:
   - ResoureData: {fileID: 11400000, guid: db67b6aabdd296342a76f19d90f0a1ec, type: 2}
     amount: 10
-  - ResoureData: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
-    amount: 50
