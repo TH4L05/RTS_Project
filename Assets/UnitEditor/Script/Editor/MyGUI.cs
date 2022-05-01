@@ -14,17 +14,17 @@ namespace UnitEditor.CustomGUI
             rect.y += padding / 2;
             rect.x -= 2;
             rect.width += 6;
-            EditorGUI.DrawRect(rect, color);
+            UnityEditor.EditorGUI.DrawRect(rect, color);
         }
 
         public static void DrawLine(Rect rect, Color color)
         {
-            EditorGUI.DrawRect(rect, color);
+            UnityEditor.EditorGUI.DrawRect(rect, color);
         }
 
         public static void DrawColorRect(Rect rect, Color color)
         {
-            EditorGUI.DrawRect(rect, color);
+            UnityEditor.EditorGUI.DrawRect(rect, color);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEditor;
 
 using UnitEditor.Toolbar;
 using UnitEditor.Data;
-using UnitEditor.List;
+using UnitEditor.UnitEditorGUI;
 using UnitEditor.CustomGUI;
 
 namespace UnitEditor
@@ -28,6 +28,7 @@ namespace UnitEditor
         private static UnitEditorWindow window;
         private UnitEditorToolbar toolbar;
         private ButtonList buttonlist;
+        private PropertiesArea propertiesArea;
         private bool setupDone = false;
 
         #endregion
@@ -51,10 +52,18 @@ namespace UnitEditor
             if (!setupDone) return;
             toolbar.OnGUI();
 
-            GUILayout.BeginHorizontal();
+            Rect leftRect = new Rect(20f, 50f, 300f, window.position.height - 50f);
+            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - 50f, window.position.height - 50f);
+
+            GUILayout.BeginArea(leftRect);
+            MyGUI.DrawColorRect(new Rect(0f, 0f, leftRect.width, leftRect.height), new Color(0.45f, 0.45f, 0.45f));
             buttonlist.OnGUI();
-            MyGUI.DrawLine(new Rect(245f, 50f, 2f, window.position.height - 15f), Color.gray);          
-            GUILayout.EndHorizontal();           
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(rightRect);
+            MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), new Color(0.35f, 0.35f, 0.35f));
+            propertiesArea.OnGUI();
+            GUILayout.EndArea();         
         }
 
         private void OnDestroy()
@@ -68,6 +77,12 @@ namespace UnitEditor
             {
                 buttonlist.Destroy();
                 DestroyImmediate(buttonlist);
+            }
+
+            if (propertiesArea != null)
+            {
+                propertiesArea.Destroy();
+                DestroyImmediate(propertiesArea);
             }
         }
 
@@ -95,6 +110,7 @@ namespace UnitEditor
 
             toolbar = new UnitEditorToolbar(this);
             buttonlist = new ButtonList(this, dataHandler);
+            propertiesArea = new PropertiesArea(this, dataHandler);
             setupDone = true;
         }
 
