@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d98b283205f88c49be479bc36c019a3, type: 3}
+  m_Name: UnitEditorData
+  m_EditorClassIdentifier: 
+  unitsRootPath: Assets/Templates/Units/
+  unitsBuildingsFolderName: Buildings
+  unitsCharactersFolderName: Characters
+  buildings:
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  - {fileID: 4165354653119864084, guid: fa9657fa085cf4742a86b1a4cc5a3e32, type: 3}
+  characters:
+  - {fileID: 1851830113493380449, guid: eff44611e951026449c67d366734d557, type: 3}
