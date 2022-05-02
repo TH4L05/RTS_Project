@@ -59,6 +59,7 @@ namespace UnitEditor.UnitEditorGUI
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button(unitNames[i], GUILayout.Width(175f), GUILayout.Height(25f)))
                     {
+                        index = i;
                         OnButtonPressed(index, type);
                       
                     }

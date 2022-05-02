@@ -6,7 +6,6 @@ using UnitEditor.Toolbar;
 using UnitEditor.Data;
 using Object = UnityEngine.Object;
 using System.Collections.Generic;
-using UnitEditor.CustomGUI;
 
 namespace UnitEditor.UnitEditorGUI
 {
@@ -14,7 +13,11 @@ namespace UnitEditor.UnitEditorGUI
     {
         private UnitEditorWindow window;
         private DataHandler dataHandler;
-        private Editor editor;
+        private Editor editorLeft;
+        private Editor editorRight;
+
+        private Vector2 scrollPositionLeft = Vector2.zero;
+        private Vector2 scrollPositionRight = Vector2.zero;
 
         public PropertiesArea(UnitEditorWindow window, DataHandler dataHandler)
         {
@@ -38,16 +41,39 @@ namespace UnitEditor.UnitEditorGUI
 
         public void OnGUI()
         {
-            if (editor != null)
+            Rect leftRect = new Rect(25f, 25f, 500f, 2000f);
+            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 25f, 25f, 500f, 2000f);
+
+            //GUILayout.BeginHorizontal();
+            //scrollPositionLeft = GUILayout.BeginScrollView(scrollPositionLeft);
+            GUILayout.BeginArea(leftRect);
+            //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
+            if (editorLeft != null)
             {
-                editor.OnInspectorGUI();
+                editorLeft.OnInspectorGUI();
             }
+            GUILayout.EndArea();
+            //GUILayout.EndScrollView();
+
+            //scrollPositionRight = GUILayout.BeginScrollView(scrollPositionRight);
+            GUILayout.BeginArea(rightRect);
+            //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
+
+            if (editorRight != null)
+            {
+                editorRight.DrawDefaultInspector();
+                //editorRight.OnInspectorGUI();
+            }
+            GUILayout.EndArea();
+            //GUILayout.EndScrollView();
+            //GUILayout.EndHorizontal();
         }
 
         private void CreateEditor(int index, UnitType type)
         {
             DestroyEditor();
             UnitData data = null;
+            Unit unit = null;
 
             switch (type)
             {
@@ -57,19 +83,22 @@ namespace UnitEditor.UnitEditorGUI
 
 
                 case UnitType.Building:
-                    data = dataHandler.UnitEditorData.buildings[index].GetComponent<Unit>().UnitData as BuildingData;
+                    unit = dataHandler.UnitEditorData.buildings[index].GetComponent<Unit>() as Building;
+                    data = unit.UnitData as BuildingData;
                     break;
 
 
                 case UnitType.Character:
-                    data = dataHandler.UnitEditorData.characters[index].GetComponent<Unit>().UnitData as CharacterData;
+                    unit = dataHandler.UnitEditorData.characters[index].GetComponent<Unit>() as Character;
+                    data = unit.UnitData as CharacterData;
                     break;
 
             }
           
             if (data != null)
             {
-                editor = Editor.CreateEditor(data);
+                editorLeft = Editor.CreateEditor(data);
+                editorRight = Editor.CreateEditor(unit);
                 EditorUtility.SetDirty(data);
             }
             else
@@ -80,12 +109,14 @@ namespace UnitEditor.UnitEditorGUI
 
         private void DestroyEditor()
         {
-            if (editor != null) DestroyImmediate(editor);
+            if (editorLeft != null) DestroyImmediate(editorLeft);
+            if (editorRight != null) DestroyImmediate(editorRight);
         }
 
         private void DestroyEditor(int index)
         {
-            if (editor != null) DestroyImmediate(editor);
+            if (editorLeft != null) DestroyImmediate(editorLeft);
+            if (editorRight != null) DestroyImmediate(editorRight);
         }
     }
 }
