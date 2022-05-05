@@ -41,30 +41,29 @@ namespace UnitEditor.UnitEditorGUI
 
         public void OnGUI()
         {
-            Rect leftRect = new Rect(25f, 25f, 500f, 2000f);
-            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 25f, 25f, 500f, 2000f);
+            Rect rect = new Rect(25f, 25f, 1500f, 2000f);
+            //Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 25f, 25f, 500f, 2000f);
 
             //GUILayout.BeginHorizontal();
-            //scrollPositionLeft = GUILayout.BeginScrollView(scrollPositionLeft);
-            GUILayout.BeginArea(leftRect);
+            
+            GUILayout.BeginArea(rect);
             //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
             if (editorLeft != null)
             {
                 editorLeft.OnInspectorGUI();
             }
             GUILayout.EndArea();
-            //GUILayout.EndScrollView();
 
             //scrollPositionRight = GUILayout.BeginScrollView(scrollPositionRight);
-            GUILayout.BeginArea(rightRect);
+            //GUILayout.BeginArea(rightRect);
             //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
 
-            if (editorRight != null)
+            /*if (editorRight != null)
             {
                 editorRight.DrawDefaultInspector();
                 //editorRight.OnInspectorGUI();
-            }
-            GUILayout.EndArea();
+            }*/
+            //GUILayout.EndArea();
             //GUILayout.EndScrollView();
             //GUILayout.EndHorizontal();
         }
@@ -110,13 +109,13 @@ namespace UnitEditor.UnitEditorGUI
         private void DestroyEditor()
         {
             if (editorLeft != null) DestroyImmediate(editorLeft);
-            if (editorRight != null) DestroyImmediate(editorRight);
+            //if (editorRight != null) DestroyImmediate(editorRight);
         }
 
         private void DestroyEditor(int index)
         {
             if (editorLeft != null) DestroyImmediate(editorLeft);
-            if (editorRight != null) DestroyImmediate(editorRight);
+            //if (editorRight != null) DestroyImmediate(editorRight);
         }
     }
 }

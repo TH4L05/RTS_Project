@@ -15,7 +15,6 @@ namespace UnitEditor.UnitEditorGUI
         public static Action<int, UnitType> OnButtonPressed;
 
         private Vector2 scrollPosition = Vector2.zero;
-        private Vector2 scrollPositionLeft = Vector2.zero;
         private UnitEditorWindow window;
         private string[] unitNames;
         private DataHandler dataHandler;
@@ -44,15 +43,20 @@ namespace UnitEditor.UnitEditorGUI
         }
 
         public void OnGUI()
-        {         
+        {
+            GenericMenu menu = new GenericMenu();
+
+            //Rect rect = new Rect(10f, 5f, 275f, window.position.height - 100f);
+            //GUILayout.BeginArea(rect);
+
             if (unitNames.Length == 0)
             {
-                GUILayout.Label("No Unit created");
+                GUILayout.Label("No Units created");
             }
             else
-            {
-                EditorGUILayout.Space(5f);
-                scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            {            
+                //EditorGUILayout.Space(1f);
+                scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(window.position.height - 25f), GUILayout.Width(290f));
 
                 for (int i = 0; i < unitNames.Length; i++)
                 {
@@ -65,8 +69,8 @@ namespace UnitEditor.UnitEditorGUI
                     }
                     if (GUILayout.Button("X", GUILayout.Width(20f), GUILayout.Height(25f)))
                     {
-                        /*index = i;
-                        DeleteList();*/
+                        //index = i;
+                        //DeleteList();
                     }
                     GUILayout.EndHorizontal();
                     //EditorGUILayout.Space(2f);
@@ -74,8 +78,7 @@ namespace UnitEditor.UnitEditorGUI
 
                 EditorGUILayout.EndScrollView();
             }
-
-            
+            //GUILayout.EndArea();          
         }
 
         private void LoadList(int index)

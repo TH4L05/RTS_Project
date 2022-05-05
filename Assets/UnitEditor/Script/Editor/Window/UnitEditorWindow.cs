@@ -31,6 +31,9 @@ namespace UnitEditor
         private PropertiesArea propertiesArea;
         private bool setupDone = false;
 
+        private Vector2 scrollPosition1 = Vector2.zero;
+        private Vector2 scrollPosition2 = Vector2.zero;
+
         #endregion
 
         #region PublicFields
@@ -52,18 +55,28 @@ namespace UnitEditor
             if (!setupDone) return;
             toolbar.OnGUI();
 
-            Rect leftRect = new Rect(20f, 50f, 300f, window.position.height - 50f);
-            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - 50f, window.position.height - 50f);
+            Rect leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 50f);
+            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - leftRect.width - leftRect.x - 10f, window.position.size.y - 50f);
+
+            Rect leftScrollRect = new Rect(0f, 0f, leftRect.width - 20f, 999f);
+            Rect rightScrollRect = new Rect(0f, 0f, rightRect.width - 20f, 2000f);
+
+            Color leftColor = new Color(0.45f, 0.45f, 0.45f);
+            Color rightColor = new Color(0.35f, 0.35f, 0.35f);
 
             GUILayout.BeginArea(leftRect);
-            MyGUI.DrawColorRect(new Rect(0f, 0f, leftRect.width, leftRect.height), new Color(0.45f, 0.45f, 0.45f));
+            scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1, GUILayout.Height(window.position.height), GUILayout.Width(300f));
+            MyGUI.DrawColorRect(leftScrollRect, leftColor);
             buttonlist.OnGUI();
+            EditorGUILayout.EndScrollView();
             GUILayout.EndArea();
 
             GUILayout.BeginArea(rightRect);
-            MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), new Color(0.35f, 0.35f, 0.35f));
+            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, GUILayout.Height(window.position.height), GUILayout.Width(window.position.width - leftRect.width - 5f));
+            MyGUI.DrawColorRect(rightScrollRect, rightColor);
             propertiesArea.OnGUI();
-            GUILayout.EndArea();         
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
         }
 
         private void OnDestroy()

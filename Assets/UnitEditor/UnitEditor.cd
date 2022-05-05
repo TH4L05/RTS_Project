@@ -23,8 +23,8 @@
       <Path>
         <Point X="8.75" Y="5.062" />
         <Point X="5.75" Y="5.062" />
-        <Point X="5.75" Y="4.062" />
-        <Point X="2.5" Y="4.062" />
+        <Point X="5.75" Y="4.375" />
+        <Point X="2.5" Y="4.375" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -59,10 +59,10 @@
     </AssociationLine>
     <AssociationLine Name="buttonlist" Type="UnitEditor.UnitEditorGUI.ButtonList" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.5" Y="4.25" />
-        <Point X="5.583" Y="4.25" />
-        <Point X="5.583" Y="5.25" />
-        <Point X="8.75" Y="5.25" />
+        <Point X="2.5" Y="4.625" />
+        <Point X="5.49" Y="4.625" />
+        <Point X="5.49" Y="5.375" />
+        <Point X="8.75" Y="5.375" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="dataHandler" Type="UnitEditor.Data.DataHandler" FixedFromPoint="true" FixedToPoint="true">

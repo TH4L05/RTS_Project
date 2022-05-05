@@ -33,6 +33,7 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
+  test: {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}

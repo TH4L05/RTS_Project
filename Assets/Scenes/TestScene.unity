@@ -10837,7 +10837,24 @@ MonoBehaviour:
     - {fileID: 1206805777}
     - {fileID: 101838666}
     resourceManager:
-      resources: []
+      resources:
+      - data: {fileID: 0}
+        amount: 0
+        amountMax: 0
+  - name: 1
+    type: 1
+    playerColor: {r: 1, g: 0, b: 0.9397526, a: 1}
+    ownedUnits:
+    - {fileID: 218486758}
+    - {fileID: 597154334}
+    - {fileID: 1972146003}
+    - {fileID: 1206805777}
+    - {fileID: 101838666}
+    resourceManager:
+      resources:
+      - data: {fileID: 0}
+        amount: 0
+        amountMax: 0
   myPlayerIndex: -1
   unitsObject: {fileID: 571367633}
 --- !u!1001 &598734449

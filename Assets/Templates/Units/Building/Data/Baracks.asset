@@ -35,6 +35,7 @@ MonoBehaviour:
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
+  test: {fileID: 0}
   abilities:
   - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
   - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}

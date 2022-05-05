@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnitEditor.Attributes;
 
 [System.Serializable]
 public class ResourceSetup
@@ -21,15 +22,15 @@ public class UnitData : ScriptableObject
 {
     #region SerializedFields
 
-    [Header("UnitBase")]
+    //[Header("UnitBase")]
     [SerializeField] private new string name;
-    [SerializeField] private UnitType type = UnitType.Undefined;
+    [NoLabel] [SerializeField] private UnitType type = UnitType.Undefined;
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;
     [SerializeField] private ResourceSetup[] requiredResources;
 
-    [Header("Stats")]
+    //[Header("Stats")]
     [SerializeField] private float healthMax = 1f;
     [SerializeField] private float healthRegen;
     [SerializeField] private float healthRegenRate;
@@ -38,7 +39,7 @@ public class UnitData : ScriptableObject
     [SerializeField] private float manaRegenRate;
     [SerializeField] private float amor;
 
-    [Header("Fighting")]
+    //[Header("Fighting")]
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private float actionRange = 2f;
     [SerializeField] private float attackSpeed = 1f;
@@ -46,10 +47,11 @@ public class UnitData : ScriptableObject
     [SerializeField] private GameObject weapon;
     [SerializeField] private float weaponAttackOffsetTime;
 
-    [Header("Abilities")]
+    //[Header("Abilities")]
+    [SerializeField] private Ability test;
     [SerializeField] private Ability[] abilities = new Ability[12];
 
-    [Header("Visuals")]
+    //[Header("Visuals")]
     [SerializeField] private Sprite selectionInfoIcon;
     [SerializeField] private Sprite actionButtonIcon;
     [SerializeField] private Sprite actionButtonIconHighlighted;

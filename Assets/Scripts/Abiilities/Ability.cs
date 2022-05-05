@@ -12,8 +12,9 @@ public class Ability : ScriptableObject
 
     #region SerializedFields
 
+    [SerializeField] protected bool editValues = false;
     [SerializeField] protected new string name;
-    [SerializeField] [Multiline(3)]protected string tooltip;
+    [SerializeField] protected string tooltip;
     [SerializeField] protected Sprite icon;
     [SerializeField] protected Sprite iconHighlighted;
     [SerializeField] protected Sprite iconPressed;
@@ -30,7 +31,7 @@ public class Ability : ScriptableObject
     #endregion
 
     #region PublicFields
-
+    public bool EditValues => editValues;
     public string Name => name;
     public string Tooltip => tooltip;
     public Sprite Icon => icon;

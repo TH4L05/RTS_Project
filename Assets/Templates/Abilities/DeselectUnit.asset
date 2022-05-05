@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53abae346cf1f0840b28291e60c83f86, type: 3}
   m_Name: DeselectUnit
   m_EditorClassIdentifier: 
+  editValues: 0
   name: DeselectActiveUnit
   tooltip: Deslects the active selected Unit
   icon: {fileID: 21300000, guid: f27249d6729283f4ebb613a83faf8f7c, type: 3}
