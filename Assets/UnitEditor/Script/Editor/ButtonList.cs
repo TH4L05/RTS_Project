@@ -88,31 +88,15 @@ namespace UnitEditor.UnitEditorGUI
 
         private void LoadDataNames(UnitType type)
         {
+            Debug.Log(type);
+            if (type == UnitType.Undefined) return;
+
             List<GameObject> units = new List<GameObject>();
+            units = dataHandler.GetList(type);
+            if(units.Count == 0) return;
 
-            switch (type)
-            {
-                case UnitType.Undefined:
-                default:
-                    this.type = type;
-                    return;
+            unitNames = new string[units.Count];
 
-
-                case UnitType.Building:
-                    this.type = type;
-                    units = dataHandler.UnitEditorData.buildings;
-                    unitNames = new string[units.Count];
-                    break;
-
-
-                case UnitType.Character:
-                    this.type = type;
-                    units = dataHandler.UnitEditorData.characters;
-                    unitNames = new string[units.Count];
-                    break;
-
-            }
-        
             int index = 0;
             foreach (var unit in units)
             {

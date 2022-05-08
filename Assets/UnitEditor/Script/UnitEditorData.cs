@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEditorData", menuName = "Data/EditorData")]
 public class UnitEditorData : ScriptableObject
 {
-    public string unitsRootPath = "Assets/Templates/";
-    public string unitsBuildingsFolderName = "Buildings";
-    public string unitsCharactersFolderName = "Characters";
-    public List<GameObject> buildings = new List<GameObject>();
-    public List<GameObject> characters = new List<GameObject>();
+    public string resourcesPath = "Assets/";
+    public string unitsRootFolderName = "Units";
 }

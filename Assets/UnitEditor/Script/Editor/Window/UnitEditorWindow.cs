@@ -34,6 +34,9 @@ namespace UnitEditor
         private Vector2 scrollPosition1 = Vector2.zero;
         private Vector2 scrollPosition2 = Vector2.zero;
 
+        private Rect leftRect;
+        private Rect rightRect;
+
         #endregion
 
         #region PublicFields
@@ -47,36 +50,19 @@ namespace UnitEditor
 
         private void OnEnable()
         {
-            Initialize();                  
+            Initialize();
         }
 
         private void OnGUI()
         {
             if (!setupDone) return;
-            toolbar.OnGUI();
 
-            Rect leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 50f);
-            Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - leftRect.width - leftRect.x - 10f, window.position.size.y - 50f);
+            leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 50f);
+            rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - leftRect.width - leftRect.x - 10f, window.position.size.y - 50f);
 
-            Rect leftScrollRect = new Rect(0f, 0f, leftRect.width - 20f, 999f);
-            Rect rightScrollRect = new Rect(0f, 0f, rightRect.width - 20f, 2000f);
-
-            Color leftColor = new Color(0.45f, 0.45f, 0.45f);
-            Color rightColor = new Color(0.35f, 0.35f, 0.35f);
-
-            GUILayout.BeginArea(leftRect);
-            scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1, GUILayout.Height(window.position.height), GUILayout.Width(300f));
-            MyGUI.DrawColorRect(leftScrollRect, leftColor);
-            buttonlist.OnGUI();
-            EditorGUILayout.EndScrollView();
-            GUILayout.EndArea();
-
-            GUILayout.BeginArea(rightRect);
-            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, GUILayout.Height(window.position.height), GUILayout.Width(window.position.width - leftRect.width - 5f));
-            MyGUI.DrawColorRect(rightScrollRect, rightColor);
-            propertiesArea.OnGUI();
-            EditorGUILayout.EndScrollView();
-            GUILayout.EndArea();
+            toolbar.OnGUI();         
+            LeftArea(leftRect);
+            RightArea(rightRect);
         }
 
         private void OnDestroy()
@@ -113,12 +99,13 @@ namespace UnitEditor
         {
             dataHandler = new DataHandler();
 
-            bool setup = dataHandler.Setup();
+            bool setupSuccess = dataHandler.Setup();
 
-            if (!setup)
+            if (!setupSuccess)
             {
                 window.Close();
                 Debug.LogError("Setup Failed");
+                return;
             }
 
             toolbar = new UnitEditorToolbar(this);
@@ -130,7 +117,31 @@ namespace UnitEditor
         #endregion
 
         #region Destroy
-        #endregion  
+        #endregion
+
+        #region Areas
+
+        private void LeftArea(Rect rect)
+        {          
+            GUILayout.BeginArea(rect);
+            scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1, GUILayout.Height(window.position.height), GUILayout.Width(300f));
+            MyGUI.DrawColorRect(new Rect(0f, 0f, rect.width - 20f, 999f), new Color(0.45f, 0.45f, 0.45f));
+            buttonlist.OnGUI();
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
+        }
+
+        private void RightArea(Rect rect)
+        {
+            GUILayout.BeginArea(rect);
+            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, GUILayout.Height(window.position.height), GUILayout.Width(window.position.width - leftRect.width - 5f));
+            MyGUI.DrawColorRect(new Rect(0f, 0f, rect.width - 20f, 2000f), new Color(0.35f, 0.35f, 0.35f));
+            propertiesArea.OnGUI();
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
+        }
+
+        #endregion
     }
 }
 

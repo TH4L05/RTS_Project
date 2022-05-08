@@ -6,6 +6,7 @@ using UnitEditor.Toolbar;
 using UnitEditor.Data;
 using Object = UnityEngine.Object;
 using System.Collections.Generic;
+using System;
 
 namespace UnitEditor.UnitEditorGUI
 {
@@ -13,11 +14,9 @@ namespace UnitEditor.UnitEditorGUI
     {
         private UnitEditorWindow window;
         private DataHandler dataHandler;
-        private Editor editorLeft;
-        private Editor editorRight;
-
-        private Vector2 scrollPositionLeft = Vector2.zero;
-        private Vector2 scrollPositionRight = Vector2.zero;
+        private Editor editorUnitData;
+        private Editor editorUnitTypeData;
+        private Vector2 scrollPosition = Vector2.zero;
 
         public PropertiesArea(UnitEditorWindow window, DataHandler dataHandler)
         {
@@ -42,37 +41,29 @@ namespace UnitEditor.UnitEditorGUI
         public void OnGUI()
         {
             Rect rect = new Rect(25f, 25f, 1500f, 2000f);
-            //Rect rightRect = new Rect(leftRect.position.x + leftRect.size.x + 25f, 25f, 500f, 2000f);
-
-            //GUILayout.BeginHorizontal();
-            
             GUILayout.BeginArea(rect);
-            //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
-            if (editorLeft != null)
+            if (editorUnitData != null)
             {
-                editorLeft.OnInspectorGUI();
+                editorUnitData.OnInspectorGUI();
             }
             GUILayout.EndArea();
-
-            //scrollPositionRight = GUILayout.BeginScrollView(scrollPositionRight);
-            //GUILayout.BeginArea(rightRect);
-            //CustomGUI.MyGUI.DrawColorRect(new Rect(0f, 0f, rightRect.width, rightRect.height), Color.red);
-
-            /*if (editorRight != null)
-            {
-                editorRight.DrawDefaultInspector();
-                //editorRight.OnInspectorGUI();
-            }*/
-            //GUILayout.EndArea();
-            //GUILayout.EndScrollView();
-            //GUILayout.EndHorizontal();
         }
 
+        /// <summary>
+        /// Creates a new Editor based on UnitType
+        /// </summary>
+        /// <param name="index">Index from buttonList</param>
+        /// <param name="type">unitType</param>
         private void CreateEditor(int index, UnitType type)
         {
             DestroyEditor();
-            UnitData data = null;
+
+            GameObject obj = null;
             Unit unit = null;
+            UnitData data = null;
+
+            obj = dataHandler.GetObjectFromList(type, index);
+            if (obj == null) return;
 
             switch (type)
             {
@@ -82,13 +73,13 @@ namespace UnitEditor.UnitEditorGUI
 
 
                 case UnitType.Building:
-                    unit = dataHandler.UnitEditorData.buildings[index].GetComponent<Unit>() as Building;
+                    unit = obj.GetComponent<Unit>() as Building;
                     data = unit.UnitData as BuildingData;
                     break;
 
 
                 case UnitType.Character:
-                    unit = dataHandler.UnitEditorData.characters[index].GetComponent<Unit>() as Character;
+                    unit = obj.GetComponent<Unit>() as Character;
                     data = unit.UnitData as CharacterData;
                     break;
 
@@ -96,8 +87,7 @@ namespace UnitEditor.UnitEditorGUI
           
             if (data != null)
             {
-                editorLeft = Editor.CreateEditor(data);
-                editorRight = Editor.CreateEditor(unit);
+                editorUnitData = Editor.CreateEditor(data);
                 EditorUtility.SetDirty(data);
             }
             else
@@ -108,14 +98,12 @@ namespace UnitEditor.UnitEditorGUI
 
         private void DestroyEditor()
         {
-            if (editorLeft != null) DestroyImmediate(editorLeft);
-            //if (editorRight != null) DestroyImmediate(editorRight);
+            if (editorUnitData != null) DestroyImmediate(editorUnitData);
         }
 
         private void DestroyEditor(int index)
         {
-            if (editorLeft != null) DestroyImmediate(editorLeft);
-            //if (editorRight != null) DestroyImmediate(editorRight);
+            if (editorUnitData != null) DestroyImmediate(editorUnitData);
         }
     }
 }
