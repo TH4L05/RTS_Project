@@ -1,3 +1,4 @@
+/// <author> Thomas Krahl </author>
 
 using System;
 using UnityEngine;

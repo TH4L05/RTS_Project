@@ -28,14 +28,13 @@ MonoBehaviour:
   manaMax: 25
   manaRegen: 0
   manaRegenRate: 0
-  amor: 0
+  armor: 0
   attackRange: 3
   actionRange: 5
   attackSpeed: 3
   basedamage: 5
   weapon: {fileID: 3169857386294250524, guid: 328edf10180af3c43a1dd6dc99fdf11a, type: 3}
   weaponAttackOffsetTime: 0
-  producableUnits: []
   abilities:
   - {fileID: 0}
   - {fileID: 0}

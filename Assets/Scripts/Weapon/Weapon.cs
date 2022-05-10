@@ -14,6 +14,8 @@ public class Weapon : MonoBehaviour
     private float damage;
     private PlayerString owner;
 
+    public WeaponData Data => weaponData;    
+
     #endregion
 
     public void Setup(Animator anim, PlayerString p, LayerMask unitLayer)

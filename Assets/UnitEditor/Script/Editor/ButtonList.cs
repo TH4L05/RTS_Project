@@ -1,14 +1,16 @@
+/// <author> Thomas Krahl </author>
 
+using System;
+using System.Collections.Generic;
 
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
+
 using UnitEditor.Toolbar;
 using UnitEditor.Data;
-using Object = UnityEngine.Object;
-using System.Collections.Generic;
-using System;
 
-namespace UnitEditor.UnitEditorGUI
+namespace UnitEditor.UI
 {
     public class ButtonList : Object
     {
@@ -21,6 +23,7 @@ namespace UnitEditor.UnitEditorGUI
         private Editor editor;
         private int index;
         private UnitType type;
+        private GUISkin mySkin;
 
         public ButtonList(UnitEditorWindow window, DataHandler dataHandler)
         {
@@ -34,6 +37,9 @@ namespace UnitEditor.UnitEditorGUI
             unitNames = new string[0];
             LoadList(0);
             UnitEditorToolbar.ToolbarIndexChanged += LoadList;
+
+            var path = DataHandler.GetEditorDataPath();
+            LoadSkin(path + "/Data/UnitDataSkin.guiskin");
         }
 
         public void Destroy()
@@ -42,26 +48,26 @@ namespace UnitEditor.UnitEditorGUI
             UnitEditorToolbar.ToolbarIndexChanged -= LoadList;
         }
 
+        private void LoadSkin(string path)
+        {
+            mySkin = AssetDatabase.LoadAssetAtPath<GUISkin>(path);
+        }
+
         public void OnGUI()
         {
-            GenericMenu menu = new GenericMenu();
-
-            //Rect rect = new Rect(10f, 5f, 275f, window.position.height - 100f);
-            //GUILayout.BeginArea(rect);
-
             if (unitNames.Length == 0)
             {
                 GUILayout.Label("No Units created");
             }
             else
-            {            
-                //EditorGUILayout.Space(1f);
-                scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(window.position.height - 25f), GUILayout.Width(290f));
+            {
+                Rect rect = new Rect(10f, 15f, 250f, 28f);
 
                 for (int i = 0; i < unitNames.Length; i++)
                 {
+                    GUILayout.BeginArea(rect);
                     GUILayout.BeginHorizontal();
-                    if (GUILayout.Button(unitNames[i], GUILayout.Width(175f), GUILayout.Height(25f)))
+                    if (GUILayout.Button(unitNames[i], mySkin.customStyles[10]))
                     {
                         index = i;
                         OnButtonPressed(index, type);
@@ -73,22 +79,23 @@ namespace UnitEditor.UnitEditorGUI
                         //DeleteList();
                     }
                     GUILayout.EndHorizontal();
-                    //EditorGUILayout.Space(2f);
-                }
+                    GUILayout.EndArea();
 
-                EditorGUILayout.EndScrollView();
-            }
-            //GUILayout.EndArea();          
+                    rect.y += rect.height;
+                }
+            }                      
         }
 
         private void LoadList(int index)
         {            
-            LoadDataNames((UnitType)index);
+            type = (UnitType)index;
+
+            if (type == UnitType.Undefined) return;
+            LoadDataNames(type);
         }
 
         private void LoadDataNames(UnitType type)
         {
-            Debug.Log(type);
             if (type == UnitType.Undefined) return;
 
             List<GameObject> units = new List<GameObject>();

@@ -37,7 +37,7 @@ public class UnitData : ScriptableObject
     [SerializeField] private float manaMax;
     [SerializeField] private float manaRegen;
     [SerializeField] private float manaRegenRate;
-    [SerializeField] private float amor;
+    [SerializeField] private float armor;
 
     //[Header("Fighting")]
     [SerializeField] private float attackRange = 0.5f;
@@ -48,7 +48,6 @@ public class UnitData : ScriptableObject
     [SerializeField] private float weaponAttackOffsetTime;
 
     //[Header("Abilities")]
-    [SerializeField] private Ability test;
     [SerializeField] private Ability[] abilities = new Ability[12];
 
     //[Header("Visuals")]
@@ -71,7 +70,7 @@ public class UnitData : ScriptableObject
     public float HealthRegen => healthRegen;
     public float ManaMax => manaMax;
     public float ManaRegen => manaRegen;
-    public float Amor => amor;
+    public float Armor => armor;
     public float AttackRange => attackRange;
     public float ActionRange => actionRange;
     public float AttackSpeed => attackSpeed;

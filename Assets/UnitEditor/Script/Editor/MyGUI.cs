@@ -1,9 +1,11 @@
+/// <author> Thomas Krahl </author>
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace UnitEditor.CustomGUI
+namespace UnitEditor.UI.Custom
 {
     public class MyGUI
     {

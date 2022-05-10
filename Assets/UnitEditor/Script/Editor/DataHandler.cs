@@ -1,4 +1,4 @@
-
+/// <author> Thomas Krahl </author>
 
 using UnityEngine;
 using UnityEditor;
@@ -11,7 +11,7 @@ namespace UnitEditor.Data
     {
         #region PrivateFields
 
-        private string editorDataPath;
+        private static string editorDataPath;
         private UnitEditorData data;
         private Dictionary<string, List<GameObject>> unitTypeMasterList;
 
@@ -153,7 +153,7 @@ namespace UnitEditor.Data
         public GameObject GetObjectFromList(UnitType type, int listIndex)
         {
             List<GameObject> list = GetList(type);
-            if (listIndex == 0 || listIndex > list.Count || list == null) return null;
+            if (listIndex < 0 || listIndex > list.Count || list == null) return null;
             return list[listIndex];
         }
 
@@ -170,6 +170,11 @@ namespace UnitEditor.Data
             var loadedObj = AssetDatabase.LoadAssetAtPath(path, type);
             //Debug.Log(loadedObj);
             return loadedObj;
+        }
+
+        public static string GetEditorDataPath()
+        {
+            return editorDataPath;
         }
     }
 }

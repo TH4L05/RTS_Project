@@ -1,22 +1,21 @@
-
+/// <author> Thomas Krahl </author>
 
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
+
 using UnitEditor.Toolbar;
 using UnitEditor.Data;
-using Object = UnityEngine.Object;
-using System.Collections.Generic;
-using System;
 
-namespace UnitEditor.UnitEditorGUI
+
+namespace UnitEditor.UI
 {
-    public class PropertiesArea : Object
+    public sealed class PropertiesArea : Object
     {
         private UnitEditorWindow window;
         private DataHandler dataHandler;
         private Editor editorUnitData;
         private Editor editorUnitTypeData;
-        private Vector2 scrollPosition = Vector2.zero;
 
         public PropertiesArea(UnitEditorWindow window, DataHandler dataHandler)
         {
@@ -39,14 +38,12 @@ namespace UnitEditor.UnitEditorGUI
         }
 
         public void OnGUI()
-        {
-            Rect rect = new Rect(25f, 25f, 1500f, 2000f);
-            GUILayout.BeginArea(rect);
-            if (editorUnitData != null)
-            {
-                editorUnitData.OnInspectorGUI();
-            }
-            GUILayout.EndArea();
+        {          
+            if (editorUnitData != null) editorUnitData.OnInspectorGUI();
+            /*EditorGUILayout.Space(5f);
+            EditorGUILayout.Separator();
+            EditorGUILayout.Space(5f);
+            if(editorUnitTypeData != null) editorUnitTypeData.OnInspectorGUI();*/
         }
 
         /// <summary>
@@ -63,7 +60,11 @@ namespace UnitEditor.UnitEditorGUI
             UnitData data = null;
 
             obj = dataHandler.GetObjectFromList(type, index);
-            if (obj == null) return;
+            if (obj == null)
+            {
+                Debug.LogError("NO OBJ TO LOAD");
+                return;
+            }
 
             switch (type)
             {
@@ -99,11 +100,13 @@ namespace UnitEditor.UnitEditorGUI
         private void DestroyEditor()
         {
             if (editorUnitData != null) DestroyImmediate(editorUnitData);
+            if (editorUnitTypeData != null) DestroyImmediate(editorUnitTypeData);
         }
 
         private void DestroyEditor(int index)
         {
             if (editorUnitData != null) DestroyImmediate(editorUnitData);
+            if (editorUnitTypeData != null) DestroyImmediate(editorUnitTypeData);
         }
     }
 }

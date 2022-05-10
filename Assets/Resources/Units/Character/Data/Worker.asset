@@ -26,14 +26,13 @@ MonoBehaviour:
   manaMax: 0
   manaRegen: 0
   manaRegenRate: 0
-  amor: 1
+  armor: 0
   attackRange: 2
   actionRange: 5
   attackSpeed: 0
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  test: {fileID: 0}
   abilities:
   - {fileID: 11400000, guid: 794007b9ba1a81b4eb90b30492195c9e, type: 2}
   - {fileID: 11400000, guid: e65d2693016e3b9418cdf6e2cee63bca, type: 2}

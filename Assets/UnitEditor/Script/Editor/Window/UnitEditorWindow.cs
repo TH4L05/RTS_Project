@@ -1,11 +1,12 @@
+/// <author> Thomas Krahl </author>
 
 using UnityEngine;
 using UnityEditor;
 
 using UnitEditor.Toolbar;
 using UnitEditor.Data;
-using UnitEditor.UnitEditorGUI;
-using UnitEditor.CustomGUI;
+using UnitEditor.UI;
+using UnitEditor.UI.Custom;
 
 namespace UnitEditor
 {
@@ -42,6 +43,7 @@ namespace UnitEditor
         #region PublicFields
 
         public DataHandler dataHandler;
+        public static bool NeedRepaint { get; set; }
 
 
         #endregion
@@ -57,12 +59,31 @@ namespace UnitEditor
         {
             if (!setupDone) return;
 
-            leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 50f);
-            rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.width - leftRect.width - leftRect.x - 10f, window.position.size.y - 50f);
+            toolbar.OnGUI();
 
-            toolbar.OnGUI();         
-            LeftArea(leftRect);
+            leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 60f);
+            rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.size.x - leftRect.width - leftRect.x - 10f, window.position.size.y - 60f);
+            
+            LeftArea(leftRect);            
             RightArea(rightRect);
+
+            Event e = Event.current;
+
+            switch (e.type)
+            {
+                case EventType.KeyDown:
+                    if (e.keyCode == KeyCode.Escape)
+                    {
+                        window.Close();                     
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            //if (Event.current.type == EventType.MouseMove) Repaint();
+            //Repaint();          
         }
 
         private void OnDestroy()
@@ -93,6 +114,7 @@ namespace UnitEditor
         public static void ShowWindow()
         {
             window = GetWindow<UnitEditorWindow>("UnitEditor");
+            window.minSize = new Vector2(650f, 350f);
         }
 
         private void Initialize()
@@ -122,23 +144,23 @@ namespace UnitEditor
         #region Areas
 
         private void LeftArea(Rect rect)
-        {          
-            GUILayout.BeginArea(rect);
-            scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1, GUILayout.Height(window.position.height), GUILayout.Width(300f));
-            MyGUI.DrawColorRect(new Rect(0f, 0f, rect.width - 20f, 999f), new Color(0.45f, 0.45f, 0.45f));
+        {
+            Rect viewRect = new Rect(0f, 0f, rect.width - 20f, 2000f);         
+            scrollPosition1 = GUI.BeginScrollView(rect, scrollPosition1, viewRect);
+            MyGUI.DrawColorRect(viewRect, new Color(0.35f, 0.35f, 0.35f));
             buttonlist.OnGUI();
-            EditorGUILayout.EndScrollView();
-            GUILayout.EndArea();
+            GUI.EndScrollView();
         }
 
         private void RightArea(Rect rect)
         {
-            GUILayout.BeginArea(rect);
-            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, GUILayout.Height(window.position.height), GUILayout.Width(window.position.width - leftRect.width - 5f));
-            MyGUI.DrawColorRect(new Rect(0f, 0f, rect.width - 20f, 2000f), new Color(0.35f, 0.35f, 0.35f));
+            Rect viewRect = new Rect(0f, 0f, 900f, 2000f);
+            scrollPosition2 = GUI.BeginScrollView(rect, scrollPosition2, viewRect);
+            MyGUI.DrawColorRect(new Rect(viewRect.x, viewRect.y, rect.width, viewRect.height), new Color(0.35f, 0.35f, 0.35f));
+            GUILayout.BeginArea(viewRect);
             propertiesArea.OnGUI();
-            EditorGUILayout.EndScrollView();
             GUILayout.EndArea();
+            GUI.EndScrollView();
         }
 
         #endregion

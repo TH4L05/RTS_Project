@@ -37,6 +37,8 @@ public class WeaponData : ScriptableObject
     [SerializeField] private float projectileSpeed;
 
     public AttackType AttackType => attackType;
+    public DamageType DamageType => type;
+    public float BaseDamage => baseDamage;
     public GameObject ProjectileTemplate => projectileTemplate;
     public float ProjectileSpeed => projectileSpeed;
     public float DamageTime => damageTime;

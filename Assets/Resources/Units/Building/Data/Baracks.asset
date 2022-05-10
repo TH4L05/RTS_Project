@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Baracks
   type: 0
-  tooltip: create melee and range units
+  tooltip: create melee and range units.
   buildTime: 5
   deathTime: 0
   requiredResources:
@@ -22,20 +22,19 @@ MonoBehaviour:
     amount: 25
   - ResoureData: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
     amount: 5
-  healthMax: 1000
+  healthMax: 1500
   healthRegen: 0
   healthRegenRate: 0
   manaMax: 0
   manaRegen: 0
   manaRegenRate: 0
-  amor: 0
+  armor: 0
   attackRange: 0
   actionRange: 2
   attackSpeed: 0
   basedamage: 1
   weapon: {fileID: 0}
   weaponAttackOffsetTime: 0
-  test: {fileID: 0}
   abilities:
   - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
   - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}
