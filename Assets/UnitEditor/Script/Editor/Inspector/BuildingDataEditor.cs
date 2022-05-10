@@ -19,10 +19,11 @@ namespace UnitEditor.Inspector
         private GUISkin mySkin;
         private Texture2D[] iconTextures;
         private BaseSection baseSection;
-        private UnitDataSectionIcon iconSection;
-        private UnitDataSectionStatsBase statsSection;
-        private UnitDataSectionStatsAdditional statsAdditionalSection;
-        private UnitDataAbilitiesSection abilitiesSection;
+        private IconSection iconSection;
+        private StatsBaseSection statsSection;
+        private StatsAdditionalSection statsAdditionalSection;
+        private AbilitiesSection abilitiesSection;
+        private BuildingSpecificSection buildingSpecificSection;
 
         #endregion
 
@@ -35,10 +36,11 @@ namespace UnitEditor.Inspector
             LoadSkin(path);
 
             baseSection = new BaseSection(serializedObject, mySkin, iconTextures);
-            iconSection = new UnitDataSectionIcon(serializedObject, mySkin, iconTextures);
-            statsSection = new UnitDataSectionStatsBase(serializedObject, mySkin, iconTextures);
-            statsAdditionalSection = new UnitDataSectionStatsAdditional(serializedObject, mySkin, iconTextures);
-            abilitiesSection = new UnitDataAbilitiesSection(serializedObject, mySkin, iconTextures);
+            iconSection = new IconSection(serializedObject, mySkin, iconTextures);
+            statsSection = new StatsBaseSection(serializedObject, mySkin, iconTextures);
+            statsAdditionalSection = new StatsAdditionalSection(serializedObject, mySkin, iconTextures);
+            abilitiesSection = new AbilitiesSection(serializedObject, mySkin, iconTextures);
+            buildingSpecificSection = new BuildingSpecificSection(serializedObject, mySkin, iconTextures);
 
         }
 
@@ -49,6 +51,7 @@ namespace UnitEditor.Inspector
             if (statsSection != null) DestroyImmediate(statsSection);
             if (statsAdditionalSection != null) DestroyImmediate(statsAdditionalSection);
             if (abilitiesSection != null) DestroyImmediate(abilitiesSection);
+            if (buildingSpecificSection != null) DestroyImmediate(buildingSpecificSection);
         }
 
         #endregion
@@ -70,13 +73,14 @@ namespace UnitEditor.Inspector
             Rect baseSectionRect2a = new Rect(baseX, baseY + baseSectionRect1b.y + baseSectionRect1b.height, baseWidth, baseHeight);
             Rect baseSectionRect2b = new Rect(baseX, baseY + baseSectionRect2a.y + baseSectionRect2a.height, baseWidth, 300f);
             Rect baseSectionRect3 = new Rect(baseX, baseY + baseSectionRect2b.y + baseSectionRect2b.height, baseWidth, 410f);
-            Rect baseSectionRect4 = new Rect(baseX, baseY + baseSectionRect3.y + baseSectionRect3.height, baseWidth, baseHeight);
+            Rect baseSectionRect4 = new Rect(baseX, baseY + baseSectionRect3.y + baseSectionRect3.height, baseWidth, 600f);
 
             baseSection.OnGUI(baseSectionRect1a);
             iconSection.OnGUI(baseSectionRect1b);
             statsSection.OnGUI(baseSectionRect2a);
             statsAdditionalSection.OnGUI(baseSectionRect2b);
             abilitiesSection.OnGUI(baseSectionRect3);
+            buildingSpecificSection.OnGUI(baseSectionRect4);
 
             serializedObject.ApplyModifiedProperties();
         }

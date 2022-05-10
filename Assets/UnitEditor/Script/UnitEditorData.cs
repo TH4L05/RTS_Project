@@ -8,7 +8,4 @@ public class UnitEditorData : ScriptableObject
 {
     public string resourcesPath = "Assets/";
     public string unitsRootFolderName = "Units";
-
-    public Texture healthIcon;
-    public Texture manaIcon;
 }

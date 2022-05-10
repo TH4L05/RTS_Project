@@ -6,12 +6,12 @@ using UnitEditor.UI.Custom;
 
 namespace UnitEditor.UI.Section
 {
-    public class UnitDataSectionIcon : UnitDataSection
+    public class IconSection : UnitDataSection
     {
         #region Fields
         #endregion
 
-        public UnitDataSectionIcon(SerializedObject so, GUISkin skin, Texture2D[] textures)
+        public IconSection(SerializedObject so, GUISkin skin, Texture2D[] textures)
             : base(so, skin, textures)
         {
         }
