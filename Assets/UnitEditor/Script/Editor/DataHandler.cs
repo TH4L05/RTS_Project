@@ -1,9 +1,11 @@
 /// <author> Thomas Krahl </author>
 
-using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEditor;
+using System.Linq;
 
 namespace UnitEditor.Data
 {
@@ -157,7 +159,15 @@ namespace UnitEditor.Data
             return list[listIndex];
         }
 
+        private void DeleteFromList(UnitType type, GameObject obj)
+        {
+            List<GameObject> list = GetList(type);
+            list.Remove(obj);          
+        }
+
         #endregion
+
+        #region Other
 
         public UnityEngine.Object[] LoadAllFromResources(string path)
         {          
@@ -176,6 +186,133 @@ namespace UnitEditor.Data
         {
             return editorDataPath;
         }
+
+        #endregion
+
+        #region CreateUnit
+
+        public void CreateNewUnit(UnitType type, string name)
+        {
+            string path = data.resourcesPath + "Resources/" + data.unitsRootFolderName + "/" + type.ToString() +"/";
+            var unitData = CreateUnitData(type, name, path);
+            CreateUnitObject(type, name, path, unitData);
+        }
+
+        private UnitData CreateUnitData(UnitType type, string name, string path)
+        {
+            UnitData unitData = null;
+            //Debug.Log(path);
+
+            switch (type)
+            {
+                case UnitType.Undefined:
+                default:
+                    return unitData;
+
+
+                case UnitType.Building:
+                    unitData = ScriptableObject.CreateInstance<BuildingData>();
+                    break;
+
+
+                case UnitType.Character:
+                    unitData = ScriptableObject.CreateInstance<CharacterData>();
+                    break;
+            }
+
+            unitData.name = name;
+            unitData.SetTypeAndName(type, name);
+            AssetDatabase.CreateAsset(unitData, path + "Data/" + name + ".asset");
+            return unitData;
+        }
+
+        private void CreateUnitObject(UnitType type, string name, string path, UnitData data)
+        {
+            var go = new GameObject(name);
+            Unit unit = null;
+
+            go.layer = LayerMask.NameToLayer("Unit");
+            go.tag = type.ToString();
+
+            switch (type)
+            {
+                case UnitType.Undefined:
+                default:
+                    return;
+
+
+                case UnitType.Building:
+                    unit = go.AddComponent<Building>();
+                    go.AddComponent<NavMeshObstacle>();
+                    go.AddComponent<BoxCollider>();
+                    unit.SetUnitData(data);                  
+                    break;
+
+
+                case UnitType.Character:
+                    unit = go.AddComponent<Character>();
+                    go.AddComponent<NavMeshAgent>();
+                    go.AddComponent<CapsuleCollider>();
+                    unit.SetUnitData(data);                   
+                    break;
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(go, path + name + ".prefab");
+
+            List<GameObject> list = GetList(type);
+            list.Add(go);
+            list = list.OrderBy(o => o.name).ToList();
+        }
+
+        #endregion
+
+        #region DeleteUnit
+
+        public void DeleteUnit(UnitType type, int index)
+        {
+            var obj = GetObjectFromList(type, index);
+            string name = obj.name;
+            string path = data.resourcesPath + "Resources/" + data.unitsRootFolderName + "/" + type.ToString() + "/";
+
+            DeleteUnitData(path, name);
+            DeleteUnitObject(path, name);
+
+            DeleteFromList(type, obj);
+        }
+
+        private void DeleteUnitData(string path, string name)
+        {
+            bool deleteSuccess = false;
+            string unitDataPath = path + "Data/" + name + ".asset";
+            deleteSuccess = AssetDatabase.DeleteAsset(unitDataPath);
+
+            if (deleteSuccess)
+            {
+                Debug.Log($"<color=#43F92A>{unitDataPath} deleted</color>");
+            }
+            else
+            {
+                Debug.LogError($"<color=red>ERROR !! - Could not delete {unitDataPath}</color>");
+            }
+        }
+
+        private void DeleteUnitObject(string path, string name)
+        {
+            bool deleteSuccess = false;
+            string unitObjectPath = path + name + ".prefab";
+            deleteSuccess = AssetDatabase.DeleteAsset(unitObjectPath);
+
+            if (deleteSuccess)
+            {
+                Debug.Log($"<color=#43F92A>{unitObjectPath} deleted</color>");
+            }
+            else
+            {
+                Debug.LogError($"<color=red>ERROR !! - Could not delete {unitObjectPath}</color>");
+            }
+        }
+
+        #endregion
     }
 }
 

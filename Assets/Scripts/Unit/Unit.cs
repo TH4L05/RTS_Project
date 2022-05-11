@@ -72,6 +72,11 @@ public class Unit : MonoBehaviour, IDamagable, ISelectable
         humanConrolledUnit = humanControlled;
     }
 
+    public virtual void SetUnitData(UnitData data)
+    {
+        unitData = data;
+    }
+
     public virtual void SetPlayerColor(Color color)
     {
         var model = transform.GetChild(0);
@@ -151,13 +156,15 @@ public class Unit : MonoBehaviour, IDamagable, ISelectable
 
     #endregion
 
+    #region Selection
+
     public virtual void OnSelect()
     {
         if(!humanConrolledUnit) return;
         ChangeSelectionVisibility(true);
     }
 
-    public virtual void OnDeselect()
+    public virtual void OnDeSelect()
     {
         ChangeSelectionVisibility(false);
     }
@@ -167,8 +174,5 @@ public class Unit : MonoBehaviour, IDamagable, ISelectable
         if (selectionCircle != null) selectionCircle.SetActive(visible);
     }
 
-    public void OnDeSelect()
-    {
-        throw new NotImplementedException();
-    }
+    #endregion
 }

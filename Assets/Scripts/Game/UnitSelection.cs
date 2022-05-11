@@ -333,7 +333,7 @@ public class UnitSelection : MonoBehaviour
     {
         foreach (var unit in selectedUnits)
         {
-            unit.OnDeselect();
+            unit.OnDeSelect();
         }
 
         selectedUnits.Clear();

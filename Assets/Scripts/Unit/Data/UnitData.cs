@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnitEditor.Attributes;
 
 [System.Serializable]
 public class ResourceSetup
@@ -24,7 +23,7 @@ public class UnitData : ScriptableObject
 
     //[Header("UnitBase")]
     [SerializeField] private new string name;
-    [NoLabel] [SerializeField] private UnitType type = UnitType.Undefined;
+    [SerializeField] private UnitType type = UnitType.Undefined;
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;
@@ -84,4 +83,11 @@ public class UnitData : ScriptableObject
     public Sprite ActionButtonIconPressed => actionButtonIconPressed;
 
     #endregion
+
+    public void SetTypeAndName(UnitType type, string name)
+    {
+        this.name = name;
+        this.type = type;
+        tooltip = this.type.ToString();
+    }
 }

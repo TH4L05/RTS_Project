@@ -12,23 +12,11 @@ namespace UnitEditor
 {
     public class UnitEditorWindow : EditorWindow
     {
-        #region Events
-
-
-
-        #endregion
-
-        #region SerializedFields
-
-
-
-        #endregion
-
         #region PrivateFields
 
         private static UnitEditorWindow window;
         private UnitEditorToolbar toolbar;
-        private ButtonList buttonlist;
+        private ButtonList buttonList;
         private PropertiesArea propertiesArea;
         private bool setupDone = false;
 
@@ -43,8 +31,6 @@ namespace UnitEditor
         #region PublicFields
 
         public DataHandler dataHandler;
-        public static bool NeedRepaint { get; set; }
-
 
         #endregion
 
@@ -63,12 +49,13 @@ namespace UnitEditor
 
             leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 60f);
             rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.size.x - leftRect.width - leftRect.x - 10f, window.position.size.y - 60f);
+            Rect bottomRect = new Rect(30f, window.position.size.y - 35f, 250f, 30f);
             
             LeftArea(leftRect);            
             RightArea(rightRect);
+            LeftBottomArea(bottomRect);
 
             Event e = Event.current;
-
             switch (e.type)
             {
                 case EventType.KeyDown:
@@ -82,28 +69,12 @@ namespace UnitEditor
                     break;
             }
 
-            //if (Event.current.type == EventType.MouseMove) Repaint();
             //Repaint();          
         }
 
         private void OnDestroy()
         {
-            if (toolbar != null)
-            {
-                toolbar.Destroy();
-                DestroyImmediate(toolbar);
-            }
-            if (buttonlist != null)
-            {
-                buttonlist.Destroy();
-                DestroyImmediate(buttonlist);
-            }
-
-            if (propertiesArea != null)
-            {
-                propertiesArea.Destroy();
-                DestroyImmediate(propertiesArea);
-            }
+            Destroy();
         }
 
         #endregion
@@ -125,20 +96,49 @@ namespace UnitEditor
 
             if (!setupSuccess)
             {
-                window.Close();
+                Close();
                 Debug.LogError("Setup Failed");
                 return;
             }
 
             toolbar = new UnitEditorToolbar(this);
-            buttonlist = new ButtonList(this, dataHandler);
+            toolbar.ResetScrollPosition += ResetAllScrollPositions;
+
+            buttonList = new ButtonList(this, dataHandler);
+            buttonList.ResetScrollPosition += ResetScrollPosition;
+
             propertiesArea = new PropertiesArea(this, dataHandler);
+
+
             setupDone = true;
         }
 
         #endregion
 
         #region Destroy
+
+        private void Destroy()
+        {
+            if (toolbar != null)
+            {
+                toolbar.ResetScrollPosition -= ResetAllScrollPositions;
+                toolbar.Destroy();
+                DestroyImmediate(toolbar);
+            }
+            if (buttonList != null)
+            {
+                buttonList.ResetScrollPosition -= ResetScrollPosition;
+                buttonList.Destroy();
+                DestroyImmediate(buttonList);
+            }
+
+            if (propertiesArea != null)
+            {
+                propertiesArea.Destroy();
+                DestroyImmediate(propertiesArea);
+            }
+        }
+
         #endregion
 
         #region Areas
@@ -148,8 +148,20 @@ namespace UnitEditor
             Rect viewRect = new Rect(0f, 0f, rect.width - 20f, 2000f);         
             scrollPosition1 = GUI.BeginScrollView(rect, scrollPosition1, viewRect);
             MyGUI.DrawColorRect(viewRect, new Color(0.35f, 0.35f, 0.35f));
-            buttonlist.OnGUI();
+            buttonList.OnGUI();
             GUI.EndScrollView();
+        }
+        private void LeftBottomArea(Rect rect)
+        {
+            GUILayout.BeginArea(rect);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("New Unit"))
+            {
+                NewUnitWindow.OpenWindow(this);
+            }
+            GUILayout.Button("Settings");
+            EditorGUILayout.EndHorizontal();
+            GUILayout.EndArea();
         }
 
         private void RightArea(Rect rect)
@@ -164,6 +176,17 @@ namespace UnitEditor
         }
 
         #endregion
+
+        private void ResetAllScrollPositions()
+        {
+            scrollPosition1 = Vector2.zero;
+            scrollPosition2 = Vector2.zero;
+        }
+
+        private void ResetScrollPosition()
+        {
+            scrollPosition2 = Vector2.zero;
+        }
     }
 }
 

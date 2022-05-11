@@ -15,9 +15,11 @@ namespace UnitEditor.UI
     public class ButtonList : Object
     {
         public static Action<int, UnitType> OnButtonPressed;
+        public static Action<int, UnitType> UnitDeletion;
+        public Action ResetScrollPosition;
 
+        private UnitEditorWindow editorwindow;
         private Vector2 scrollPosition = Vector2.zero;
-        private UnitEditorWindow window;
         private string[] unitNames;
         private DataHandler dataHandler;
         private Editor editor;
@@ -27,37 +29,48 @@ namespace UnitEditor.UI
 
         public ButtonList(UnitEditorWindow window, DataHandler dataHandler)
         {
-            this.window = window;
+            editorwindow = window;
             this.dataHandler = dataHandler;         
-            Setup();
+            Intitialize();
         }
 
-        public void Setup()
+        #region Intitialize
+
+        public void Intitialize()
         {
             unitNames = new string[0];
-            LoadList(0);
             UnitEditorToolbar.ToolbarIndexChanged += LoadList;
+            NewUnitWindow.NewUnitCreated += ReloadList;
 
+            LoadList(0);
             var path = DataHandler.GetEditorDataPath();
             LoadSkin(path + "/Data/UnitDataSkin.guiskin");
         }
-
-        public void Destroy()
-        {
-            if(editor != null) DestroyImmediate(editor);
-            UnitEditorToolbar.ToolbarIndexChanged -= LoadList;
-        }
-
         private void LoadSkin(string path)
         {
             mySkin = AssetDatabase.LoadAssetAtPath<GUISkin>(path);
         }
 
+        #endregion
+
+        #region Destroy
+
+        public void Destroy()
+        {
+            if(editor != null) DestroyImmediate(editor);
+            UnitEditorToolbar.ToolbarIndexChanged -= LoadList;
+            NewUnitWindow.NewUnitCreated -= ReloadList;
+        }
+
+        #endregion
+
+        #region GUI
+
         public void OnGUI()
         {
             if (unitNames.Length == 0)
             {
-                GUILayout.Label("No Units created");
+                OnButtonPressed?.Invoke(-1, type);
             }
             else
             {
@@ -70,13 +83,12 @@ namespace UnitEditor.UI
                     if (GUILayout.Button(unitNames[i], mySkin.customStyles[10]))
                     {
                         index = i;
-                        OnButtonPressed(index, type);
-                      
+                        OnButtonPressed?.Invoke(index, type);
+                        ResetScrollPosition?.Invoke();
                     }
                     if (GUILayout.Button("X", GUILayout.Width(20f), GUILayout.Height(25f)))
                     {
-                        //index = i;
-                        //DeleteList();
+                        DeleteUnit(i);
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.EndArea();
@@ -93,6 +105,7 @@ namespace UnitEditor.UI
             if (type == UnitType.Undefined) return;
             LoadDataNames(type);
         }
+
 
         private void LoadDataNames(UnitType type)
         {
@@ -112,6 +125,27 @@ namespace UnitEditor.UI
             }
 
         }
+
+        private void ReloadList()
+        {
+            if (editor != null) DestroyImmediate(editor);
+            LoadDataNames(type);
+            OnButtonPressed?.Invoke(index, type);
+            editorwindow.Repaint();
+        }
+
+        private void DeleteUnit(int indx)
+        {
+            if (type == UnitType.Undefined) return;
+
+            UnitDeletion?.Invoke(indx, type);
+            dataHandler.DeleteUnit(type, indx);
+
+            this.index = 0;
+            ReloadList();
+        }
+
+        #endregion
     }
 }
 

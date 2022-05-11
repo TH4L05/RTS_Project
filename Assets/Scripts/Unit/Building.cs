@@ -231,9 +231,9 @@ public class Building : Unit
         onSelection = true;
     }
 
-    public override void OnDeselect()
+    public override void OnDeSelect()
     {
-        base.OnDeselect();
+        base.OnDeSelect();
         onSelection = false;
     }
 
