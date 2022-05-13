@@ -66,6 +66,11 @@ namespace UnitEditor.Toolbar
         }
 
         #endregion
+
+        public int GetIndex()
+        {
+            return toolbarIndex;
+        }
     }
 }
 

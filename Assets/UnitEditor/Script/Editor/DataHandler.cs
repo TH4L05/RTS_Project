@@ -261,7 +261,8 @@ namespace UnitEditor.Data
 
             List<GameObject> list = GetList(type);
             list.Add(go);
-            list = list.OrderBy(o => o.name).ToList();
+            //list = list.OrderBy(o => o.name).ToList();
+            list.Sort((x, y) => string.Compare(x.name, y.name));          
         }
 
         #endregion

@@ -14,20 +14,21 @@ namespace UnitEditor.UI
     {
         #region Fields
 
-        private UnitEditorWindow window;
+        private UnitEditorWindow editorWindow;
         private DataHandler dataHandler;
         private Editor editorUnitData;
         private Editor editorUnitTypeData;
         private int messageCode;
+        private Vector2 srollPosition = Vector2.zero;
 
-        private GameObject obj;
+        private static GameObject obj;
         private int index;
 
         #endregion
 
         public PropertiesArea(UnitEditorWindow window, DataHandler dataHandler)
         {
-            this.window = window;
+            this.editorWindow = window;
             this.dataHandler = dataHandler;
             Initialize();
         }
@@ -160,6 +161,7 @@ namespace UnitEditor.UI
             }
 
             editorUnitData = Editor.CreateEditor(data);
+            editorUnitTypeData = Editor.CreateEditor(unit.gameObject);
             EditorUtility.SetDirty(data);
         }
 
@@ -186,6 +188,11 @@ namespace UnitEditor.UI
                     data = unit.UnitData as CharacterData;
                     return (unit, data);
             }
+        }
+
+        public static GameObject GetObj()
+        {
+            return obj;
         }
 
         #endregion

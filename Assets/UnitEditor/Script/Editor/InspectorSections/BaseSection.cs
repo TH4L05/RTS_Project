@@ -44,7 +44,26 @@ namespace UnitEditor.UI.Section
             sectionRect = new Rect(sectionRect.x + 5f, sectionRect.y + 5f, 150f, 150f);
             EditorGUI.DrawPreviewTexture(sectionRect, iconTexture);
 
-            sectionRect = new Rect(sectionRect.x + 160f, sectionRect.y, 256f, 75f);
+            sectionRect = new Rect(baseRect.width - 300f, sectionRect.y, 125f, 125f);
+            GUILayout.BeginArea(sectionRect);
+            EditorGUILayout.BeginVertical();
+            if (GUILayout.Button("Edit Components", GUILayout.Height(40f)))
+            {
+                if (ComponentsWindow.IsOpen)
+                {
+                    ComponentsWindow.CloseWindow();
+                }
+                ComponentsWindow.OpenWindow();
+
+                var obj = PropertiesArea.GetObj();                
+                ComponentsWindow.SetObject(obj);
+            }
+            EditorGUILayout.Space(5f);
+            GUILayout.Button("Add To Scene", GUILayout.Height(40f));
+            EditorGUILayout.EndVertical();
+            GUILayout.EndArea();
+
+            sectionRect = new Rect(165f, sectionRect.y, 256f, 75f);
             GUILayout.BeginArea(sectionRect);
 
             EditorGUILayout.BeginVertical();

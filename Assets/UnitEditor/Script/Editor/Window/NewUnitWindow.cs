@@ -18,6 +18,7 @@ namespace UnitEditor
         #region Fields
 
         private static NewUnitWindow window;
+		private static UnitEditorWindow editorWindow;
 		private static DataHandler dataHandler;
 		private UnitType unitType;
 		private string unitName;
@@ -44,29 +45,53 @@ namespace UnitEditor
 
 		private void OnGUI()
 		{
-			Rect rect = new Rect(15f, 15f, 300f, 175f);
-			GUILayout.BeginArea(rect);
+			unitType = (UnitType)editorWindow.GetToolBarIndex();
 
-			EditorGUILayout.LabelField("UnitType");
-			EditorGUILayout.Space(1f);
-			unitType = (UnitType)EditorGUILayout.EnumFlagsField(unitType);
-			EditorGUILayout.Space(6f);
-			EditorGUILayout.LabelField("Name");
-			EditorGUILayout.Space(1f);
-			unitName = EditorGUILayout.TextField(unitName);
-			EditorGUILayout.Space(15f);
-			EditorGUILayout.BeginHorizontal();
-			if (GUILayout.Button("Cancel", GUILayout.Width(100f), GUILayout.Height(40f)))
-			{
-				Close();
-			}
-			if (GUILayout.Button("Create", GUILayout.Width(100f), GUILayout.Height(40f)))
-			{
-				dataHandler.CreateNewUnit(unitType, unitName);
-				NewUnitCreated?.Invoke();
-				Close();
-			}
-			EditorGUILayout.EndHorizontal();
+			Rect areaRect = new Rect(15f, 15f, 300f, 175f);		
+			GUILayout.BeginArea(areaRect);
+            {
+				GUIStyle label1 = new GUIStyle();
+				label1.normal.textColor = Color.white;
+
+				GUIStyle label2 = new GUIStyle();
+				label2.fontStyle = FontStyle.Bold;
+				label2.normal.textColor = new Color(0.85f, 0.55f, 0f, 0.85f) ;
+				label2.fontSize = 15;
+
+				Rect rect = new Rect(25f, 2f, 150f, 25f);
+				EditorGUI.LabelField(rect, $"Create new Unit of Type: ", label1);
+
+				rect = new Rect(rect.x + rect.width + 2f, 0f, 125f, 25f);
+				EditorGUI.LabelField(rect, $"{unitType}", label2);
+
+				rect = new Rect(25f, rect.y + rect.height + 5f, 150f, 25f);
+				EditorGUI.LabelField(rect, "Name");
+
+				rect = new Rect(rect.x, rect.y + rect.height + 2f, 200f, 25f);
+				unitName = EditorGUI.TextField(rect, unitName);
+
+				rect = new Rect(25f, rect.y + rect.height + 8f, 250f, 40f);
+				GUILayout.BeginArea(rect);
+				EditorGUILayout.BeginHorizontal();
+				if (GUILayout.Button("Cancel", GUILayout.Width(100f), GUILayout.Height(35f)))
+				{
+					Close();
+				}
+				if (GUILayout.Button("Create", GUILayout.Width(100f), GUILayout.Height(35f)))
+				{
+					CreateNewUnit();
+				}
+				EditorGUILayout.EndHorizontal();
+				GUILayout.EndArea();
+
+				rect = new Rect(25f, rect.y + rect.height + 6f, 250f, 40f);
+				GUILayout.BeginArea(rect);
+				if (string.IsNullOrEmpty(unitName))
+				{					
+					EditorGUILayout.HelpBox("Can not create new Unit with emtpy name", MessageType.Warning);
+				}
+				GUILayout.EndArea();
+			}			
 			GUILayout.EndArea();
 
 		}
@@ -83,12 +108,13 @@ namespace UnitEditor
 		public static void OpenWindow(UnitEditorWindow rootWindow)
 		{
 			window = GetWindow<NewUnitWindow>("Craete New Unit");
+			editorWindow = rootWindow;
 
 			window.maxSize = new Vector2(400f, 200f);
 			window.minSize = new Vector2(400f, 200f);
-			window.position = new Rect(rootWindow.position.x + 50f, rootWindow.position.y + (rootWindow.position.height / 2), 400f, 200f);
+			window.position = new Rect(editorWindow.position.x + 50f, editorWindow.position.y + (editorWindow.position.height / 2), 400f, 200f);
 
-			dataHandler = rootWindow.dataHandler;
+			dataHandler = rootWindow.DataHandler;
 		}
 
 		private bool Initialize()
@@ -100,6 +126,14 @@ namespace UnitEditor
 
 		#region Destroy
 		#endregion
+
+		private void CreateNewUnit()
+        {
+			if (string.IsNullOrEmpty(unitName)) return;
+			dataHandler.CreateNewUnit(unitType, unitName);
+			NewUnitCreated?.Invoke();
+			Close();
+		}
 
 	}
 }

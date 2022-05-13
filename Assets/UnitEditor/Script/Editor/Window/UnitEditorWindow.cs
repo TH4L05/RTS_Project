@@ -18,19 +18,17 @@ namespace UnitEditor
         private UnitEditorToolbar toolbar;
         private ButtonList buttonList;
         private PropertiesArea propertiesArea;
-        private bool setupDone = false;
+        private DataHandler dataHandler;
 
+        private bool setupDone = false;
         private Vector2 scrollPosition1 = Vector2.zero;
         private Vector2 scrollPosition2 = Vector2.zero;
-
-        private Rect leftRect;
-        private Rect rightRect;
 
         #endregion
 
         #region PublicFields
 
-        public DataHandler dataHandler;
+        public DataHandler DataHandler => dataHandler;
 
         #endregion
 
@@ -47,13 +45,23 @@ namespace UnitEditor
 
             toolbar.OnGUI();
 
-            leftRect = new Rect(20f, 50f, 300f, window.position.size.y - 60f);
-            rightRect = new Rect(leftRect.position.x + leftRect.size.x + 5f, 50f, window.position.size.x - leftRect.width - leftRect.x - 10f, window.position.size.y - 60f);
-            Rect bottomRect = new Rect(30f, window.position.size.y - 35f, 250f, 30f);
             
-            LeftArea(leftRect);            
-            RightArea(rightRect);
-            LeftBottomArea(bottomRect);
+            
+            EditorGUILayout.Space(50f);
+            EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.BeginVertical(GUILayout.Width(250f));
+                    LeftArea();
+                    LeftAreaBottom();
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.Space(5f);
+
+                EditorGUILayout.BeginVertical(GUILayout.Width(window.position.size.x - 250f));
+                    RightArea();
+                EditorGUILayout.EndVertical();
+
+            EditorGUILayout.EndHorizontal();
 
             Event e = Event.current;
             switch (e.type)
@@ -109,7 +117,6 @@ namespace UnitEditor
 
             propertiesArea = new PropertiesArea(this, dataHandler);
 
-
             setupDone = true;
         }
 
@@ -143,39 +150,56 @@ namespace UnitEditor
 
         #region Areas
 
-        private void LeftArea(Rect rect)
-        {
-            Rect viewRect = new Rect(0f, 0f, rect.width - 20f, 2000f);         
-            scrollPosition1 = GUI.BeginScrollView(rect, scrollPosition1, viewRect);
-            MyGUI.DrawColorRect(viewRect, new Color(0.35f, 0.35f, 0.35f));
-            buttonList.OnGUI();
-            GUI.EndScrollView();
-        }
-        private void LeftBottomArea(Rect rect)
-        {
-            GUILayout.BeginArea(rect);
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("New Unit"))
-            {
-                NewUnitWindow.OpenWindow(this);
-            }
-            GUILayout.Button("Settings");
-            EditorGUILayout.EndHorizontal();
-            GUILayout.EndArea();
+        private void LeftArea()
+        {        
+            scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1, false, false, GUILayout.Width(250f));
+                EditorGUILayout.Space(10f);
+                GUILayout.BeginHorizontal();
+
+                    EditorGUILayout.Space(10f);
+                    Rect colorRect = new Rect(5f, 0f, 250f, window.position.size.y);
+                    MyGUI.DrawColorRect(colorRect, new Color(0.35f, 0.35f, 0.35f));
+                    buttonList.OnGUI();
+
+                GUILayout.EndHorizontal();
+            EditorGUILayout.EndScrollView();                    
         }
 
-        private void RightArea(Rect rect)
+        private void LeftAreaBottom()
         {
-            Rect viewRect = new Rect(0f, 0f, 900f, 2000f);
-            scrollPosition2 = GUI.BeginScrollView(rect, scrollPosition2, viewRect);
-            MyGUI.DrawColorRect(new Rect(viewRect.x, viewRect.y, rect.width, viewRect.height), new Color(0.35f, 0.35f, 0.35f));
-            GUILayout.BeginArea(viewRect);
-            propertiesArea.OnGUI();
-            GUILayout.EndArea();
+            EditorGUILayout.Space(10f);
+            EditorGUILayout.BeginHorizontal();
+
+                GUILayout.Button("", GUILayout.Width(11f), GUILayout.Height(0.1f));
+                if (GUILayout.Button("New Unit", GUILayout.Width(90f), GUILayout.Height(35f)))
+                {
+                    NewUnitWindow.OpenWindow(this);
+                }
+
+                if (GUILayout.Button("Settings", GUILayout.Width(90f), GUILayout.Height(35f)))
+                {
+
+                }
+
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space(15f);
+        }
+
+        private void RightArea()
+        {
+            Rect areaRect = new Rect(255f, 50f, window.position.size.x - 270f, window.position.size.y - 60f);
+            Rect viewRect = new Rect(areaRect.x, areaRect.y, 900f, 2000f);
+            MyGUI.DrawColorRect(new Rect(viewRect.x, viewRect.y, areaRect.width, viewRect.height), new Color(0.35f, 0.35f, 0.35f));
+
+            scrollPosition2 = GUI.BeginScrollView(areaRect, scrollPosition2, viewRect);
+                GUILayout.BeginArea(viewRect);
+                    propertiesArea.OnGUI();
+                GUILayout.EndArea();
             GUI.EndScrollView();
         }
 
         #endregion
+
 
         private void ResetAllScrollPositions()
         {
@@ -187,6 +211,13 @@ namespace UnitEditor
         {
             scrollPosition2 = Vector2.zero;
         }
+
+        public int GetToolBarIndex()
+        {
+            return toolbar.GetIndex();
+        }
+
+
     }
 }
 

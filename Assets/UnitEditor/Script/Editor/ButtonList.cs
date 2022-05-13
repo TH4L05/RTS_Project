@@ -74,11 +74,9 @@ namespace UnitEditor.UI
             }
             else
             {
-                Rect rect = new Rect(10f, 15f, 250f, 28f);
-
+                GUILayout.BeginVertical();
                 for (int i = 0; i < unitNames.Length; i++)
                 {
-                    GUILayout.BeginArea(rect);
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button(unitNames[i], mySkin.customStyles[10]))
                     {
@@ -90,11 +88,10 @@ namespace UnitEditor.UI
                     {
                         DeleteUnit(i);
                     }
-                    GUILayout.EndHorizontal();
-                    GUILayout.EndArea();
 
-                    rect.y += rect.height;
+                    GUILayout.EndHorizontal();
                 }
+                GUILayout.EndVertical();
             }                      
         }
 
