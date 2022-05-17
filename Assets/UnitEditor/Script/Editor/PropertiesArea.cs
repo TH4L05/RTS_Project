@@ -160,8 +160,7 @@ namespace UnitEditor.UI
                 return;
             }
 
-            editorUnitData = Editor.CreateEditor(data);
-            editorUnitTypeData = Editor.CreateEditor(unit.gameObject);
+            editorUnitData = Editor.CreateEditor(data);           
             EditorUtility.SetDirty(data);
         }
 

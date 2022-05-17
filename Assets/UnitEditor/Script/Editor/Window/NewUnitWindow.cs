@@ -23,7 +23,7 @@ namespace UnitEditor
 		private UnitType unitType;
 		private string unitName;
 
-		public static bool IsActive;
+		public static bool IsOpen;
 
 		#endregion
 
@@ -35,11 +35,11 @@ namespace UnitEditor
 
 			if (!setupSuccess)
 			{
-				window.Close();
+				Close();
 				Debug.LogError("New Unit Window Setup = Failed");
 			}
 
-			IsActive = true;
+			IsOpen = true;
 
 		}
 
@@ -98,7 +98,7 @@ namespace UnitEditor
 
 		private void OnDestroy()
 		{
-			IsActive = false;
+			IsOpen = false;
 		}
 
 		#endregion
@@ -109,12 +109,11 @@ namespace UnitEditor
 		{
 			window = GetWindow<NewUnitWindow>("Craete New Unit");
 			editorWindow = rootWindow;
+			dataHandler = UnitEditorWindow.DataHandler;
 
 			window.maxSize = new Vector2(400f, 200f);
 			window.minSize = new Vector2(400f, 200f);
 			window.position = new Rect(editorWindow.position.x + 50f, editorWindow.position.y + (editorWindow.position.height / 2), 400f, 200f);
-
-			dataHandler = rootWindow.DataHandler;
 		}
 
 		private bool Initialize()

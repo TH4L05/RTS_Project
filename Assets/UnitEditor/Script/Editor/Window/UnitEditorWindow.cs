@@ -7,6 +7,7 @@ using UnitEditor.Toolbar;
 using UnitEditor.Data;
 using UnitEditor.UI;
 using UnitEditor.UI.Custom;
+using System;
 
 namespace UnitEditor
 {
@@ -18,20 +19,22 @@ namespace UnitEditor
         private UnitEditorToolbar toolbar;
         private ButtonList buttonList;
         private PropertiesArea propertiesArea;
-        private DataHandler dataHandler;
+        private static DataHandler dataHandler;
 
         private bool setupDone = false;
         private Vector2 scrollPosition1 = Vector2.zero;
         private Vector2 scrollPosition2 = Vector2.zero;
 
+        private static bool needRepaint;
+
         #endregion
 
         #region PublicFields
 
-        public DataHandler DataHandler => dataHandler;
+        public static DataHandler DataHandler => dataHandler;
 
         #endregion
-
+        
         #region UnityFunctions
 
         private void OnEnable()
@@ -42,6 +45,12 @@ namespace UnitEditor
         private void OnGUI()
         {
             if (!setupDone) return;
+
+            if (needRepaint)
+            {
+                Repaint();
+                needRepaint = false;
+            }
 
             toolbar.OnGUI();
 
@@ -144,6 +153,9 @@ namespace UnitEditor
                 propertiesArea.Destroy();
                 DestroyImmediate(propertiesArea);
             }
+
+            LoadFromFileWIndow.CloseWindow();
+            ComponentsWindow.CloseWindow();
         }
 
         #endregion
@@ -187,8 +199,9 @@ namespace UnitEditor
 
         private void RightArea()
         {
-            Rect areaRect = new Rect(255f, 50f, window.position.size.x - 270f, window.position.size.y - 60f);
-            Rect viewRect = new Rect(areaRect.x, areaRect.y, 900f, 2000f);
+            Rect areaRect = new Rect(255f, 50f, window.position.size.x - 255f, window.position.size.y - 60f);
+            Rect viewRect = new Rect(areaRect.x, areaRect.y, 1000f, 2000f);
+
             MyGUI.DrawColorRect(new Rect(viewRect.x, viewRect.y, areaRect.width, viewRect.height), new Color(0.35f, 0.35f, 0.35f));
 
             scrollPosition2 = GUI.BeginScrollView(areaRect, scrollPosition2, viewRect);
@@ -200,6 +213,10 @@ namespace UnitEditor
 
         #endregion
 
+        public static void NeedRepaint()
+        {
+            needRepaint = true;
+        }
 
         private void ResetAllScrollPositions()
         {

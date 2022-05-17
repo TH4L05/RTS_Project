@@ -8,4 +8,7 @@ public class UnitEditorData : ScriptableObject
 {
     public string resourcesPath = "Assets/";
     public string unitsRootFolderName = "Units";
+
+    public GameObject buildingTemplate;
+    public GameObject characterTemplate;
 }

@@ -3,9 +3,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Object;
 using UnityEngine.AI;
 using UnityEditor;
-using System.Linq;
+using System.IO;
 
 namespace UnitEditor.Data
 {
@@ -14,7 +15,7 @@ namespace UnitEditor.Data
         #region PrivateFields
 
         private static string editorDataPath;
-        private UnitEditorData data;
+        private UnitEditorData editorData;
         private Dictionary<string, List<GameObject>> unitTypeMasterList;
 
         #endregion
@@ -64,9 +65,9 @@ namespace UnitEditor.Data
 
         public bool LoadEditorData()
         {
-            data = (UnitEditorData)LoadAsset(typeof(UnitEditorData), editorDataPath + "/Data/UnitEditorData.asset");
+            editorData = (UnitEditorData)LoadAsset(typeof(UnitEditorData), editorDataPath + "/Data/UnitEditorData.asset");
 
-            if (data == null)
+            if (editorData == null)
             {
                 Debug.LogError("Could not load EditorData");
                 return false;
@@ -91,21 +92,21 @@ namespace UnitEditor.Data
 
         public void CheckResourceFolder()
         {
-            bool folderExists = CheckIfFolderExists(data.resourcesPath);
+            bool folderExists = CheckIfFolderExists(editorData.resourcesPath);
             if (folderExists) return;
             CreateFolder("Assets", "Resources");
         }
 
         public void CheckUnitsFolder()
         {
-            bool folderExists = CheckIfFolderExists(data.resourcesPath + "/Resources/" + data.unitsRootFolderName);
+            bool folderExists = CheckIfFolderExists(editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName);
             if (folderExists) return;
-            CreateFolder(data.resourcesPath, data.unitsRootFolderName);
+            CreateFolder(editorData.resourcesPath, editorData.unitsRootFolderName);
         }
 
         public bool CheckUnitTypeFolder(string type)
         {
-            string path = data.resourcesPath + "/Resources/" + data.unitsRootFolderName + "/";
+            string path = editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName + "/";
             bool folderExists = CheckIfFolderExists(path + type);
             if (!folderExists)
             {
@@ -131,7 +132,7 @@ namespace UnitEditor.Data
                 string listName = unitType.ToString();
                 List<GameObject> list = new List<GameObject>();
 
-                string path = data.unitsRootFolderName + "/" + unitType.ToString();            
+                string path = editorData.unitsRootFolderName + "/" + unitType.ToString();            
                 UnityEngine.Object[] objects = LoadAllFromResources(path);
 
                 foreach (var obj in objects)
@@ -193,7 +194,7 @@ namespace UnitEditor.Data
 
         public void CreateNewUnit(UnitType type, string name)
         {
-            string path = data.resourcesPath + "Resources/" + data.unitsRootFolderName + "/" + type.ToString() +"/";
+            string path = editorData.resourcesPath + "Resources/" + editorData.unitsRootFolderName + "/" + type.ToString() +"/";
             var unitData = CreateUnitData(type, name, path);
             CreateUnitObject(type, name, path, unitData);
         }
@@ -228,11 +229,8 @@ namespace UnitEditor.Data
 
         private void CreateUnitObject(UnitType type, string name, string path, UnitData data)
         {
-            var go = new GameObject(name);
+            GameObject newUnitObject = null;
             Unit unit = null;
-
-            go.layer = LayerMask.NameToLayer("Unit");
-            go.tag = type.ToString();
 
             switch (type)
             {
@@ -242,27 +240,48 @@ namespace UnitEditor.Data
 
 
                 case UnitType.Building:
-                    unit = go.AddComponent<Building>();
-                    go.AddComponent<NavMeshObstacle>();
-                    go.AddComponent<BoxCollider>();
-                    unit.SetUnitData(data);                  
+                    if (editorData.buildingTemplate == null)
+                    {
+                        Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
+                        return;
+                    }
+                    newUnitObject = Instantiate(editorData.buildingTemplate);
+                    unit = newUnitObject.GetComponent<Building>();
+                    unit.SetUnitData(data);
+
+                    // old creation without Prefab
+                    //unit = go.AddComponent<Character>();
+                    //go.AddComponent<NavMeshAgent>();
+                    //go.AddComponent<CapsuleCollider>();               
                     break;
 
 
                 case UnitType.Character:
-                    unit = go.AddComponent<Character>();
-                    go.AddComponent<NavMeshAgent>();
-                    go.AddComponent<CapsuleCollider>();
-                    unit.SetUnitData(data);                   
+                    if (editorData.characterTemplate == null)
+                    {
+                        Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
+                        return;
+                    }
+                    newUnitObject = Instantiate(editorData.characterTemplate);
+                    unit = newUnitObject.GetComponent<Character>();
+                    unit.SetUnitData(data);              
                     break;
             }
 
-            PrefabUtility.SaveAsPrefabAsset(go, path + name + ".prefab");
+            newUnitObject.name = name;
+            newUnitObject.layer = LayerMask.NameToLayer("Unit");
+            newUnitObject.tag = type.ToString();
+
+            SaveAsPrefabAsset(newUnitObject, path);
 
             List<GameObject> list = GetList(type);
-            list.Add(go);
-            //list = list.OrderBy(o => o.name).ToList();
+            list.Add(newUnitObject);
             list.Sort((x, y) => string.Compare(x.name, y.name));          
+        }
+
+        private void SaveAsPrefabAsset(GameObject obj, string path)
+        {
+            PrefabUtility.SaveAsPrefabAsset(obj, path + obj.name + ".prefab");
         }
 
         #endregion
@@ -273,7 +292,7 @@ namespace UnitEditor.Data
         {
             var obj = GetObjectFromList(type, index);
             string name = obj.name;
-            string path = data.resourcesPath + "Resources/" + data.unitsRootFolderName + "/" + type.ToString() + "/";
+            string path = editorData.resourcesPath + "Resources/" + editorData.unitsRootFolderName + "/" + type.ToString() + "/";
 
             DeleteUnitData(path, name);
             DeleteUnitObject(path, name);
@@ -311,6 +330,22 @@ namespace UnitEditor.Data
             {
                 Debug.LogError($"<color=red>ERROR !! - Could not delete {unitObjectPath}</color>");
             }
+        }
+
+        public string[] LoadLinesFromCSV(string path)
+        {
+            string filePath = path;
+
+            if (File.Exists(filePath))
+            {
+                return File.ReadAllLines(path);
+            }
+            else
+            {
+                Debug.LogError($"csv at path \"{path}\" does not exist");
+            }
+
+            return null;          
         }
 
         #endregion

@@ -44,7 +44,7 @@ namespace UnitEditor.UI.Section
             sectionRect = new Rect(sectionRect.x + 5f, sectionRect.y + 5f, 150f, 150f);
             EditorGUI.DrawPreviewTexture(sectionRect, iconTexture);
 
-            sectionRect = new Rect(baseRect.width - 300f, sectionRect.y, 125f, 125f);
+            sectionRect = new Rect(baseRect.width - 265f, sectionRect.y, 125f, 135f);
             GUILayout.BeginArea(sectionRect);
             EditorGUILayout.BeginVertical();
             if (GUILayout.Button("Edit Components", GUILayout.Height(40f)))
@@ -59,15 +59,24 @@ namespace UnitEditor.UI.Section
                 ComponentsWindow.SetObject(obj);
             }
             EditorGUILayout.Space(5f);
+            if (GUILayout.Button("Load Data from File", GUILayout.Height(40f)))
+            {
+                if (LoadFromFileWIndow.IsOpen)
+                {
+                    LoadFromFileWIndow.CloseWindow();
+                }
+                LoadFromFileWIndow.OpenWindow();
+            }
+            EditorGUILayout.Space(5f);
             GUILayout.Button("Add To Scene", GUILayout.Height(40f));
             EditorGUILayout.EndVertical();
             GUILayout.EndArea();
 
-            sectionRect = new Rect(165f, sectionRect.y, 256f, 75f);
+            sectionRect = new Rect(185f, sectionRect.y, 256f, 75f);
             GUILayout.BeginArea(sectionRect);
 
             EditorGUILayout.BeginVertical();
-            EditorGUILayout.LabelField("UnitName", GUILayout.Height(20f));
+            EditorGUILayout.LabelField("UnitName", mySkin.GetStyle("baseLabelField"));
             EditorGUI.PropertyField(new Rect(0f, 20f, sectionRect.width, EditorGUIUtility.singleLineHeight * 2), properties[0], GUIContent.none);
             EditorGUILayout.EndVertical();
             GUILayout.EndArea();
@@ -75,7 +84,7 @@ namespace UnitEditor.UI.Section
             sectionRect = new Rect(sectionRect.x, sectionRect.y + sectionRect.height + 2f, 256f, 75f);
             GUILayout.BeginArea(sectionRect);
             EditorGUILayout.BeginVertical();
-            EditorGUILayout.LabelField("Tooltip", GUILayout.Height(20f));
+            EditorGUILayout.LabelField("Tooltip", mySkin.GetStyle("baseLabelField"));
             EditorGUI.PropertyField(new Rect(0f, 20f, sectionRect.width, EditorGUIUtility.singleLineHeight * 2), properties[1], GUIContent.none);
             EditorGUILayout.EndVertical();
             GUILayout.EndArea();

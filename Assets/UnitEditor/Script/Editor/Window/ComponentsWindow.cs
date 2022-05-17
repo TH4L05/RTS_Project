@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.AddComponent;
 using UnityEngine;
 
 namespace UnitEditor
@@ -13,7 +14,6 @@ namespace UnitEditor
         private static List<Editor> editors = new List<Editor>();
         private static bool[] foldouts;
         private static Vector2 scrollPosition = Vector2.zero;
-
         public static bool IsOpen;
 
         private void OnEnable()
@@ -66,6 +66,16 @@ namespace UnitEditor
             }
             GUILayout.EndVertical();
 
+            EditorGUILayout.Space(10f);
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Button("", GUILayout.Height(0.1f), GUILayout.Width(window.position.size.x / 2 - 50f));
+            if (GUILayout.Button("--", GUILayout.Height(40f), GUILayout.Width(100f)))
+            {
+                
+            }
+            EditorGUILayout.EndHorizontal();
+
             EditorGUILayout.EndScrollView();
         }
 
@@ -74,7 +84,6 @@ namespace UnitEditor
             if (obj == null) return;
 
             var components = obj.GetComponents(typeof(Component));
-            //Debug.Log(components.Length);
 
             var editor = Editor.CreateEditor(obj);
             editors.Add(editor);
@@ -83,10 +92,8 @@ namespace UnitEditor
 
             foreach (var component in components)
             {
-                //Debug.Log(component.name);
                 var type = component.GetType();
                 componentList.Add(component);
-                //Debug.Log(type.FullName);
 
                 if (type == typeof(Transform)) continue;
 
@@ -94,29 +101,25 @@ namespace UnitEditor
                 editors.Add(editor);
             }
 
-            foldouts = new bool[editors.Count];
-            Debug.Log(foldouts.Length);
+            foldouts = new bool[editors.Count];            
         }
 
         public static void SetObject(GameObject go)
         {
             obj = go;
-            //Debug.Log(obj.gameObject.name);
             Intialize();
         }
 
         public static void OpenWindow()
         {
             window = GetWindow<ComponentsWindow>("Edit Components");
-    
-            //window.maxSize = new Vector2(400f, 200f);
-            window.minSize = new Vector2(400f, 200f);
-            window.position = new Rect(Screen.width / 2 - 200f, Screen.height / 2 - 200f, 400f, 200f);
+            window.minSize = new Vector2(200f, 400f);
+            window.position = new Rect(Screen.width / 2, Screen.height / 2, 400f, 600f);
         }
 
         public static void CloseWindow()
         {
-            if(IsOpen) window.Close();
+            if(IsOpen && window != null) window.Close();
         }
     }
 }

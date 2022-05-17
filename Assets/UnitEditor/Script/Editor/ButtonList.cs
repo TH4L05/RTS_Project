@@ -14,18 +14,25 @@ namespace UnitEditor.UI
 {
     public class ButtonList : Object
     {
+        #region Events
+
         public static Action<int, UnitType> OnButtonPressed;
         public static Action<int, UnitType> UnitDeletion;
         public Action ResetScrollPosition;
 
+        #endregion
+
+        #region Fields
+
         private UnitEditorWindow editorwindow;
-        private Vector2 scrollPosition = Vector2.zero;
         private string[] unitNames;
         private DataHandler dataHandler;
         private Editor editor;
         private int index;
         private UnitType type;
         private GUISkin mySkin;
+
+        #endregion
 
         public ButtonList(UnitEditorWindow window, DataHandler dataHandler)
         {
@@ -128,7 +135,7 @@ namespace UnitEditor.UI
             if (editor != null) DestroyImmediate(editor);
             LoadDataNames(type);
             OnButtonPressed?.Invoke(index, type);
-            editorwindow.Repaint();
+            UnitEditorWindow.NeedRepaint();
         }
 
         private void DeleteUnit(int indx)

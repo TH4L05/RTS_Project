@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcesPath: Assets/
   unitsRootFolderName: Units
-  healthIcon: {fileID: 2800000, guid: 9ee2e6fa89d991d4abe44974715ffdd5, type: 3}
-  manaIcon: {fileID: 2800000, guid: 48080d2097cd67c46a2b23583b841154, type: 3}
+  buildingTemplate: {fileID: 4165354653119864084, guid: bd5fc22d074240a41bbd5ea5fb998549, type: 3}
+  characterTemplate: {fileID: 1851830113493380449, guid: 426086a80646d9441b1eb652eeeec45e, type: 3}
