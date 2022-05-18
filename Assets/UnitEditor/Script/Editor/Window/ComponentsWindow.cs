@@ -1,10 +1,10 @@
-using System.Collections;
+/// <author> Thomas Krahl </author>
+
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.AddComponent;
 using UnityEngine;
 
-namespace UnitEditor
+namespace UnitEditor.Window
 {
     public class ComponentsWindow : EditorWindow
     {
@@ -114,7 +114,11 @@ namespace UnitEditor
         {
             window = GetWindow<ComponentsWindow>("Edit Components");
             window.minSize = new Vector2(200f, 400f);
-            window.position = new Rect(Screen.width / 2, Screen.height / 2, 400f, 600f);
+
+            Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
+
+
+            window.position = new Rect(mainWindowRect.x + (mainWindowRect.width / 2) - 200f, mainWindowRect.y + (mainWindowRect.height / 2) - 300f, 400f, 600f);
         }
 
         public static void CloseWindow()

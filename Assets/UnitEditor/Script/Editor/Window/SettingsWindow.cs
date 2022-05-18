@@ -3,73 +3,59 @@
 using UnityEngine;
 using UnityEditor;
 
-public class SettingsWindow : EditorWindow
+namespace UnitEditor.Window
 {
-	#region Actions
-
-
-
-	#endregion
-
-	#region SerializedFields
-
-
-
-	#endregion
-
-	#region PrivateFields
-
-	private static SettingsWindow window;
-
-	#endregion
-
-	#region PublicFields
-
-
-
-	#endregion
-
-	#region UnityFunctions
-
-	private void OnEnable()
+	public class SettingsWindow : EditorWindow
 	{
-		bool setupSuccess = Setup();
+		#region Fields
 
-		if (!setupSuccess)
+		private static SettingsWindow window;
+
+		#endregion
+
+		#region UnityFunctions
+
+		private void OnEnable()
 		{
-			window.Close();
-			Debug.LogError("Setup Failed");
+			bool setupSuccess = Setup();
+
+			if (!setupSuccess)
+			{
+				window.Close();
+				Debug.LogError("Setup Failed");
+			}
+
+		}
+
+		private void OnGUI()
+		{
+
+		}
+
+		private void OnDestroy()
+		{
+
+		}
+
+		#endregion
+
+		#region Setup
+
+		private bool Setup()
+		{
+			return true;
+		}
+
+		#endregion
+
+		#region Destroy
+		#endregion
+
+		public static void OpenWindow()
+		{
+			window = GetWindow<SettingsWindow>("Settings");
 		}
 
 	}
-
-	private void OnGUI()
-	{
-
-	}
-
-	private void OnDestroy()
-	{
-
-	}
-
-	#endregion
-
-	#region Setup
-
-	private bool Setup()
-	{
-		return false;
-	}
-
-	#endregion
-
-	#region Destroy
-	#endregion
-
-	public static void OpenWindow()
-    {
-		window = GetWindow<SettingsWindow>("Settings");
-    }
-
 }
+

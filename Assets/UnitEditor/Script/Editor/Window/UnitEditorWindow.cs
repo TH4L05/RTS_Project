@@ -3,23 +3,23 @@
 using UnityEngine;
 using UnityEditor;
 
-using UnitEditor.Toolbar;
 using UnitEditor.Data;
-using UnitEditor.UI;
+using UnitEditor.UI.Toolbar;
+using UnitEditor.UI.ButttonList;
+using UnitEditor.UI.PropertiesArea;
 using UnitEditor.UI.Custom;
-using System;
 
-namespace UnitEditor
+namespace UnitEditor.Window
 {
     public class UnitEditorWindow : EditorWindow
     {
-        #region PrivateFields
+        #region Fields
 
         private static UnitEditorWindow window;
         private UnitEditorToolbar toolbar;
         private ButtonList buttonList;
         private PropertiesArea propertiesArea;
-        private static DataHandler dataHandler;
+        //private static DataHandler dataHandler;
 
         private bool setupDone = false;
         private Vector2 scrollPosition1 = Vector2.zero;
@@ -28,13 +28,7 @@ namespace UnitEditor
         private static bool needRepaint;
 
         #endregion
-
-        #region PublicFields
-
-        public static DataHandler DataHandler => dataHandler;
-
-        #endregion
-        
+     
         #region UnityFunctions
 
         private void OnEnable()
@@ -107,9 +101,7 @@ namespace UnitEditor
 
         private void Initialize()
         {
-            dataHandler = new DataHandler();
-
-            bool setupSuccess = dataHandler.Setup();
+            bool setupSuccess = DataHandler.Instance.Setup();
 
             if (!setupSuccess)
             {
@@ -121,10 +113,10 @@ namespace UnitEditor
             toolbar = new UnitEditorToolbar(this);
             toolbar.ResetScrollPosition += ResetAllScrollPositions;
 
-            buttonList = new ButtonList(this, dataHandler);
+            buttonList = new ButtonList(this);
             buttonList.ResetScrollPosition += ResetScrollPosition;
 
-            propertiesArea = new PropertiesArea(this, dataHandler);
+            propertiesArea = new PropertiesArea(this);
 
             setupDone = true;
         }
@@ -139,19 +131,19 @@ namespace UnitEditor
             {
                 toolbar.ResetScrollPosition -= ResetAllScrollPositions;
                 toolbar.Destroy();
-                DestroyImmediate(toolbar);
+                toolbar = null;
             }
             if (buttonList != null)
             {
                 buttonList.ResetScrollPosition -= ResetScrollPosition;
-                buttonList.Destroy();
-                DestroyImmediate(buttonList);
+                buttonList.Destroy(); 
+                buttonList = null;
             }
 
             if (propertiesArea != null)
             {
                 propertiesArea.Destroy();
-                DestroyImmediate(propertiesArea);
+                propertiesArea = null;
             }
 
             LoadFromFileWIndow.CloseWindow();
@@ -185,12 +177,12 @@ namespace UnitEditor
                 GUILayout.Button("", GUILayout.Width(11f), GUILayout.Height(0.1f));
                 if (GUILayout.Button("New Unit", GUILayout.Width(90f), GUILayout.Height(35f)))
                 {
-                    NewUnitWindow.OpenWindow(this);
+                    NewUnitWindow.OpenWindow();
                 }
 
                 if (GUILayout.Button("Settings", GUILayout.Width(90f), GUILayout.Height(35f)))
                 {
-
+                    SettingsWindow.OpenWindow();
                 }
 
             EditorGUILayout.EndHorizontal();
@@ -218,6 +210,11 @@ namespace UnitEditor
             needRepaint = true;
         }
 
+        public static Rect GetWindowRect()
+        {
+            return window.position;
+        }
+
         private void ResetAllScrollPositions()
         {
             scrollPosition1 = Vector2.zero;
@@ -228,13 +225,6 @@ namespace UnitEditor
         {
             scrollPosition2 = Vector2.zero;
         }
-
-        public int GetToolBarIndex()
-        {
-            return toolbar.GetIndex();
-        }
-
-
     }
 }
 

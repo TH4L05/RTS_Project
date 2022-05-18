@@ -4,32 +4,29 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using UnitEditor.Toolbar;
+using UnitEditor.Window;
+using UnitEditor.UI.Toolbar;
+using UnitEditor.UI.ButttonList;
 using UnitEditor.Data;
 
-
-namespace UnitEditor.UI
+namespace UnitEditor.UI.PropertiesArea
 {
-    public sealed class PropertiesArea : Object
+    public sealed class PropertiesArea
     {
         #region Fields
 
         private UnitEditorWindow editorWindow;
-        private DataHandler dataHandler;
         private Editor editorUnitData;
-        private Editor editorUnitTypeData;
         private int messageCode;
         private Vector2 srollPosition = Vector2.zero;
-
-        private static GameObject obj;
+        private GameObject obj;
         private int index;
 
         #endregion
 
-        public PropertiesArea(UnitEditorWindow window, DataHandler dataHandler)
+        public PropertiesArea(UnitEditorWindow window)
         {
             this.editorWindow = window;
-            this.dataHandler = dataHandler;
             Initialize();
         }
 
@@ -50,24 +47,23 @@ namespace UnitEditor.UI
             ButtonList.OnButtonPressed -= CreateEditor;
             ButtonList.UnitDeletion -= OnUnitDeletion;
             UnitEditorToolbar.ToolbarIndexChanged -= DestroyEditor;
-            DestroyEditor();
+            DestroyEditor(0);
         }
 
-        private void DestroyEditor()
-        {
-            if (editorUnitData != null) DestroyImmediate(editorUnitData);
-            if (editorUnitTypeData != null) DestroyImmediate(editorUnitTypeData);
-        }
 
         private void DestroyEditor(int index)
         {
-            if (editorUnitData != null) DestroyImmediate(editorUnitData);
-            if (editorUnitTypeData != null) DestroyImmediate(editorUnitTypeData);
+            if (editorUnitData != null)
+            {
+                //Debug.Log("ON DESTROY EDITOR");                
+                Object.DestroyImmediate(editorUnitData);
+            }
+
         }
 
         private void OnUnitDeletion(int index, UnitType type)
         {
-           var deletedObject = dataHandler.GetObjectFromList(type, index);
+           var deletedObject = DataHandler.Instance.GetObjectFromList(type, index);
 
             if (deletedObject == obj)
             {
@@ -91,7 +87,7 @@ namespace UnitEditor.UI
 
         private void ShowHelpBox()
         {
-            DestroyEditor();
+            DestroyEditor(0);
             string message = string.Empty;
             MessageType messageType = MessageType.None;
 
@@ -132,7 +128,7 @@ namespace UnitEditor.UI
         /// <param name="type">unitType</param>
         private void CreateEditor(int index, UnitType type)
         {
-            DestroyEditor();
+            DestroyEditor(0);
 
             if (type == UnitType.Undefined) return;
             if (index == -1)
@@ -143,7 +139,7 @@ namespace UnitEditor.UI
 
             messageCode = 0;
 
-            obj = dataHandler.GetObjectFromList(type, index);
+            obj = DataHandler.Instance.GetObjectFromList(type, index);
             if (obj == null)
             {
                 messageCode = 10;                           
@@ -189,13 +185,7 @@ namespace UnitEditor.UI
             }
         }
 
-        public static GameObject GetObj()
-        {
-            return obj;
-        }
-
         #endregion
-
     }
 }
 

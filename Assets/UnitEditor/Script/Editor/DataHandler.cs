@@ -10,21 +10,28 @@ using System.IO;
 
 namespace UnitEditor.Data
 {
-    public class DataHandler
+    public sealed class DataHandler
     {
-        #region PrivateFields
+        #region Fields
 
-        private static string editorDataPath;
+        private string editorDataPath;
         private UnitEditorData editorData;
         private Dictionary<string, List<GameObject>> unitTypeMasterList;
+        private GameObject activeObj;
+        private GUISkin mySkin;
+        private Texture2D[] iconTextures;
 
+        public string EditorDataPath => editorDataPath;
+        public GameObject ActiveObj => activeObj;
+        public GUISkin MySkin => mySkin; 
+        public Texture2D[] IconTextures => iconTextures;
+
+        public static readonly DataHandler Instance = new DataHandler();
         #endregion
 
-        #region PublicFields
-
-        //public UnitEditorData UnitEditorData => data;
-
-        #endregion
+        private DataHandler()
+        {          
+        }
 
         #region Setup
 
@@ -47,6 +54,8 @@ namespace UnitEditor.Data
             CheckResourceFolder();
             CheckUnitsFolder();
             CreateUnitLists();
+            LoadSkin();
+            LoadTextures();
             return true;
         }
 
@@ -63,7 +72,7 @@ namespace UnitEditor.Data
             return true;
         }
 
-        public bool LoadEditorData()
+        private bool LoadEditorData()
         {
             editorData = (UnitEditorData)LoadAsset(typeof(UnitEditorData), editorDataPath + "/Data/UnitEditorData.asset");
 
@@ -73,6 +82,36 @@ namespace UnitEditor.Data
                 return false;
             }
             return true;
+        }
+
+        private void LoadSkin()
+        {
+            mySkin = AssetDatabase.LoadAssetAtPath<GUISkin>(editorDataPath + "/Data/UnitDataSkin.guiskin");
+        }
+
+        private void LoadTextures()
+        {
+            iconTextures = new Texture2D[10];
+
+            Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/IconNoIcon.png");
+            if (tex == null) tex = new Texture2D(128, 128);
+            iconTextures[0] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/iconHealth.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[1] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/iconMana.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[2] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/IconArmor.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[3] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/IconWeapon1.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[4] = tex;
         }
 
         #endregion
@@ -85,26 +124,26 @@ namespace UnitEditor.Data
             Debug.Log($"<color=cyan>Created new Folder at : {parentFolder} with name : {folderName}</color>");
         }
 
-        public bool CheckIfFolderExists(string path)
+        private bool CheckIfFolderExists(string path)
         {
             return AssetDatabase.IsValidFolder(path);
         }
 
-        public void CheckResourceFolder()
+        private void CheckResourceFolder()
         {
             bool folderExists = CheckIfFolderExists(editorData.resourcesPath);
             if (folderExists) return;
             CreateFolder("Assets", "Resources");
         }
 
-        public void CheckUnitsFolder()
+        private void CheckUnitsFolder()
         {
             bool folderExists = CheckIfFolderExists(editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName);
             if (folderExists) return;
             CreateFolder(editorData.resourcesPath, editorData.unitsRootFolderName);
         }
 
-        public bool CheckUnitTypeFolder(string type)
+        private bool CheckUnitTypeFolder(string type)
         {
             string path = editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName + "/";
             bool folderExists = CheckIfFolderExists(path + type);
@@ -157,6 +196,7 @@ namespace UnitEditor.Data
         {
             List<GameObject> list = GetList(type);
             if (listIndex < 0 || listIndex > list.Count || list == null) return null;
+            activeObj = list[listIndex];
             return list[listIndex];
         }
 
@@ -183,7 +223,7 @@ namespace UnitEditor.Data
             return loadedObj;
         }
 
-        public static string GetEditorDataPath()
+        public string GetEditorDataPath()
         {
             return editorDataPath;
         }

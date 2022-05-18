@@ -7,12 +7,13 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using UnitEditor.Toolbar;
+using UnitEditor.Window;
+using UnitEditor.UI.Toolbar;
 using UnitEditor.Data;
 
-namespace UnitEditor.UI
+namespace UnitEditor.UI.ButttonList
 {
-    public class ButtonList : Object
+    public class ButtonList
     {
         #region Events
 
@@ -26,7 +27,6 @@ namespace UnitEditor.UI
 
         private UnitEditorWindow editorwindow;
         private string[] unitNames;
-        private DataHandler dataHandler;
         private Editor editor;
         private int index;
         private UnitType type;
@@ -34,25 +34,25 @@ namespace UnitEditor.UI
 
         #endregion
 
-        public ButtonList(UnitEditorWindow window, DataHandler dataHandler)
+        public ButtonList(UnitEditorWindow window)
         {
-            editorwindow = window;
-            this.dataHandler = dataHandler;         
+            editorwindow = window;              
             Intitialize();
         }
 
         #region Intitialize
-
+               
         public void Intitialize()
         {
-            unitNames = new string[0];
+            unitNames = new string[1];
             UnitEditorToolbar.ToolbarIndexChanged += LoadList;
             NewUnitWindow.NewUnitCreated += ReloadList;
 
             LoadList(0);
-            var path = DataHandler.GetEditorDataPath();
+            var path = DataHandler.Instance.EditorDataPath;
             LoadSkin(path + "/Data/UnitDataSkin.guiskin");
         }
+
         private void LoadSkin(string path)
         {
             mySkin = AssetDatabase.LoadAssetAtPath<GUISkin>(path);
@@ -64,9 +64,9 @@ namespace UnitEditor.UI
 
         public void Destroy()
         {
-            if(editor != null) DestroyImmediate(editor);
             UnitEditorToolbar.ToolbarIndexChanged -= LoadList;
             NewUnitWindow.NewUnitCreated -= ReloadList;
+            if(editor != null) Object.DestroyImmediate(editor);
         }
 
         #endregion
@@ -93,13 +93,24 @@ namespace UnitEditor.UI
                     }
                     if (GUILayout.Button("X", GUILayout.Width(20f), GUILayout.Height(25f)))
                     {
-                        DeleteUnit(i);
+                        DeleteUnitButtonClicked(i);
                     }
 
                     GUILayout.EndHorizontal();
                 }
                 GUILayout.EndVertical();
             }                      
+        }
+
+        private void DeleteUnitButtonClicked(int indx)
+        {
+            if (type == UnitType.Undefined) return;
+
+            UnitDeletion?.Invoke(indx, type);
+            DataHandler.Instance.DeleteUnit(type, indx);
+
+            this.index = 0;
+            ReloadList();
         }
 
         private void LoadList(int index)
@@ -110,13 +121,20 @@ namespace UnitEditor.UI
             LoadDataNames(type);
         }
 
+        private void ReloadList()
+        {
+            if (editor != null) Object.DestroyImmediate(editor);
+            LoadDataNames(type);
+            OnButtonPressed?.Invoke(index, type);
+            UnitEditorWindow.NeedRepaint();
+        }
 
         private void LoadDataNames(UnitType type)
         {
             if (type == UnitType.Undefined) return;
 
             List<GameObject> units = new List<GameObject>();
-            units = dataHandler.GetList(type);
+            units = DataHandler.Instance.GetList(type);
             if(units.Count == 0) return;
 
             unitNames = new string[units.Count];
@@ -130,26 +148,8 @@ namespace UnitEditor.UI
 
         }
 
-        private void ReloadList()
-        {
-            if (editor != null) DestroyImmediate(editor);
-            LoadDataNames(type);
-            OnButtonPressed?.Invoke(index, type);
-            UnitEditorWindow.NeedRepaint();
-        }
-
-        private void DeleteUnit(int indx)
-        {
-            if (type == UnitType.Undefined) return;
-
-            UnitDeletion?.Invoke(indx, type);
-            dataHandler.DeleteUnit(type, indx);
-
-            this.index = 0;
-            ReloadList();
-        }
-
         #endregion
+
     }
 }
 

@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/// <author> Thomas Krahl </author>
+
 using UnityEditor;
 
-
-public class AddComponentWindow : EditorWindow
+namespace UnitEditor.Window
 {
-   
+    public class AddComponentWindow : EditorWindow
+    {
+
+    }
 }
+

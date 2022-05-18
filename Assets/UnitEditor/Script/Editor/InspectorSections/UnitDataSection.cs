@@ -6,7 +6,7 @@ using UnitEditor.UI.Custom;
 
 namespace UnitEditor.UI.Section
 {
-    public class UnitDataSection : Object
+    public class UnitDataSection
     {
         #region Fields
 

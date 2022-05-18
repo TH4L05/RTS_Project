@@ -3,10 +3,12 @@
 using System;
 using UnityEngine;
 using UnityEditor;
+
+using UnitEditor.Window;
 using UnitEditor.Data;
 using UnitEditor.UI;
 
-namespace UnitEditor
+namespace UnitEditor.Window
 {
 	public class LoadFromFileWIndow : EditorWindow
 	{
@@ -20,7 +22,6 @@ namespace UnitEditor
         #region Fields
 
         private static LoadFromFileWIndow window;
-		private static DataHandler dataHandler;
 		private static GameObject obj;
 
 		private string filePath;
@@ -94,8 +95,6 @@ namespace UnitEditor
 		public static void OpenWindow()
 		{
 			window = GetWindow<LoadFromFileWIndow>("Load Data From File");
-			dataHandler = UnitEditorWindow.DataHandler;
-
 			window.maxSize = new Vector2(400f, 200f);
 			window.minSize = new Vector2(400f, 200f);
 			window.position = new Rect(Screen.width / 2 - 100f, Screen.height / 2 - 100f, 400f, 200f);
@@ -108,9 +107,7 @@ namespace UnitEditor
 
 		private bool Initialize()
 		{
-			obj = null;
-			obj = PropertiesArea.GetObj();
-
+			obj = DataHandler.Instance.ActiveObj;
 			return true;
 		}
 
@@ -121,7 +118,7 @@ namespace UnitEditor
 
 		private void LoadDataFromCSV()
         {
-			string[] fileLines = dataHandler.LoadLinesFromCSV(filePath);
+			string[] fileLines = DataHandler.Instance.LoadLinesFromCSV(filePath);
 
 			int idx = 0;
             foreach (var line in fileLines)

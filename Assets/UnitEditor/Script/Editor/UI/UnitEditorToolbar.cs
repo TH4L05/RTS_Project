@@ -4,11 +4,12 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using Object = UnityEngine.Object;
-using System.Collections;
 
-namespace UnitEditor.Toolbar
+using UnitEditor.Window;
+
+namespace UnitEditor.UI.Toolbar
 {
-    public sealed class UnitEditorToolbar : Object
+    public sealed class UnitEditorToolbar
     {
         #region Events
 
@@ -23,6 +24,8 @@ namespace UnitEditor.Toolbar
         private UnitEditorWindow editorwindow;
         private int toolbarIndex;
         private int lastToolbarIndex;
+
+        public static int ToolbarIndex;
 
         #endregion
 
@@ -62,7 +65,8 @@ namespace UnitEditor.Toolbar
                 ResetScrollPosition?.Invoke();
             }
 
-            lastToolbarIndex = toolbarIndex;          
+            lastToolbarIndex = toolbarIndex;
+            ToolbarIndex = lastToolbarIndex;
         }
 
         #endregion

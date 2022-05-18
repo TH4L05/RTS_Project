@@ -97,12 +97,12 @@ public class UnitData : ScriptableObject
         tooltip = data[2];
         buildTime = float.Parse(data[3]);
         deathTime = float.Parse(data[4]);
-        healthMax = float.Parse(data[4]);
-        healthRegen = float.Parse(data[6]);
-        healthRegenRate = float.Parse(data[7]);
-        manaMax = float.Parse(data[8]);
-        manaRegen = float.Parse(data[9]);
-        manaRegenRate = float.Parse(data[10]);
+        healthMax = float.Parse(data[6]);
+        healthRegen = float.Parse(data[7]);
+        healthRegenRate = float.Parse(data[8]);
+        manaMax = float.Parse(data[9]);
+        manaRegen = float.Parse(data[10]);
+        manaRegenRate = float.Parse(data[11]);
         //armor = float.Parse(data[11]);
     }
 }

@@ -3,9 +3,11 @@
 using System;
 using UnityEngine;
 using UnityEditor;
+
+using UnitEditor.UI.Toolbar;
 using UnitEditor.Data;
 
-namespace UnitEditor
+namespace UnitEditor.Window
 {
 	public class NewUnitWindow : EditorWindow
 	{
@@ -19,7 +21,6 @@ namespace UnitEditor
 
         private static NewUnitWindow window;
 		private static UnitEditorWindow editorWindow;
-		private static DataHandler dataHandler;
 		private UnitType unitType;
 		private string unitName;
 
@@ -45,7 +46,7 @@ namespace UnitEditor
 
 		private void OnGUI()
 		{
-			unitType = (UnitType)editorWindow.GetToolBarIndex();
+			unitType = (UnitType)UnitEditorToolbar.ToolbarIndex;
 
 			Rect areaRect = new Rect(15f, 15f, 300f, 175f);		
 			GUILayout.BeginArea(areaRect);
@@ -105,15 +106,15 @@ namespace UnitEditor
 
 		#region Initialize
 
-		public static void OpenWindow(UnitEditorWindow rootWindow)
+		public static void OpenWindow()
 		{
 			window = GetWindow<NewUnitWindow>("Craete New Unit");
-			editorWindow = rootWindow;
-			dataHandler = UnitEditorWindow.DataHandler;
+
+			Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
 
 			window.maxSize = new Vector2(400f, 200f);
 			window.minSize = new Vector2(400f, 200f);
-			window.position = new Rect(editorWindow.position.x + 50f, editorWindow.position.y + (editorWindow.position.height / 2), 400f, 200f);
+			window.position = new Rect(mainWindowRect.x + 25f, mainWindowRect.y + (mainWindowRect.height) - 300f, 400f, 200f);
 		}
 
 		private bool Initialize()
@@ -129,7 +130,7 @@ namespace UnitEditor
 		private void CreateNewUnit()
         {
 			if (string.IsNullOrEmpty(unitName)) return;
-			dataHandler.CreateNewUnit(unitType, unitName);
+			DataHandler.Instance.CreateNewUnit(unitType, unitName);
 			NewUnitCreated?.Invoke();
 			Close();
 		}

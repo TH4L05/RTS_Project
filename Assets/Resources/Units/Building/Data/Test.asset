@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Test
   type: 0
-  tooltip: Building
-  buildTime: 0
-  deathTime: 0
+  tooltip: TestUnit
+  buildTime: 2
+  deathTime: 2
   requiredResources: []
-  healthMax: 1
-  healthRegen: 0
-  healthRegenRate: 0
-  manaMax: 0
-  manaRegen: 0
-  manaRegenRate: 0
+  healthMax: 5000
+  healthRegen: 1
+  healthRegenRate: 1
+  manaMax: 2000
+  manaRegen: 1
+  manaRegenRate: 1
   armor: 0
   attackRange: 0.5
   actionRange: 2

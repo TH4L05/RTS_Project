@@ -2,7 +2,10 @@
 
 using UnityEngine;
 using UnityEditor;
+
+using UnitEditor.Window;
 using UnitEditor.UI.Custom;
+using UnitEditor.Data;
 
 namespace UnitEditor.UI.Section
 {
@@ -55,7 +58,7 @@ namespace UnitEditor.UI.Section
                 }
                 ComponentsWindow.OpenWindow();
 
-                var obj = PropertiesArea.GetObj();                
+                var obj = DataHandler.Instance.ActiveObj;                
                 ComponentsWindow.SetObject(obj);
             }
             EditorGUILayout.Space(5f);
