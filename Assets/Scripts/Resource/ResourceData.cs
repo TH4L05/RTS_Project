@@ -6,7 +6,6 @@ using UnityEngine;
 public enum ResourceType
 {
     Undefined = -1,
-    None = 0,
     Wood,
     Gold,
     Food,
@@ -21,5 +20,7 @@ public class ResourceData : ScriptableObject
 
     public ResourceType Type => type;
     public Sprite Icon => icon;
+
+
 
 }

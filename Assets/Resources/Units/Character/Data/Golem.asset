@@ -17,7 +17,15 @@ MonoBehaviour:
   tooltip: 
   buildTime: 5
   deathTime: 2
-  requiredResources: []
+  requiredResources:
+  - resourceType: 0
+    amount: 0
+  - resourceType: 1
+    amount: 0
+  - resourceType: 2
+    amount: 0
+  - resourceType: 3
+    amount: 0
   healthMax: 500
   healthRegen: 0
   healthRegenRate: 0
@@ -30,7 +38,6 @@ MonoBehaviour:
   attackSpeed: 3
   basedamage: 1
   weapon: {fileID: 3169857386294250524, guid: a29e60ef4a78caf46a538ec6f92d53d9, type: 3}
-  weaponAttackOffsetTime: 0
   abilities:
   - {fileID: 0}
   - {fileID: 0}

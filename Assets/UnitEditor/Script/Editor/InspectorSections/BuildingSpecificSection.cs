@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
 using UnitEditor.UI.Custom;
+using System;
 
 namespace UnitEditor.UI.Section
 {
@@ -15,7 +16,8 @@ namespace UnitEditor.UI.Section
 
         #endregion
 
-        public BuildingSpecificSection(SerializedObject so, GUISkin skin, Texture2D[] textures) : base(so, skin, textures)
+        public BuildingSpecificSection(SerializedObject so, GUISkin skin, Texture2D[] textures) 
+            : base(so, skin, textures)
         {
         }
 
@@ -26,6 +28,7 @@ namespace UnitEditor.UI.Section
             base.Initialize();
             InitLists();
         }
+
         protected override void SetProperties()
         {
             properties[0] = serializedObject.FindProperty("producedResources");
@@ -35,13 +38,13 @@ namespace UnitEditor.UI.Section
 
         private void InitLists()
         {
-            producedResourecesList = new ReorderableList(properties[0].serializedObject, properties[0], true, false, true, true);
+            producedResourecesList = new ReorderableList(properties[0].serializedObject, properties[0], false, false, false, false);
             //producedResourecesList.drawHeaderCallback = DrawProducedResourcesListHeader;
             producedResourecesList.drawElementCallback = DrawProducedResourcesListItems;
 
-            suppliedStartResources = new ReorderableList(properties[2].serializedObject, properties[2], false, false, true, true);
+            suppliedStartResources = new ReorderableList(properties[2].serializedObject, properties[2], false, false, false, false);
             //suppliedStartResources.drawHeaderCallback = DrawProducedResourcesListHeader;
-            suppliedStartResources.drawElementCallback = DrawSuppliedStartResourcesListItems;
+            suppliedStartResources.drawElementCallback = DrawSuppliedStartResourcesListItems;            
         }
 
         #endregion
@@ -59,17 +62,30 @@ namespace UnitEditor.UI.Section
                 GUILayout.BeginArea(sectionRect);
                 {
                     EditorGUILayout.Space(5f);
-                    EditorGUILayout.PropertyField(properties[1]);
-                    EditorGUILayout.Space(5f);
-                    EditorGUILayout.LabelField("ProducedResources", labelStyle);
-                    EditorGUILayout.Space(2f);
-                    producedResourecesList.elementHeight = 32f;
-                    producedResourecesList.DoLayoutList();
-                    EditorGUILayout.Space(10f);
-                    EditorGUILayout.LabelField("SuppliedResOnStart", labelStyle);
-                    EditorGUILayout.Space(2f);
-                    suppliedStartResources.elementHeight = 32f;
-                    suppliedStartResources.DoLayoutList();
+
+                    EditorGUILayout.PropertyField(properties[1], GUILayout.Width(200f));
+
+                        EditorGUILayout.Space(5f);
+
+                        EditorGUILayout.BeginVertical(GUILayout.Width(450f));
+
+                        EditorGUILayout.LabelField("ProducedResources", labelStyle);
+
+                        EditorGUILayout.Space(2f);
+
+                        producedResourecesList.elementHeight = 32f;
+                        producedResourecesList.DoLayoutList();
+
+                        EditorGUILayout.Space(10f);
+
+                        EditorGUILayout.LabelField("SuppliedResOnStart", labelStyle);
+
+                        EditorGUILayout.Space(2f);
+
+                        suppliedStartResources.elementHeight = 32f;
+                        suppliedStartResources.DoLayoutList();
+
+                    EditorGUILayout.EndVertical();
                 }              
                 GUILayout.EndArea();
             }               
@@ -86,73 +102,30 @@ namespace UnitEditor.UI.Section
         private void DrawProducedResourcesListItems(Rect rect, int index, bool isActive, bool isFocused)
         {
             SerializedProperty element = producedResourecesList.serializedProperty.GetArrayElementAtIndex(index);
-
-            SerializedProperty resourceData = element.FindPropertyRelative("ResoureData");
+            SerializedProperty resourceType = element.FindPropertyRelative("resourceType");
             SerializedProperty amount = element.FindPropertyRelative("amount");
-            SerializedProperty resourceIcon;
-            SerializedProperty resourceType;
-            string name = string.Empty;
-
             Texture2D tex = new Texture2D(64,64);
 
-            if (resourceData.objectReferenceValue != null)
-            {
-                SerializedObject so = new SerializedObject(resourceData.objectReferenceValue);
-
-                resourceIcon = so.FindProperty("icon");
-                resourceType = so.FindProperty("type");
-                name = ((ResourceType)resourceType.enumValueIndex - 1).ToString();
-
-                if (resourceIcon.objectReferenceValue != null)
-                {
-                    Sprite sprite = resourceIcon.objectReferenceValue as Sprite;
-                    tex = sprite.texture;
-                }
-
-                EditorGUI.DrawPreviewTexture(new Rect(rect.x, rect.y, 32f, 32f), tex);
-                EditorGUI.LabelField(new Rect(rect.x + 45f, rect.y + 4f, 125f, 25f), name);
-
-            }
-                      
-            EditorGUI.PropertyField(new Rect(rect.x + 180f, rect.y + 4f, 225f, 25f), resourceData, GUIContent.none);
-            EditorGUI.LabelField(new Rect(rect.x + 420f, rect.y + 4f, 50f, 25f), "amount:");
-            amount.intValue = EditorGUI.IntField(new Rect(rect.x + 475f, rect.y + 4f, 75f, 25f), amount.intValue);
+            //TODO: get icons from Resource Data
+            EditorGUI.DrawPreviewTexture(new Rect(rect.x, rect.y, 32f, 32f), tex);
+            //EditorGUI.PropertyField(new Rect(rect.x + 70f, rect.y + 4f, 200f, 25f), resourceType, GUIContent.none);
+            EditorGUI.LabelField(new Rect(rect.x + 70f, rect.y + 4f, 150f, 25f), ((ResourceType)resourceType.enumValueFlag).ToString());
+            EditorGUI.LabelField(new Rect(rect.x + 230f, rect.y + 4f, 50f, 25f), "amount:");
+            amount.intValue = EditorGUI.IntField(new Rect(rect.x + 300f, rect.y + 4f, 75f, 25f), amount.intValue);
         }
 
         private void DrawSuppliedStartResourcesListItems(Rect rect, int index, bool isActive, bool isFocused)
         {
             SerializedProperty element = suppliedStartResources.serializedProperty.GetArrayElementAtIndex(index);
-
-            SerializedProperty resourceData = element.FindPropertyRelative("ResoureData");
+            SerializedProperty resourceType = element.FindPropertyRelative("resourceType");
             SerializedProperty amount = element.FindPropertyRelative("amount");
-            SerializedProperty resourceIcon;
-            SerializedProperty resourceType;
-            string name = string.Empty;
-
             Texture2D tex = new Texture2D(64, 64);
 
-            if (resourceData.objectReferenceValue != null)
-            {
-                SerializedObject so = new SerializedObject(resourceData.objectReferenceValue);
-
-                resourceIcon = so.FindProperty("icon");
-                resourceType = so.FindProperty("type");
-                name = ((ResourceType)resourceType.enumValueIndex - 1).ToString();
-
-                if (resourceIcon.objectReferenceValue != null)
-                {
-                    Sprite sprite = resourceIcon.objectReferenceValue as Sprite;
-                    tex = sprite.texture;
-                }
-
-                EditorGUI.DrawPreviewTexture(new Rect(rect.x, rect.y, 32f, 32f), tex);
-                EditorGUI.LabelField(new Rect(rect.x + 45f, rect.y + 4f, 125f, 25f), name);
-
-            }
-
-            EditorGUI.PropertyField(new Rect(rect.x + 180f, rect.y + 4f, 225f, 25f), resourceData, GUIContent.none);
-            EditorGUI.LabelField(new Rect(rect.x + 420f, rect.y + 4f, 50f, 25f), "amount:");
-            amount.intValue = EditorGUI.IntField(new Rect(rect.x + 475f, rect.y + 4f, 75f, 25f), amount.intValue);
+            //TODO: get icons from Resource Data
+            EditorGUI.DrawPreviewTexture(new Rect(rect.x, rect.y, 32f, 32f), tex);
+            EditorGUI.LabelField(new Rect(rect.x + 70f, rect.y + 4f, 150f, 25f), ((ResourceType)resourceType.enumValueFlag).ToString());
+            EditorGUI.LabelField(new Rect(rect.x + 230f, rect.y + 4f, 50f, 25f), "amount:");
+            amount.intValue = EditorGUI.IntField(new Rect(rect.x + 300f, rect.y + 4f, 75f, 25f), amount.intValue);
         }
 
 

@@ -110,13 +110,13 @@ namespace UnitEditor.Window
                 return;
             }
 
-            toolbar = new UnitEditorToolbar(this);
+            toolbar = new UnitEditorToolbar();
             toolbar.ResetScrollPosition += ResetAllScrollPositions;
 
-            buttonList = new ButtonList(this);
+            buttonList = new ButtonList();
             buttonList.ResetScrollPosition += ResetScrollPosition;
 
-            propertiesArea = new PropertiesArea(this);
+            propertiesArea = new PropertiesArea();
 
             setupDone = true;
         }
@@ -192,7 +192,7 @@ namespace UnitEditor.Window
         private void RightArea()
         {
             Rect areaRect = new Rect(255f, 50f, window.position.size.x - 255f, window.position.size.y - 60f);
-            Rect viewRect = new Rect(areaRect.x, areaRect.y, 1000f, 2000f);
+            Rect viewRect = new Rect(areaRect.x, areaRect.y, 1000f, 2500f);
 
             MyGUI.DrawColorRect(new Rect(viewRect.x, viewRect.y, areaRect.width, viewRect.height), new Color(0.35f, 0.35f, 0.35f));
 

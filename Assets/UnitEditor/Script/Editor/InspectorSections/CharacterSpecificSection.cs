@@ -20,9 +20,9 @@ namespace UnitEditor.UI.Section
 
         protected override void SetProperties()
         {
-            properties[0] = serializedObject.FindProperty("name");
-            properties[1] = serializedObject.FindProperty("tooltip");
-            properties[2] = serializedObject.FindProperty("selectionInfoIcon");
+            properties[0] = serializedObject.FindProperty("movementType");
+            properties[1] = serializedObject.FindProperty("movementSpeed");
+            properties[2] = serializedObject.FindProperty("movementAccerlation");
         }
 
         #endregion
@@ -31,11 +31,17 @@ namespace UnitEditor.UI.Section
 
         protected override void SectionGUI(Rect baseRect)
         {
-            Rect sectionRect = baseRect;
+            MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
+            Rect sectionRect = new Rect(15f, 10f, 650f, baseRect.height - 15f);
+
             GUILayout.BeginArea(sectionRect);
-            MyGUI.DrawColorRect(new Rect(0f, 0f, sectionRect.width, sectionRect.height), sectionColor);
 
-
+            EditorGUILayout.Space(5f);
+            EditorGUILayout.PropertyField(properties[0]);
+            EditorGUILayout.Space(5f);
+            EditorGUILayout.PropertyField(properties[1]);
+            EditorGUILayout.Space(5f);
+            EditorGUILayout.PropertyField(properties[2]);
 
             GUILayout.EndArea();
         }

@@ -52,7 +52,7 @@ public class UnitDataEditor : Editor
 
     protected virtual void OnGUI()
     {
-        Rect baseSectionRect1a = baseRect;
+        Rect baseSectionRect1a = new Rect(baseRect.x, baseRect.y, baseRect.width, 400f);
         Rect baseSectionRect1b = new Rect(baseRect.x, baseRect.y + baseSectionRect1a.y + baseSectionRect1a.height, baseRect.width, 190f);
         Rect baseSectionRect2a = new Rect(baseRect.x, baseRect.y + baseSectionRect1b.y + baseSectionRect1b.height, baseRect.width, baseRect.height);
         Rect baseSectionRect2b = new Rect(baseRect.x, baseRect.y + baseSectionRect2a.y + baseSectionRect2a.height, baseRect.width, 300f);

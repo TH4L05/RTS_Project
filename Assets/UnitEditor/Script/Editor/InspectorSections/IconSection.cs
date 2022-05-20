@@ -60,8 +60,7 @@ namespace UnitEditor.UI.Section
                 sectionRect.x += rectOffsetX;
             }
 
-
-            GUILayout.EndArea();
+           GUILayout.EndArea();
         }
 
         #endregion

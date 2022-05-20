@@ -116,8 +116,6 @@ namespace UnitEditor.Window
             window.minSize = new Vector2(200f, 400f);
 
             Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
-
-
             window.position = new Rect(mainWindowRect.x + (mainWindowRect.width / 2) - 200f, mainWindowRect.y + (mainWindowRect.height / 2) - 300f, 400f, 600f);
         }
 

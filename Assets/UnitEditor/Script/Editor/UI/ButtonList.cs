@@ -25,7 +25,6 @@ namespace UnitEditor.UI.ButttonList
 
         #region Fields
 
-        private UnitEditorWindow editorwindow;
         private string[] unitNames;
         private Editor editor;
         private int index;
@@ -34,9 +33,8 @@ namespace UnitEditor.UI.ButttonList
 
         #endregion
 
-        public ButtonList(UnitEditorWindow window)
-        {
-            editorwindow = window;              
+        public ButtonList()
+        {           
             Intitialize();
         }
 

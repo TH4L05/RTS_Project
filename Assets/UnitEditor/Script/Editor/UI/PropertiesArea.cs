@@ -15,7 +15,6 @@ namespace UnitEditor.UI.PropertiesArea
     {
         #region Fields
 
-        private UnitEditorWindow editorWindow;
         private Editor editorUnitData;
         private int messageCode;
         private Vector2 srollPosition = Vector2.zero;
@@ -24,9 +23,8 @@ namespace UnitEditor.UI.PropertiesArea
 
         #endregion
 
-        public PropertiesArea(UnitEditorWindow window)
+        public PropertiesArea()
         {
-            this.editorWindow = window;
             Initialize();
         }
 

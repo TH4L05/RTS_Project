@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,22 @@ public class BuildingData : UnitData
     #region SerializedFields
 
     [Header("Building")]
-    [SerializeField] private ResourceSetup[] producedResources;
-    [SerializeField] private float productionSpeed = 1f;
-    [SerializeField] private ResourceSetup[] suppliedResourcesOnStart;
+    [SerializeField] private ResourceSetup[] producedResources = new ResourceSetup[]
+                                                                                    {
+                                                                                    new ResourceSetup(ResourceType.Wood, 0),
+                                                                                    new ResourceSetup(ResourceType.Gold, 0),
+                                                                                    new ResourceSetup(ResourceType.Food, 0),
+                                                                                    new ResourceSetup(ResourceType.Unit, 0)
+                                                                                    };
+
+    [SerializeField] private ResourceSetup[] suppliedResourcesOnStart = new ResourceSetup[]
+                                                                                    {
+                                                                                    new ResourceSetup(ResourceType.Wood, 0),
+                                                                                    new ResourceSetup(ResourceType.Gold, 0),
+                                                                                    new ResourceSetup(ResourceType.Food, 0),
+                                                                                    new ResourceSetup(ResourceType.Unit, 0)
+                                                                                    };
+    [SerializeField] private float productionSpeed = 5f;
 
     #endregion
 

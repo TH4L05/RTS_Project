@@ -18,10 +18,14 @@ MonoBehaviour:
   buildTime: 5
   deathTime: 2
   requiredResources:
-  - ResoureData: {fileID: 11400000, guid: db67b6aabdd296342a76f19d90f0a1ec, type: 2}
-    amount: 1
-  - ResoureData: {fileID: 11400000, guid: 34f591fc9d6a2d54ea3aa3ac4fe0ec0d, type: 2}
+  - resourceType: 0
     amount: 20
+  - resourceType: 1
+    amount: 10
+  - resourceType: 2
+    amount: 5
+  - resourceType: 3
+    amount: 1
   healthMax: 125
   healthRegen: 0
   healthRegenRate: 0
@@ -34,7 +38,6 @@ MonoBehaviour:
   attackSpeed: 3
   basedamage: 5
   weapon: {fileID: 3169857386294250524, guid: 328edf10180af3c43a1dd6dc99fdf11a, type: 3}
-  weaponAttackOffsetTime: 0
   abilities:
   - {fileID: 0}
   - {fileID: 0}

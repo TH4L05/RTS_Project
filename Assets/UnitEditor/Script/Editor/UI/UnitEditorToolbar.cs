@@ -29,9 +29,8 @@ namespace UnitEditor.UI.Toolbar
 
         #endregion
 
-        public UnitEditorToolbar(UnitEditorWindow window)
+        public UnitEditorToolbar()
         {
-            editorwindow = window;
             Initialize();
         }
 

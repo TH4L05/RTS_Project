@@ -1,274 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="UnitEditor.UI.ButtonList">
-    <Position X="8.5" Y="3.75" Width="2" />
-    <InheritanceLine Type="UnityEngine.Object" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="12.812" Y="1.312" />
-        <Point X="12.812" Y="2.929" />
-        <Point X="11.708" Y="2.929" Type="JumpStart" />
-        <Point X="11.542" Y="2.929" Type="JumpEnd" />
-        <Point X="9.562" Y="2.929" />
-        <Point X="9.562" Y="3.75" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="dataHandler" Type="UnitEditor.Data.DataHandler" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="9.375" Y="3.75" />
-        <Point X="9.375" Y="1.562" />
-        <Point X="5.25" Y="1.562" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAEAACABAAAAAAASQAAAhAABBAAAAAACAAAABIAA=</HashCode>
-      <FileName>Assets\UnitEditor\Script\Editor\ButtonList.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="dataHandler" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="UnitEditor.Data.DataHandler">
-    <Position X="3.75" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAACAACAQAAAAAAAIAAAIEQCAAAEAAQQIBBAAI=</HashCode>
+      <HashCode>AAQEEIAACABCAQUAAAKQEYACEJEQCAAAUBgASoBBAAI=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\DataHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="UnitEditor.UnitEditorWindow">
-    <Position X="0.5" Y="2.75" Width="1.75" />
-    <InheritanceLine Type="UnityEditor.EditorWindow" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1" Y="1.191" />
-        <Point X="1" Y="2.75" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="dataHandler" Type="UnitEditor.Data.DataHandler" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.938" Y="2.75" />
-        <Point X="1.938" Y="1.688" />
-        <Point X="3.75" Y="1.688" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAABAAAQAMAAAQAABAQAAAAgBAAAAAAIAAGAEABACAA=</HashCode>
-      <FileName>Assets\UnitEditor\Script\Editor\Window\UnitEditorWindow.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="dataHandler" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="UnitEditor.Toolbar.UnitEditorToolbar">
-    <Position X="6" Y="3.75" Width="2" />
-    <InheritanceLine Type="UnityEngine.Object" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="12.625" Y="1.312" />
-        <Point X="12.625" Y="2.917" />
-        <Point X="11.708" Y="2.917" Type="JumpStart" />
-        <Point X="11.542" Y="2.917" Type="JumpEnd" />
-        <Point X="9.458" Y="2.917" Type="JumpStart" />
-        <Point X="9.292" Y="2.917" Type="JumpEnd" />
-        <Point X="6.938" Y="2.917" />
-        <Point X="6.938" Y="3.75" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>gAAAAAIAAAAAAAAAAAAAgAAAAABAAAAAAAKAAAAAAAA=</HashCode>
-      <FileName>Assets\UnitEditor\Script\Editor\UnitEditorToolbar.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="UnityEngine.Object" Collapsed="true">
-    <Position X="12" Y="0.75" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="UnityEditor.EditorWindow" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="7.75" Width="1.5" />
     <TypeIdentifier />
-  </Class>
-  <Class Name="UnitEditor.UI.PropertiesArea">
-    <Position X="11" Y="3.75" Width="1.5" />
-    <InheritanceLine Type="UnityEngine.Object" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="13" Y="1.312" />
-        <Point X="13" Y="2.949" />
-        <Point X="11.812" Y="2.949" />
-        <Point X="11.812" Y="3.75" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="dataHandler" Type="UnitEditor.Data.DataHandler" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="11.625" Y="3.75" />
-        <Point X="11.625" Y="1.562" />
-        <Point X="5.25" Y="1.562" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAACAAEAAAECAAAAAAgAABAAAAIAACAAEAAAAA=</HashCode>
-      <FileName>Assets\UnitEditor\Script\Editor\PropertiesArea.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="dataHandler" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="UnitEditor.UI.Custom.MyGUI">
-    <Position X="3.75" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Assets\UnitEditor\Script\Editor\MyGUI.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.Inspector.BuildingDataEditor">
-    <Position X="14.75" Y="1.5" Width="1.75" />
-    <AssociationLine Name="mySkin" Type="UnityEngine.GUISkin" FixedFromPoint="true" FixedToPoint="true">
+    <Position X="14.25" Y="1.5" Width="2" />
+    <InheritanceLine Type="UnitDataEditor" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="15.438" Y="1.5" />
-        <Point X="15.438" Y="0.875" />
-        <Point X="19.25" Y="0.875" />
+        <Point X="13.25" Y="0.812" />
+        <Point X="15.25" Y="0.812" />
+        <Point X="15.25" Y="1.5" />
       </Path>
-    </AssociationLine>
-    <AssociationLine Name="baseSection" Type="UnitEditor.UI.Section.BaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="15.125" Y="4.338" />
-        <Point X="15.125" Y="6.124" />
-        <Point X="14.562" Y="6.124" />
-        <Point X="14.562" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="iconSection" Type="UnitEditor.UI.Section.IconSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="15.312" Y="4.338" />
-        <Point X="15.312" Y="6.115" />
-        <Point X="16.375" Y="6.115" />
-        <Point X="16.375" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="statsSection" Type="UnitEditor.UI.Section.StatsBaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="15.5" Y="4.338" />
-        <Point X="15.5" Y="6.1" />
-        <Point X="18" Y="6.1" />
-        <Point X="18" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="statsAdditionalSection" Type="UnitEditor.UI.Section.StatsAdditionalSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="15.688" Y="4.338" />
-        <Point X="15.688" Y="6.121" />
-        <Point X="20.25" Y="6.121" />
-        <Point X="20.25" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="abilitiesSection" Type="UnitEditor.UI.Section.AbilitiesSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="15.875" Y="4.338" />
-        <Point X="15.875" Y="6.088" />
-        <Point X="22.25" Y="6.088" />
-        <Point X="22.25" Y="7.25" />
-      </Path>
-    </AssociationLine>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAFAAAAAACAAAAAAAKRCICAAAAAAACAAAAAAAAIGAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAABAAAAAABAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\Inspector\BuildingDataEditor.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="mySkin" />
-      <Field Name="baseSection" />
-      <Field Name="iconSection" />
-      <Field Name="statsSection" />
-      <Field Name="statsAdditionalSection" />
-      <Field Name="abilitiesSection" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="UnitEditor.Inspector.CharacterDataEditor">
-    <Position X="16.75" Y="1.5" Width="1.75" />
-    <AssociationLine Name="mySkin" Type="UnityEngine.GUISkin" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <Position X="16.5" Y="1.5" Width="2" />
+    <InheritanceLine Type="UnitDataEditor" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="17.625" Y="1.5" />
-        <Point X="17.625" Y="0.875" />
-        <Point X="19.25" Y="0.875" />
+        <Point X="13.25" Y="0.812" />
+        <Point X="17.429" Y="0.812" />
+        <Point X="17.429" Y="1.5" />
       </Path>
-    </AssociationLine>
-    <AssociationLine Name="baseSection" Type="UnitEditor.UI.Section.BaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="17.188" Y="4.146" />
-        <Point X="17.188" Y="6.127" />
-        <Point X="14.562" Y="6.127" />
-        <Point X="14.562" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="iconSection" Type="UnitEditor.UI.Section.IconSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="17.375" Y="4.146" />
-        <Point X="17.375" Y="6.105" />
-        <Point X="16.375" Y="6.105" />
-        <Point X="16.375" Y="7.25" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.116" Y="0.058" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="statsSection" Type="UnitEditor.UI.Section.StatsBaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="17.562" Y="4.146" />
-        <Point X="17.562" Y="6.101" />
-        <Point X="18" Y="6.101" />
-        <Point X="18" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="statsAdditionalSection" Type="UnitEditor.UI.Section.StatsAdditionalSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="17.75" Y="4.146" />
-        <Point X="17.75" Y="6.089" />
-        <Point X="20.25" Y="6.089" />
-        <Point X="20.25" Y="7.25" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="abilitiesSection" Type="UnitEditor.UI.Section.AbilitiesSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="17.938" Y="4.146" />
-        <Point X="17.938" Y="6.116" />
-        <Point X="22.25" Y="6.116" />
-        <Point X="22.25" Y="7.25" />
-      </Path>
-    </AssociationLine>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAFAAAAAACAAAAAAAKQCICAAAAAAACAAAAAAAAIGAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\Inspector\CharacterDataEditor.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="mySkin" />
-      <Field Name="baseSection" />
-      <Field Name="iconSection" />
-      <Field Name="statsSection" />
-      <Field Name="statsAdditionalSection" />
-      <Field Name="abilitiesSection" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="UnityEngine.GUISkin" Collapsed="true">
-    <Position X="19.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
   </Class>
   <Class Name="UnitEditor.UI.Section.AbilitiesSection">
-    <Position X="21.5" Y="7.25" Width="1.5" />
+    <Position X="18.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\InspectorSections\AbilitiesSection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Section.BaseSection">
-    <Position X="13.75" Y="7.25" Width="1.5" />
+    <Position X="10.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\InspectorSections\BaseSection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Section.IconSection">
-    <Position X="15.5" Y="7.25" Width="1.5" />
+    <Position X="12.5" Y="7.25" Width="1.5" />
     <InheritanceLine Type="UnitEditor.UI.Section.UnitDataSection" FixedFromPoint="true">
       <Path>
-        <Point X="18" Y="9.5" />
-        <Point X="18" Y="9.242" />
-        <Point X="16.25" Y="9.242" />
-        <Point X="16.25" Y="8.867" />
+        <Point X="15" Y="9.5" />
+        <Point X="15" Y="9.242" />
+        <Point X="13.25" Y="9.242" />
+        <Point X="13.25" Y="8.867" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -277,13 +69,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Section.StatsBaseSection">
-    <Position X="17.25" Y="7.25" Width="1.75" />
+    <Position X="14.25" Y="7.25" Width="1.75" />
     <InheritanceLine Type="UnitEditor.UI.Section.UnitDataSection" FixedFromPoint="true">
       <Path>
-        <Point X="18" Y="9.5" />
-        <Point X="18" Y="9.242" />
-        <Point X="18.125" Y="9.242" />
-        <Point X="18.125" Y="8.867" />
+        <Point X="15" Y="9.5" />
+        <Point X="15" Y="9.242" />
+        <Point X="15.125" Y="9.242" />
+        <Point X="15.125" Y="8.867" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -292,13 +84,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Section.StatsAdditionalSection">
-    <Position X="19.25" Y="7.25" Width="2" />
+    <Position X="16.25" Y="7.25" Width="2" />
     <InheritanceLine Type="UnitEditor.UI.Section.UnitDataSection" FixedFromPoint="true">
       <Path>
-        <Point X="18" Y="9.5" />
-        <Point X="18" Y="9.242" />
-        <Point X="20.25" Y="9.242" />
-        <Point X="20.25" Y="8.867" />
+        <Point X="15" Y="9.5" />
+        <Point X="15" Y="9.242" />
+        <Point X="17.25" Y="9.242" />
+        <Point X="17.25" Y="8.867" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -307,18 +99,200 @@
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Section.UnitDataSection">
-    <Position X="17.25" Y="9.5" Width="1.5" />
-    <InheritanceLine Type="UnityEngine.Object" ManuallyRouted="true" FixedFromPoint="true">
-      <Path>
-        <Point X="13.188" Y="1.312" />
-        <Point X="13.188" Y="9.242" />
-        <Point X="18" Y="9.242" />
-        <Point X="18" Y="9.5" />
-      </Path>
-    </InheritanceLine>
+    <Position X="14.25" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAIIAAACAASAAAAIQAAAAAABAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\InspectorSections\UnitDataSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.Window.UnitEditorWindow">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <InheritanceLine Type="UnityEditor.EditorWindow" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="7.75" />
+        <Point X="3.75" Y="5.261" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="buttonList" Type="UnitEditor.UI.ButttonList.ButtonList" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.125" Y="5.261" />
+        <Point X="4.125" Y="7.409" />
+        <Point X="7.75" Y="7.409" />
+        <Point X="7.75" Y="6.69" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="propertiesArea" Type="UnitEditor.UI.PropertiesArea.PropertiesArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.979" Y="5.261" />
+        <Point X="3.979" Y="7.534" />
+        <Point X="9.5" Y="7.534" />
+        <Point X="9.5" Y="5.92" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="toolbar" Type="UnitEditor.UI.Toolbar.UnitEditorToolbar" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.271" Y="5.261" />
+        <Point X="4.271" Y="7.321" />
+        <Point X="6.062" Y="7.321" />
+        <Point X="6.062" Y="5.728" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABABAAAQAEAACQAABAQAAEAABABAAwAIgIGAAABACAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Window\UnitEditorWindow.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buttonList" />
+      <Field Name="propertiesArea" />
+      <Field Name="toolbar" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UnitDataEditor">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="baseSection" Type="UnitEditor.UI.Section.BaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="3.723" />
+        <Point X="12" Y="6.326" />
+        <Point X="11.438" Y="6.326" />
+        <Point X="11.438" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="iconSection" Type="UnitEditor.UI.Section.IconSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.188" Y="3.723" />
+        <Point X="12.188" Y="6.322" />
+        <Point X="13.25" Y="6.322" />
+        <Point X="13.25" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="statsSection" Type="UnitEditor.UI.Section.StatsBaseSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.375" Y="3.723" />
+        <Point X="12.375" Y="6.258" />
+        <Point X="15.125" Y="6.258" />
+        <Point X="15.125" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="statsAdditionalSection" Type="UnitEditor.UI.Section.StatsAdditionalSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.562" Y="3.723" />
+        <Point X="12.562" Y="6.176" />
+        <Point X="17.25" Y="6.176" />
+        <Point X="17.25" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="abilitiesSection" Type="UnitEditor.UI.Section.AbilitiesSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.75" Y="3.723" />
+        <Point X="12.75" Y="6.057" />
+        <Point X="19.25" Y="6.057" />
+        <Point X="19.25" Y="7.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAACAAQAAAAIQCICAAABAACCAAACAAAAIGAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Inspector\UnitDataEditor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="baseSection" />
+      <Field Name="iconSection" />
+      <Field Name="statsSection" />
+      <Field Name="statsAdditionalSection" />
+      <Field Name="abilitiesSection" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UnityEditor.Editor" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="UnitEditor.UI.ButttonList.ButtonList">
+    <Position X="7" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAAAhAARAAAACQAAABAABBAQAAAACAAAABIAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\UI\ButtonList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.UI.PropertiesArea.PropertiesArea">
+    <Position X="8.75" Y="2.25" Width="1.5" />
+    <AssociationLine Name="editorUnitData" Type="UnityEditor.Editor" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.438" Y="2.25" />
+        <Point X="9.438" Y="1.875" />
+        <Point X="9.438" Y="1.875" />
+        <Point X="9.438" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAgEIQAEAAAAAAAAAAhAAAAACACQAEABAAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\UI\PropertiesArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="editorUnitData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UnitEditor.UI.Toolbar.UnitEditorToolbar">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIAAgAAAQCQAAAAgAAAAABAAQAAAAKAAAAAAAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\UI\UnitEditorToolbar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.Window.NewUnitWindow">
+    <Position X="3" Y="9" Width="1.5" />
+    <InheritanceLine Type="UnityEditor.EditorWindow" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="8.441" />
+        <Point X="3.75" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAAAAAQMAAAAEAAAAAAAAAAAIAASAAAAACAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Window\NewUnitWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.Window.LoadFromFileWIndow">
+    <Position X="6.75" Y="9" Width="1.75" />
+    <InheritanceLine Type="UnityEditor.EditorWindow" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="8.441" />
+        <Point X="3.75" Y="8.7" />
+        <Point X="7.625" Y="8.7" />
+        <Point X="7.625" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>MAABAAAAAABAIQAAgAAAAAAAAAAAAEAIAEGAAAAACAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Window\LoadFromFileWIndow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.Window.ComponentsWindow">
+    <Position X="4.75" Y="9" Width="1.75" />
+    <InheritanceLine Type="UnityEditor.EditorWindow" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="8.441" />
+        <Point X="3.75" Y="8.7" />
+        <Point X="5.625" Y="8.7" />
+        <Point X="5.625" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>MAABgAAAAAAAIAAAAgQAABAAAAAAAAgIAACAAAAICAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Window\ComponentsWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitEditor.Window.SettingsWindow">
+    <Position X="8.75" Y="9" Width="1.5" />
+    <InheritanceLine Type="UnityEditor.EditorWindow" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="8.441" />
+        <Point X="3.75" Y="8.7" />
+        <Point X="9.5" Y="8.7" />
+        <Point X="9.5" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>IAABAAAACAAAAAAAAAAAAAAAAAAAAAAIAACAAAAACAA=</HashCode>
+      <FileName>Assets\UnitEditor\Script\Editor\Window\SettingsWindow.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

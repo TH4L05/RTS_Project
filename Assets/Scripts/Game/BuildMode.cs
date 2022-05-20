@@ -184,7 +184,7 @@ public class BuildMode : MonoBehaviour
 
         foreach (var resourceRequirement in data.RequiredResources)
         {
-            if (Game.Instance.PlayerManager.CheckResourceRequirement(player, resourceRequirement.amount, resourceRequirement.ResoureData.Type))
+            if (Game.Instance.PlayerManager.CheckResourceRequirement(player, resourceRequirement.amount, resourceRequirement.resourceType))
             {
                 continue;
             }
@@ -204,7 +204,7 @@ public class BuildMode : MonoBehaviour
 
         foreach (var resourceRequirement in data.RequiredResources)
         {
-            ResourceManager.RemoveResource(player, resourceRequirement.ResoureData.Type, resourceRequirement.amount, true);
+            ResourceManager.RemoveResource(player, resourceRequirement.resourceType, resourceRequirement.amount, true);
         }      
     }
 

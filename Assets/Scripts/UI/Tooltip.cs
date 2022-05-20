@@ -93,7 +93,7 @@ public class Tooltip : MonoBehaviour
         int index = 0;
         foreach (var resource in data.RequiredResources)
         {
-            textFieldsStatic[index].text = resource.ResoureData.Type.ToString() + " : " + resource.amount.ToString();
+            textFieldsStatic[index].text = resource.resourceType.ToString() + " : " + resource.amount.ToString();
             index++;
         }
     }

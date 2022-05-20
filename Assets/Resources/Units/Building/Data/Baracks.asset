@@ -18,10 +18,14 @@ MonoBehaviour:
   buildTime: 5
   deathTime: 0
   requiredResources:
-  - ResoureData: {fileID: 11400000, guid: 0f8dad305a19fad4da51ef3d116ac1b1, type: 2}
-    amount: 25
-  - ResoureData: {fileID: 11400000, guid: 6e295d71ca7df2b4e81cc77d8bb5a65b, type: 2}
+  - resourceType: 0
+    amount: 20
+  - resourceType: 1
     amount: 5
+  - resourceType: 2
+    amount: 0
+  - resourceType: 3
+    amount: 0
   healthMax: 1500
   healthRegen: 0
   healthRegenRate: 0
@@ -34,7 +38,6 @@ MonoBehaviour:
   attackSpeed: 0
   basedamage: 1
   weapon: {fileID: 0}
-  weaponAttackOffsetTime: 0
   abilities:
   - {fileID: 11400000, guid: dda89547387f00e4ba01064106d7d7f7, type: 2}
   - {fileID: 11400000, guid: c3f6c68cc9b93394cbe411089fc08890, type: 2}
@@ -52,6 +55,22 @@ MonoBehaviour:
   actionButtonIcon: {fileID: 21300000, guid: c57adb09047eaef4d8a316988578ae85, type: 3}
   actionButtonIconHighlighted: {fileID: 21300000, guid: 01973b67b478f8446ad8a3b0be99af52, type: 3}
   actionButtonIconPressed: {fileID: 21300000, guid: 6ed87c35d2e2737419545a97d01f515a, type: 3}
-  producedResources: []
+  producedResources:
+  - resourceType: 0
+    amount: 0
+  - resourceType: 1
+    amount: 0
+  - resourceType: 2
+    amount: 0
+  - resourceType: 3
+    amount: 0
+  suppliedResourcesOnStart:
+  - resourceType: 0
+    amount: 0
+  - resourceType: 1
+    amount: 0
+  - resourceType: 2
+    amount: 0
+  - resourceType: 3
+    amount: 0
   productionSpeed: 0
-  suppliedResourcesOnStart: []

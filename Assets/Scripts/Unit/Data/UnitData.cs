@@ -1,12 +1,23 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ResourceSetup
 {
-    public ResourceData ResoureData;
+    public ResourceType resourceType;
     public int amount;
+
+    public ResourceSetup()
+    {
+    }
+
+    public ResourceSetup(ResourceType resourceType, int amount)
+    {
+        this.resourceType = resourceType;
+        this.amount = amount;
+    }
 }
 
 
@@ -27,7 +38,13 @@ public class UnitData : ScriptableObject
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;
-    [SerializeField] private ResourceSetup[] requiredResources;
+    [SerializeField] private ResourceSetup[] requiredResources = new ResourceSetup[] 
+                                                                                    {
+                                                                                    new ResourceSetup(ResourceType.Wood, 0), 
+                                                                                    new ResourceSetup(ResourceType.Gold, 0), 
+                                                                                    new ResourceSetup(ResourceType.Food, 0), 
+                                                                                    new ResourceSetup(ResourceType.Unit, 0)
+                                                                                    };
 
     //[Header("Stats")]
     [SerializeField] private float healthMax = 1f;
@@ -44,7 +61,6 @@ public class UnitData : ScriptableObject
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float basedamage = 1f;
     [SerializeField] private GameObject weapon;
-    [SerializeField] private float weaponAttackOffsetTime;
 
     //[Header("Abilities")]
     [SerializeField] private Ability[] abilities = new Ability[12];
@@ -75,7 +91,6 @@ public class UnitData : ScriptableObject
     public float AttackSpeed => attackSpeed;
     public float Damage => basedamage;
     public GameObject Weapon => weapon;
-    public float WeaponAttackOffsetTime => weaponAttackOffsetTime;
     public Ability[] Abilities => abilities;
     public Sprite SelectionInfoIcon => selectionInfoIcon;
     public Sprite ActionButtonIcon => actionButtonIcon;
@@ -93,6 +108,8 @@ public class UnitData : ScriptableObject
 
     public void SetDataFromStrings(string[] data)
     {
+        //TODO: add all fields (excluding icons anmd weapon)
+
         name = data[0];
         tooltip = data[2];
         buildTime = float.Parse(data[3]);

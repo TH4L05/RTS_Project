@@ -57,7 +57,7 @@ public class SellUnit : Ability
 
         foreach (var resource in unit.UnitData.RequiredResources)
         {
-            ResourceManager.GainResource(unit.Owner, resource.ResoureData.Type, resource.amount / 2, true);
+            ResourceManager.GainResource(unit.Owner, resource.resourceType, resource.amount / 2, true);
         }
 
         Game.Instance.PlayerManager.RemoveUnit(unit, unit.Owner);

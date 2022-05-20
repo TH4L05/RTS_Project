@@ -280,12 +280,12 @@ namespace UnitEditor.Data
 
 
                 case UnitType.Building:
-                    if (editorData.buildingTemplate == null)
+                    if (editorData.unitTemplates[0] == null)
                     {
                         Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
                         return;
                     }
-                    newUnitObject = Instantiate(editorData.buildingTemplate);
+                    newUnitObject = Instantiate(editorData.unitTemplates[0]);
                     unit = newUnitObject.GetComponent<Building>();
                     unit.SetUnitData(data);
 
@@ -297,12 +297,12 @@ namespace UnitEditor.Data
 
 
                 case UnitType.Character:
-                    if (editorData.characterTemplate == null)
+                    if (editorData.unitTemplates[1] == null)
                     {
                         Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
                         return;
                     }
-                    newUnitObject = Instantiate(editorData.characterTemplate);
+                    newUnitObject = Instantiate(editorData.unitTemplates[1]);
                     unit = newUnitObject.GetComponent<Character>();
                     unit.SetUnitData(data);              
                     break;

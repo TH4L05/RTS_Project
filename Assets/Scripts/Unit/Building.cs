@@ -86,11 +86,11 @@ public class Building : Unit
         {
             if (humanConrolledUnit)
             {
-                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, true);
+                ResourceManager.GainResource?.Invoke(owner, resource.resourceType, resource.amount, true);
             }
             else
             {
-                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, false);
+                ResourceManager.GainResource?.Invoke(owner, resource.resourceType, resource.amount, false);
             }
         }
     }
@@ -101,15 +101,13 @@ public class Building : Unit
         {
             if (humanConrolledUnit)
             {
-                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, true);
+                ResourceManager.GainResource?.Invoke(owner, resource.resourceType, resource.amount, true);
             }
             else
             {
-                ResourceManager.GainResource?.Invoke(owner, resource.ResoureData.Type, resource.amount, false);
+                ResourceManager.GainResource?.Invoke(owner, resource.resourceType, resource.amount, false);
             }
-        }
-
-             
+        }           
     }
 
     public void ChangeGatheringPosition()
@@ -152,7 +150,7 @@ public class Building : Unit
 
         foreach (var resource in data.RequiredResources)
         {
-            canbuild = Game.Instance.PlayerManager.CheckResourceRequirement(owner, resource.amount, resource.ResoureData.Type);
+            canbuild = Game.Instance.PlayerManager.CheckResourceRequirement(owner, resource.amount, resource.resourceType);
         }
 
         if (!canbuild)
@@ -168,7 +166,7 @@ public class Building : Unit
 
         foreach (var resourceRequirement in data.RequiredResources)
         {
-            ResourceManager.RemoveResource(owner, resourceRequirement.ResoureData.Type, resourceRequirement.amount, true);
+            ResourceManager.RemoveResource(owner, resourceRequirement.resourceType, resourceRequirement.amount, true);
         }
 
 
