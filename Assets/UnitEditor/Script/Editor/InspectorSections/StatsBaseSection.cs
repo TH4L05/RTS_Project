@@ -34,18 +34,19 @@ namespace UnitEditor.UI.Section
 
         protected override void SectionGUI(Rect baseRect)
         {
-            GUILayout.BeginArea(baseRect);
-            MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
-
             Rect sectionRect = new Rect(15f, 10f, 420f, 175f);
             Rect imageRect = new Rect(15f, (sectionRect.height - 128f) / 2, 128f, 128f);
             Rect subSectionRect = new Rect(imageRect.x + imageRect.width, imageRect.y, 315f, 45f);
             Rect labelRect = new Rect(15f, 0f, 180f, 15f);
             Rect floatRect = new Rect(labelRect.x + labelRect.width, 0f, 50f, 15f);
             Rect sliderRect = new Rect(labelRect.x, labelRect.y + labelRect.height + 4f, 235f, 25f);
-            float[] maxValues = { 9999f, 999f, 999f };
+
+            float[] maxValues = { 9999f, 99f, 99f };
             int count = 0;
 
+            GUILayout.BeginArea(baseRect);
+            MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
+          
             for (int i = 0; i < 2; i++)
             {
                 GUILayout.BeginArea(sectionRect);

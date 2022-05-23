@@ -28,9 +28,15 @@ namespace UnitEditor.UI.Section
         #region OnGUI
 
         protected override void SectionGUI(Rect baseRect)
-        {
+        {          
             GUILayout.BeginArea(baseRect);
             MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
+
+            Rect topLabelRect = new Rect(15f, 5f, 200f, 20f);
+            EditorGUI.LabelField(topLabelRect, "Abilities", mySkin.GetStyle("baseLabelField"));
+
+            Rect sectionRect = new Rect(0f, topLabelRect.y + topLabelRect.height, baseRect.width, baseRect.height - topLabelRect.height);
+            GUILayout.BeginArea(sectionRect);
 
             GUIStyle abilitiesTopLabelStyle = new GUIStyle();
             abilitiesTopLabelStyle.alignment = TextAnchor.MiddleLeft;
@@ -50,18 +56,15 @@ namespace UnitEditor.UI.Section
                 MyGUI.DrawColorRect(abilityRect, new Color(0.33f, 0.33f, 0.33f, 0.5f));
                 var prop = enumerator.Current as SerializedProperty;
 
-
                 EditorGUI.PropertyField(new Rect(abilityRect.x, abilityRect.y, abilityRect.width, 25f), prop, GUIContent.none);
 
                 if (prop.objectReferenceValue != null)
                 {
                     SerializedObject so = new SerializedObject(prop.objectReferenceValue);
-
                     SerializedProperty name = so.FindProperty("name");
                     SerializedProperty icon = so.FindProperty("icon");
 
                     Texture2D iconTexture = new Texture2D(64, 64);
-
                     if (icon.objectReferenceValue != null)
                     {
                         Sprite iconSprite = icon.objectReferenceValue as Sprite;
@@ -84,6 +87,7 @@ namespace UnitEditor.UI.Section
 
                 index++;
             }
+            GUILayout.EndArea();
 
             GUILayout.EndArea();
         }

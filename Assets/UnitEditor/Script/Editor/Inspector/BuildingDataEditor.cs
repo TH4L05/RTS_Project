@@ -30,7 +30,7 @@ namespace UnitEditor.Inspector
         protected override void OnGUI()
         {
             base.OnGUI();
-            Rect baseSectionRect4 = new Rect(baseRect.x, baseRect.y + 1575f, baseRect.width, 450f);
+            Rect baseSectionRect4 = new Rect(baseRect.x, baseRect.y + 1600f, baseRect.width, 450f);
             buildingSpecificSection.OnGUI(baseSectionRect4);
         }
     }

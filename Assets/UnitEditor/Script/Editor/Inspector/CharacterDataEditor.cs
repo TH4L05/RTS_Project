@@ -12,7 +12,6 @@ namespace UnitEditor.Inspector
 {
     [CustomEditor(typeof(CharacterData))]
     public class CharacterDataEditor : UnitDataEditor
-    {
-        
+    {        
     }
 }

@@ -12,7 +12,7 @@ namespace UnitEditor.Data
 {
     public sealed class DataHandler
     {
-        #region Fields
+        #region PrivateFields
 
         private string editorDataPath;
         private UnitEditorData editorData;
@@ -21,14 +21,19 @@ namespace UnitEditor.Data
         private GUISkin mySkin;
         private Texture2D[] iconTextures;
 
+        #endregion
+
+        #region PublicFields
+
         public string EditorDataPath => editorDataPath;
+        public UnitEditorData EditorData => editorData;
         public GameObject ActiveObj => activeObj;
         public GUISkin MySkin => mySkin; 
         public Texture2D[] IconTextures => iconTextures;
 
-        public static readonly DataHandler Instance = new DataHandler();
         #endregion
 
+        public static readonly DataHandler Instance = new DataHandler();
         private DataHandler()
         {          
         }
@@ -112,6 +117,22 @@ namespace UnitEditor.Data
             tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/IconWeapon1.png");
             if (tex == null) tex = iconTextures[0];
             iconTextures[4] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/R_Wood.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[5] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/R_Gold.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[6] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/R_Food.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[7] = tex;
+
+            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(editorDataPath + "/Data/Texture/R_Unit.png");
+            if (tex == null) tex = iconTextures[0];
+            iconTextures[8] = tex;
         }
 
         #endregion
@@ -200,6 +221,22 @@ namespace UnitEditor.Data
             return list[listIndex];
         }
 
+
+        public bool UnitNameExistanceCheck(string name, UnitType type)
+        {
+            List<GameObject> list = GetList(type);
+
+            foreach (var item in list)
+            {
+                if (item.name == name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void DeleteFromList(UnitType type, GameObject obj)
         {
             List<GameObject> list = GetList(type);
@@ -242,11 +279,9 @@ namespace UnitEditor.Data
         private UnitData CreateUnitData(UnitType type, string name, string path)
         {
             UnitData unitData = null;
-            //Debug.Log(path);
 
             switch (type)
             {
-                case UnitType.Undefined:
                 default:
                     return unitData;
 
@@ -274,7 +309,6 @@ namespace UnitEditor.Data
 
             switch (type)
             {
-                case UnitType.Undefined:
                 default:
                     return;
 

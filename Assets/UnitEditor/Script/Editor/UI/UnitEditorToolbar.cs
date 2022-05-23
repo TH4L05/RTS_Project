@@ -2,8 +2,6 @@
 
 using System;
 using UnityEngine;
-using UnityEditor;
-using Object = UnityEngine.Object;
 
 using UnitEditor.Window;
 
@@ -20,7 +18,7 @@ namespace UnitEditor.UI.Toolbar
 
         #region Fields
 
-        [SerializeField] private string[] toolBarTexts = new string[] { "Buildings", "Characters" };
+        [SerializeField] private string[] toolBarStrings;
         private UnitEditorWindow editorwindow;
         private int toolbarIndex;
         private int lastToolbarIndex;
@@ -38,6 +36,7 @@ namespace UnitEditor.UI.Toolbar
 
         private void Initialize()
         {
+            toolBarStrings = Enum.GetNames(typeof(UnitType));
         }
 
         #endregion
@@ -56,7 +55,7 @@ namespace UnitEditor.UI.Toolbar
         {
             if (NewUnitWindow.IsOpen) return;
             var rect = new Rect(5f, 5f, 400f, 25f);
-            toolbarIndex = GUI.Toolbar(rect, toolbarIndex, toolBarTexts);
+            toolbarIndex = GUI.Toolbar(rect, toolbarIndex, toolBarStrings);
 
             if (lastToolbarIndex != toolbarIndex)
             {
@@ -69,11 +68,6 @@ namespace UnitEditor.UI.Toolbar
         }
 
         #endregion
-
-        public int GetIndex()
-        {
-            return toolbarIndex;
-        }
     }
 }
 

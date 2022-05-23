@@ -43,7 +43,6 @@ namespace UnitEditor.UI.Section
         private void InitList()
         {
             requiredResourecesList = new ReorderableList(properties[3].serializedObject, properties[3], false, false, false, false);
-            //requiredResourecesList.drawHeaderCallback = DrawRequiredResouresListHeader;
             requiredResourecesList.drawElementCallback = DrawRequiredResouresListElements;
         }
 
@@ -134,22 +133,15 @@ namespace UnitEditor.UI.Section
             SerializedProperty element = requiredResourecesList.serializedProperty.GetArrayElementAtIndex(index);
             SerializedProperty resourceType = element.FindPropertyRelative("resourceType");
             SerializedProperty amount = element.FindPropertyRelative("amount");
-            Texture2D tex = new Texture2D(64, 64);
 
-            //TODO: get icons from Resource Data
+            Texture2D tex = new Texture2D(64, 64);
+            tex = DataHandler.Instance.IconTextures[index + 5];
+
             EditorGUI.DrawPreviewTexture(new Rect(rect.x, rect.y, 32f, 32f), tex);
-            //EditorGUI.PropertyField(new Rect(rect.x + 70f, rect.y + 4f, 200f, 25f), resourceType, GUIContent.none);
             EditorGUI.LabelField(new Rect(rect.x + 70f, rect.y + 4f, 150f, 25f), ((ResourceType)resourceType.enumValueFlag).ToString());
             EditorGUI.LabelField(new Rect(rect.x + 230f, rect.y + 4f, 50f, 25f), "amount:");
             amount.intValue = EditorGUI.IntField(new Rect(rect.x + 300f, rect.y + 4f, 75f, 25f), amount.intValue);
         }
-
-        private void DrawRequiredResourcesListHeader(Rect rect)
-        {
-            string name = "RequiredResources";
-            EditorGUI.LabelField(rect, name);
-        }
-
     }
 }
 

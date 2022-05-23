@@ -33,7 +33,7 @@ MonoBehaviour:
   manaRegen: 0
   manaRegenRate: 0
   armor: 0
-  attackRange: 3
+  attackRange: 7
   actionRange: 7
   attackSpeed: 3
   basedamage: 1

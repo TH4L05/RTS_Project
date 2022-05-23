@@ -20,9 +20,10 @@ namespace UnitEditor.Window
         #region Fields
 
         private static NewUnitWindow window;
-		private static UnitEditorWindow editorWindow;
 		private UnitType unitType;
 		private string unitName;
+		private string message;
+		private MessageType messageType;
 
 		public static bool IsOpen;
 
@@ -41,7 +42,6 @@ namespace UnitEditor.Window
 			}
 
 			IsOpen = true;
-
 		}
 
 		private void OnGUI()
@@ -70,6 +70,10 @@ namespace UnitEditor.Window
 
 				rect = new Rect(rect.x, rect.y + rect.height + 2f, 200f, 25f);
 				unitName = EditorGUI.TextField(rect, unitName);
+				if (string.IsNullOrEmpty(unitName))
+				{
+					SetInfoMessage(0);
+				}
 
 				rect = new Rect(25f, rect.y + rect.height + 8f, 250f, 40f);
 				GUILayout.BeginArea(rect);
@@ -86,16 +90,33 @@ namespace UnitEditor.Window
 				GUILayout.EndArea();
 
 				rect = new Rect(25f, rect.y + rect.height + 6f, 250f, 40f);
-				GUILayout.BeginArea(rect);
-				if (string.IsNullOrEmpty(unitName))
-				{					
-					EditorGUILayout.HelpBox("Can not create new Unit with emtpy name", MessageType.Warning);
-				}
+				GUILayout.BeginArea(rect);				
+				EditorGUILayout.HelpBox(message, messageType);			
 				GUILayout.EndArea();
 			}			
 			GUILayout.EndArea();
 
 		}
+
+		private void SetInfoMessage(int indx)
+        {
+            switch (indx)
+            {
+				case 0:
+					message = "Can not create new Unit with emtpy name";
+					messageType = MessageType.Warning;
+					break;
+
+				case 1:
+					message = "Unit with name " + unitName + " already exists - Cannot create new Unit";
+					messageType = MessageType.Error;
+					break;
+
+				default:
+                    break;
+            }
+		}
+
 
 		private void OnDestroy()
 		{
@@ -130,6 +151,15 @@ namespace UnitEditor.Window
 		private void CreateNewUnit()
         {
 			if (string.IsNullOrEmpty(unitName)) return;
+
+			bool unitExist = DataHandler.Instance.UnitNameExistanceCheck(unitName, unitType);
+
+			if (unitExist)
+            {
+				SetInfoMessage(1);
+				return;
+            }
+
 			DataHandler.Instance.CreateNewUnit(unitType, unitName);
 			NewUnitCreated?.Invoke();
 			Close();

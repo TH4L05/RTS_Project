@@ -23,7 +23,6 @@ public class ResourceSetup
 
 public enum UnitType
 {
-    Undefined = -1,
     Building,
     Character
 }
@@ -34,7 +33,7 @@ public class UnitData : ScriptableObject
 
     //[Header("UnitBase")]
     [SerializeField] private new string name;
-    [SerializeField] private UnitType type = UnitType.Undefined;
+    [SerializeField] private UnitType type;
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;

@@ -15,11 +15,9 @@ namespace UnitEditor.UI.PropertiesArea
     {
         #region Fields
 
-        private Editor editorUnitData;
+        private Editor unitDataEditor;
         private int messageCode;
-        private Vector2 srollPosition = Vector2.zero;
         private GameObject obj;
-        private int index;
 
         #endregion
 
@@ -33,43 +31,37 @@ namespace UnitEditor.UI.PropertiesArea
         public void Initialize()
         {
             ButtonList.OnButtonPressed += CreateEditor;
-            ButtonList.UnitDeletion += OnUnitDeletion;
+            ButtonList.OnUnitGetsDeleted += DestroyEditor;
             UnitEditorToolbar.ToolbarIndexChanged += DestroyEditor;
         }
 
         #endregion
 
-       
+        #region Destroy
+
         public void Destroy()
         {
             ButtonList.OnButtonPressed -= CreateEditor;
-            ButtonList.UnitDeletion -= OnUnitDeletion;
+            ButtonList.OnUnitGetsDeleted -= DestroyEditor;
             UnitEditorToolbar.ToolbarIndexChanged -= DestroyEditor;
             DestroyEditor(0);
         }
 
-
+        /// <summary>
+        /// Immediate Destroys an Editor
+        /// </summary>
+        /// <param name="index">can be set 0</param>
         private void DestroyEditor(int index)
         {
-            if (editorUnitData != null)
-            {
-                //Debug.Log("ON DESTROY EDITOR");                
-                Object.DestroyImmediate(editorUnitData);
-            }
-
-        }
-
-        private void OnUnitDeletion(int index, UnitType type)
-        {
-           var deletedObject = DataHandler.Instance.GetObjectFromList(type, index);
-
-            if (deletedObject == obj)
-            {
-                CreateEditor(0, type);
+            if (unitDataEditor != null)
+            {               
+                Object.DestroyImmediate(unitDataEditor);
             }
         }
-       
-        #region UI
+
+        #endregion
+
+        #region GUI
 
         public void OnGUI()
         {          
@@ -79,10 +71,13 @@ namespace UnitEditor.UI.PropertiesArea
             }
             else
             {
-                if (editorUnitData != null) editorUnitData.OnInspectorGUI();
+                if (unitDataEditor != null) unitDataEditor.OnInspectorGUI();
             }         
         }
 
+        /// <summary>
+        /// Show a Helpbox with a message
+        /// </summary>
         private void ShowHelpBox()
         {
             DestroyEditor(0);
@@ -120,33 +115,22 @@ namespace UnitEditor.UI.PropertiesArea
         #region Editor
 
         /// <summary>
-        /// Creates a new Editor based on UnitType
+        /// Creates an Editor based on UnitType
         /// </summary>
-        /// <param name="index">Index from buttonList</param>
-        /// <param name="type">unitType</param>
-        private void CreateEditor(int index, UnitType type)
+        /// <param name="go">active obj</param>
+        private void CreateEditor(GameObject go)
         {
             DestroyEditor(0);
+            messageCode = 0;
 
-            if (type == UnitType.Undefined) return;
-            if (index == -1)
+            if (go == null)
             {
                 messageCode = 1;
                 return;
             }
-
-            messageCode = 0;
-
-            obj = DataHandler.Instance.GetObjectFromList(type, index);
-            if (obj == null)
-            {
-                messageCode = 10;                           
-                return;
-            }
-
-            (Unit, UnitData) u = GetUnitAndData(obj, type);
-            Unit unit = u.Item1;
-            UnitData data = u.Item2;
+           
+            obj = go;
+            UnitData data = GetUnitData(obj);
        
             if (data == null)
             {
@@ -154,32 +138,37 @@ namespace UnitEditor.UI.PropertiesArea
                 return;
             }
 
-            editorUnitData = Editor.CreateEditor(data);           
+            unitDataEditor = Editor.CreateEditor(data);           
             EditorUtility.SetDirty(data);
         }
 
-        private (Unit, UnitData) GetUnitAndData(GameObject obj,UnitType type)
+        /// <summary>
+        /// Get UnitData of an Obj based on UnitType
+        /// </summary>
+        /// <param name="obj">active obj</param>
+        /// <returns>UnitData based on UnitType</returns>
+        private UnitData GetUnitData(GameObject obj)
         {
+            var type = obj.GetComponent<Unit>().UnitData.Type;
             Unit unit = null;
             UnitData data = null;
 
             switch (type)
             {
-                case UnitType.Undefined:
                 default:
-                    return (unit, data);
+                    return data;
 
 
                 case UnitType.Building:
                     unit = obj.GetComponent<Unit>() as Building;
                     data = unit.UnitData as BuildingData;
-                    return (unit, data);
+                    return data;
 
 
                 case UnitType.Character:
                     unit = obj.GetComponent<Unit>() as Character;
                     data = unit.UnitData as CharacterData;
-                    return (unit, data);
+                    return data;
             }
         }
 

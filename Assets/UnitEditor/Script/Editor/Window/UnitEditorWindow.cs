@@ -19,7 +19,6 @@ namespace UnitEditor.Window
         private UnitEditorToolbar toolbar;
         private ButtonList buttonList;
         private PropertiesArea propertiesArea;
-        //private static DataHandler dataHandler;
 
         private bool setupDone = false;
         private Vector2 scrollPosition1 = Vector2.zero;

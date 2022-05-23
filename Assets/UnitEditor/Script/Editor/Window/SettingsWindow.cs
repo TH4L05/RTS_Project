@@ -3,6 +3,8 @@
 using UnityEngine;
 using UnityEditor;
 
+using UnitEditor.Data;
+
 namespace UnitEditor.Window
 {
 	public class SettingsWindow : EditorWindow
@@ -10,6 +12,7 @@ namespace UnitEditor.Window
 		#region Fields
 
 		private static SettingsWindow window;
+		private Editor editor;
 
 		#endregion
 
@@ -25,16 +28,18 @@ namespace UnitEditor.Window
 				Debug.LogError("Setup Failed");
 			}
 
+			editor = Editor.CreateEditor(DataHandler.Instance.EditorData);
+
 		}
 
 		private void OnGUI()
 		{
-
+			editor.DrawDefaultInspector();
 		}
 
 		private void OnDestroy()
 		{
-
+			if (editor != null) DestroyImmediate(editor);
 		}
 
 		#endregion

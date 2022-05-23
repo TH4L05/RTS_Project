@@ -56,7 +56,7 @@ public class UnitDataEditor : Editor
         Rect baseSectionRect1b = new Rect(baseRect.x, baseRect.y + baseSectionRect1a.y + baseSectionRect1a.height, baseRect.width, 190f);
         Rect baseSectionRect2a = new Rect(baseRect.x, baseRect.y + baseSectionRect1b.y + baseSectionRect1b.height, baseRect.width, baseRect.height);
         Rect baseSectionRect2b = new Rect(baseRect.x, baseRect.y + baseSectionRect2a.y + baseSectionRect2a.height, baseRect.width, 300f);
-        Rect baseSectionRect3 = new Rect(baseRect.x, baseRect.y + baseSectionRect2b.y + baseSectionRect2b.height, baseRect.width, 410f);
+        Rect baseSectionRect3 = new Rect(baseRect.x, baseRect.y + baseSectionRect2b.y + baseSectionRect2b.height, baseRect.width, 430f);
 
         baseSection.OnGUI(baseSectionRect1a);
         iconSection.OnGUI(baseSectionRect1b);

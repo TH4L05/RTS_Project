@@ -41,7 +41,6 @@ public class Utils : MonoBehaviour
 
         switch (type)
         {
-            case UnitType.Undefined:
             default:
                 return null;
 
