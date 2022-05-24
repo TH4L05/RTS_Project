@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483a02d949fb1f7488d6d24ba86d13db, type: 3}
-  m_Name: Gun
+  m_Name: SwordData
   m_EditorClassIdentifier: 
-  attackType: 1
+  attackType: 0
   type: 0
-  baseDamage: 25
+  baseDamage: 15
   diceAmount: 2
   sidesPerDie: 8
-  damageTime: 0
-  projectileTemplate: {fileID: 604763410807768735, guid: 8428ecedefdfa0146a4e3eb1be0f64b8, type: 3}
-  projectileSpeed: 35
+  projectileTemplate: {fileID: 0}
+  projectileSpeed: 0

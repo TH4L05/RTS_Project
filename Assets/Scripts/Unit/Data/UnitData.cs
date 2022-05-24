@@ -1,6 +1,5 @@
-using System.Collections;
-using System;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
 [System.Serializable]
@@ -37,11 +36,11 @@ public class UnitData : ScriptableObject
     [SerializeField] private string tooltip;
     [SerializeField] private float buildTime;
     [SerializeField] private float deathTime;
-    [SerializeField] private ResourceSetup[] requiredResources = new ResourceSetup[] 
+    [SerializeField] private ResourceSetup[] requiredResources = new ResourceSetup[]
                                                                                     {
-                                                                                    new ResourceSetup(ResourceType.Wood, 0), 
-                                                                                    new ResourceSetup(ResourceType.Gold, 0), 
-                                                                                    new ResourceSetup(ResourceType.Food, 0), 
+                                                                                    new ResourceSetup(ResourceType.Wood, 0),
+                                                                                    new ResourceSetup(ResourceType.Gold, 0),
+                                                                                    new ResourceSetup(ResourceType.Food, 0),
                                                                                     new ResourceSetup(ResourceType.Unit, 0)
                                                                                     };
 
@@ -105,20 +104,50 @@ public class UnitData : ScriptableObject
         tooltip = this.type.ToString();
     }
 
-    public void SetDataFromStrings(string[] data)
+    public virtual void SetDataFromStrings(string[] data)
     {
-        //TODO: add all fields (excluding icons anmd weapon)
-
         name = data[0];
         tooltip = data[2];
+
         buildTime = float.Parse(data[3]);
         deathTime = float.Parse(data[4]);
-        healthMax = float.Parse(data[6]);
-        healthRegen = float.Parse(data[7]);
-        healthRegenRate = float.Parse(data[8]);
-        manaMax = float.Parse(data[9]);
-        manaRegen = float.Parse(data[10]);
-        manaRegenRate = float.Parse(data[11]);
-        //armor = float.Parse(data[11]);
+
+        requiredResources[0].amount = int.Parse(data[5]);
+        requiredResources[1].amount = int.Parse(data[6]);
+        requiredResources[2].amount = int.Parse(data[7]);
+        requiredResources[3].amount = int.Parse(data[8]);
+
+        healthMax = float.Parse(data[9]);
+        healthRegen = float.Parse(data[10]);
+        healthRegenRate = float.Parse(data[11]);
+
+        manaMax = float.Parse(data[12]);
+        manaRegen = float.Parse(data[13]);
+        manaRegenRate = float.Parse(data[14]);
+
+        armor = float.Parse(data[15]);
+
+        attackRange = float.Parse(data[16]);
+        actionRange = float.Parse(data[17]);
+
+        attackSpeed = int.Parse(data[18]);
+        basedamage = int.Parse(data[19]);
+           
+        if (data[20] != "None")
+        {
+            var obj = Resources.Load("Weapons/" + data[20], typeof(GameObject));          
+            if(obj != null) weapon = obj as GameObject;
+        }
+
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (data[21+ i] == "None") continue;
+
+            var obj = Resources.Load("Abilities/" + data[21 + i], typeof(ScriptableObject));
+            if (obj != null) abilities[i] = obj as Ability;
+        }
+
+        //TODO: set icons from strings ?
     }
 }
+

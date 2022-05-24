@@ -46,8 +46,6 @@ namespace UnitEditor.Window
             }
 
             toolbar.OnGUI();
-
-            
             
             EditorGUILayout.Space(50f);
             EditorGUILayout.BeginHorizontal();

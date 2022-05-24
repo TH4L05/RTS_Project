@@ -48,7 +48,7 @@ public class UnitDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    #endregion
+    
 
     protected virtual void OnGUI()
     {
@@ -64,6 +64,8 @@ public class UnitDataEditor : Editor
         statsAdditionalSection.OnGUI(baseSectionRect2b);
         abilitiesSection.OnGUI(baseSectionRect3);
     }
+
+    #endregion
 
     #region Setup
 

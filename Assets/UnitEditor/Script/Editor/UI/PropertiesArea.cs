@@ -17,7 +17,6 @@ namespace UnitEditor.UI.PropertiesArea
 
         private Editor unitDataEditor;
         private int messageCode;
-        private GameObject obj;
 
         #endregion
 
@@ -122,6 +121,7 @@ namespace UnitEditor.UI.PropertiesArea
         {
             DestroyEditor(0);
             messageCode = 0;
+            DataHandler.Instance.SetActiveObj(go);
 
             if (go == null)
             {
@@ -129,8 +129,7 @@ namespace UnitEditor.UI.PropertiesArea
                 return;
             }
            
-            obj = go;
-            UnitData data = GetUnitData(obj);
+            UnitData data = GetUnitData(go);
        
             if (data == null)
             {

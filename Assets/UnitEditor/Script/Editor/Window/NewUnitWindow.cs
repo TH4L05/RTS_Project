@@ -41,13 +41,12 @@ namespace UnitEditor.Window
 				Debug.LogError("New Unit Window Setup = Failed");
 			}
 
+			unitType = (UnitType)UnitEditorToolbar.ToolbarIndex;
 			IsOpen = true;
 		}
 
 		private void OnGUI()
-		{
-			unitType = (UnitType)UnitEditorToolbar.ToolbarIndex;
-
+		{			
 			Rect areaRect = new Rect(15f, 15f, 300f, 175f);		
 			GUILayout.BeginArea(areaRect);
             {
@@ -95,7 +94,6 @@ namespace UnitEditor.Window
 				GUILayout.EndArea();
 			}			
 			GUILayout.EndArea();
-
 		}
 
 		private void SetInfoMessage(int indx)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,5 +40,16 @@ public class CharacterData : UnitData
 
     #endregion
 
+
+    public override void SetDataFromStrings(string[] data)
+    {
+        base.SetDataFromStrings(data);
+
+        charType = Enum.Parse<CharacterType>(data[37]);
+        movementType = Enum.Parse<MovementType>(data[38]);
+        movementSpeed = float.Parse(data[39]);
+        movementAccerlation = float.Parse(data[40]);
+
+    }
 
 }

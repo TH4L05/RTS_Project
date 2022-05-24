@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
-  m_Name: SawMill
+  m_Name: Test
   m_EditorClassIdentifier: 
-  name: Sawmill
+  name: Test
   type: 0
-  tooltip: produce wood
-  buildTime: 5
-  deathTime: 0
+  tooltip: TestUnit
+  buildTime: 20
+  deathTime: 20
   requiredResources:
   - resourceType: 0
-    amount: 5
+    amount: 25
   - resourceType: 1
-    amount: 0
+    amount: 10
   - resourceType: 2
     amount: 0
   - resourceType: 3
     amount: 0
-  healthMax: 1000
-  healthRegen: 0
-  healthRegenRate: 0
-  manaMax: 0
-  manaRegen: 0
-  manaRegenRate: 0
+  healthMax: 5000
+  healthRegen: 10
+  healthRegenRate: 10
+  manaMax: 2000
+  manaRegen: 10
+  manaRegenRate: 10
   armor: 0
-  attackRange: 2
-  actionRange: 2
-  attackSpeed: 0
+  attackRange: 10
+  actionRange: 10
+  attackSpeed: 1
   basedamage: 1
-  weapon: {fileID: 0}
+  weapon: {fileID: 3169857386294250524, guid: b208a0a30d490c04f91227f2adb2f18a, type: 3}
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -51,10 +51,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
-  selectionInfoIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
-  actionButtonIcon: {fileID: 21300000, guid: b37ebec880e1b814e99bb2131d6887f4, type: 3}
-  actionButtonIconHighlighted: {fileID: 21300000, guid: a6f266860a6037e4280438b39181d4f5, type: 3}
-  actionButtonIconPressed: {fileID: 21300000, guid: a245496cdc83ee049a200a348e78ce76, type: 3}
+  selectionInfoIcon: {fileID: 0}
+  actionButtonIcon: {fileID: 0}
+  actionButtonIconHighlighted: {fileID: 0}
+  actionButtonIconPressed: {fileID: 0}
   producedResources:
   - resourceType: 0
     amount: 0
@@ -66,11 +66,11 @@ MonoBehaviour:
     amount: 0
   suppliedResourcesOnStart:
   - resourceType: 0
-    amount: 1
+    amount: 0
   - resourceType: 1
     amount: 0
   - resourceType: 2
     amount: 0
   - resourceType: 3
     amount: 0
-  productionSpeed: 3
+  productionSpeed: 5

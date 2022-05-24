@@ -108,6 +108,7 @@ namespace UnitEditor.Window
 		private bool Initialize()
 		{
 			obj = DataHandler.Instance.ActiveObj;
+			if (obj == null) return false;
 			return true;
 		}
 
@@ -119,23 +120,28 @@ namespace UnitEditor.Window
 		private void LoadDataFromCSV()
         {
 			string[] fileLines = DataHandler.Instance.LoadLinesFromCSV(filePath);
+			if(fileLines == null) return;
 
 			int idx = 0;
             foreach (var line in fileLines)
             {
-				//Ignore headings
+				//Ignore file headings
 				if (idx == 0)
                 {
 					idx++;
 					continue;
                 }
 
-				string[] lineData = line.Split(';', StringSplitOptions.None);
-				Debug.Log("name: " + lineData[0]);
+				string[] lineData = line.Split(';', StringSplitOptions.None);				
+				//Debug.Log("name: " + lineData[0]);
 
-				if (lineData[0] == obj.name)
+				if (string.IsNullOrEmpty(lineData[0]))
                 {
-					Debug.Log(lineData[0] + " / " + lineData[1] + " ...");
+					idx++;
+					continue;
+				}
+				else if (lineData[0] == obj.name)
+                {
 					SetUnitData(lineData);
 					return;
                 }

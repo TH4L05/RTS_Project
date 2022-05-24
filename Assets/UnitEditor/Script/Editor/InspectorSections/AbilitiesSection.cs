@@ -38,11 +38,7 @@ namespace UnitEditor.UI.Section
             Rect sectionRect = new Rect(0f, topLabelRect.y + topLabelRect.height, baseRect.width, baseRect.height - topLabelRect.height);
             GUILayout.BeginArea(sectionRect);
 
-            GUIStyle abilitiesTopLabelStyle = new GUIStyle();
-            abilitiesTopLabelStyle.alignment = TextAnchor.MiddleLeft;
-            abilitiesTopLabelStyle.normal.textColor = Color.gray;
-            abilitiesTopLabelStyle.fontSize = 20;
-
+            //TODO: add to Skin
             GUIStyle abilitiesLabelStyle = new GUIStyle();
             abilitiesLabelStyle.alignment = TextAnchor.MiddleCenter;
             abilitiesLabelStyle.normal.textColor = new Color(0.15f, 0.15f, 0.15f);

@@ -37,4 +37,20 @@ public class BuildingData : UnitData
 
     #endregion
 
+    public override void SetDataFromStrings(string[] data)
+    {
+        base.SetDataFromStrings(data);
+
+        producedResources[0].amount = int.Parse(data[37]);
+        producedResources[1].amount = int.Parse(data[38]);
+        producedResources[2].amount = int.Parse(data[39]);
+        producedResources[3].amount = int.Parse(data[40]);
+
+        productionSpeed = float.Parse(data[41]);
+
+        suppliedResourcesOnStart[0].amount = int.Parse(data[42]);
+        suppliedResourcesOnStart[1].amount = int.Parse(data[43]);
+        suppliedResourcesOnStart[2].amount = int.Parse(data[44]);
+        suppliedResourcesOnStart[3].amount = int.Parse(data[45]);
+    }
 }

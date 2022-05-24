@@ -265,6 +265,12 @@ namespace UnitEditor.Data
             return editorDataPath;
         }
 
+        public void SetActiveObj(GameObject go)
+        {
+            activeObj = go;
+        }
+
+
         #endregion
 
         #region CreateUnit
@@ -406,11 +412,13 @@ namespace UnitEditor.Data
             }
         }
 
+
+
+        #endregion
+
         public string[] LoadLinesFromCSV(string path)
         {
-            string filePath = path;
-
-            if (File.Exists(filePath))
+            if (File.Exists(path))
             {
                 return File.ReadAllLines(path);
             }
@@ -419,10 +427,8 @@ namespace UnitEditor.Data
                 Debug.LogError($"csv at path \"{path}\" does not exist");
             }
 
-            return null;          
+            return null;
         }
-
-        #endregion
     }
 }
 

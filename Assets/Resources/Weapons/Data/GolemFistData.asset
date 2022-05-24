@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483a02d949fb1f7488d6d24ba86d13db, type: 3}
-  m_Name: Sword
+  m_Name: GolemFistData
   m_EditorClassIdentifier: 
   attackType: 0
   type: 0
-  baseDamage: 15
-  diceAmount: 2
+  baseDamage: 40
+  diceAmount: 1
   sidesPerDie: 8
+  damageTime: 1.25
   projectileTemplate: {fileID: 0}
   projectileSpeed: 0
