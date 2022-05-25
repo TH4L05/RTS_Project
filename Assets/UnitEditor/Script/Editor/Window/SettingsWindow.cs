@@ -14,13 +14,15 @@ namespace UnitEditor.Window
 		private static SettingsWindow window;
 		private Editor editor;
 
+		public static bool IsOpen;
+
 		#endregion
 
 		#region UnityFunctions
 
 		private void OnEnable()
 		{
-			bool setupSuccess = Setup();
+			bool setupSuccess = Initialize();
 
 			if (!setupSuccess)
 			{
@@ -28,39 +30,59 @@ namespace UnitEditor.Window
 				Debug.LogError("Setup Failed");
 			}
 
-			editor = Editor.CreateEditor(DataHandler.Instance.EditorData);
-
+			IsOpen = true;
 		}
 
 		private void OnGUI()
 		{
-			editor.DrawDefaultInspector();
+			editor.OnInspectorGUI();
 		}
 
 		private void OnDestroy()
 		{
 			if (editor != null) DestroyImmediate(editor);
+			IsOpen = false;
 		}
 
 		#endregion
 
-		#region Setup
+		#region Initialize
 
-		private bool Setup()
+		private bool Initialize()
 		{
+			var data = DataHandler.Instance.EditorData;
+			if(data == null) return false;
+
+			editor = Editor.CreateEditor(data);
+			if(editor == null) return false;
+
 			return true;
 		}
 
-		#endregion
+        #endregion
 
-		#region Destroy
-		#endregion
+        #region Destroy
+        #endregion
 
-		public static void OpenWindow()
+        #region Window
+
+        public static void OpenWindow()
 		{
 			window = GetWindow<SettingsWindow>("Settings");
+
+			Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
+
+			window.maxSize = new Vector2(400f, 200f);
+			window.minSize = new Vector2(400f, 200f);
+			window.position = new Rect(mainWindowRect.x + 25f, mainWindowRect.y + (mainWindowRect.height) - 300f, 400f, 200f);
 		}
 
-	}
+		public static void CloseWindow()
+		{
+			if (IsOpen && window != null) window.Close();
+		}
+
+        #endregion
+    }
 }
 

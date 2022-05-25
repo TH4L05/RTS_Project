@@ -12,7 +12,6 @@ namespace UnitEditor.Window
 {
 	public class LoadFromFileWIndow : EditorWindow
 	{
-
 		#region Events
 
 		public static Action NewDataLoaded;
@@ -23,9 +22,7 @@ namespace UnitEditor.Window
 
         private static LoadFromFileWIndow window;
 		private static GameObject obj;
-
 		private string filePath;
-		private string fileName;
 
 		public static bool IsOpen;
 
@@ -48,7 +45,6 @@ namespace UnitEditor.Window
 
 		private void OnGUI()
 		{
-
 			EditorGUILayout.BeginVertical();
 
 			EditorGUILayout.BeginHorizontal();
@@ -59,14 +55,6 @@ namespace UnitEditor.Window
 			EditorGUILayout.EndVertical();
 
 			EditorGUILayout.EndHorizontal();
-
-			/*EditorGUILayout.Space(5);
-
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField("CSV FileName");
-			fileName = EditorGUILayout.TextField(fileName);
-			EditorGUILayout.EndHorizontal();*/
-
 			EditorGUILayout.Space(10f);
 
 			EditorGUILayout.BeginHorizontal();
@@ -92,7 +80,21 @@ namespace UnitEditor.Window
 
 		#region Initialize
 
-		public static void OpenWindow()
+		private bool Initialize()
+		{
+			obj = DataHandler.Instance.ActiveObj;
+			if (obj == null) return false;
+			return true;
+		}
+
+        #endregion
+
+        #region Destroy
+        #endregion
+
+        #region Window
+
+        public static void OpenWindow()
 		{
 			window = GetWindow<LoadFromFileWIndow>("Load Data From File");
 			window.maxSize = new Vector2(400f, 200f);
@@ -104,20 +106,10 @@ namespace UnitEditor.Window
 		{
 			if (IsOpen && window != null) window.Close();
 		}
-
-		private bool Initialize()
-		{
-			obj = DataHandler.Instance.ActiveObj;
-			if (obj == null) return false;
-			return true;
-		}
-
+        
 		#endregion
 
-		#region Destroy
-		#endregion
-
-		private void LoadDataFromCSV()
+        private void LoadDataFromCSV()
         {
 			string[] fileLines = DataHandler.Instance.LoadLinesFromCSV(filePath);
 			if(fileLines == null) return;

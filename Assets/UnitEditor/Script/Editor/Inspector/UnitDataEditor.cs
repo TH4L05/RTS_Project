@@ -48,7 +48,7 @@ public class UnitDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    
+
 
     protected virtual void OnGUI()
     {
@@ -78,11 +78,11 @@ public class UnitDataEditor : Editor
         iconSection = new IconSection(serializedObject, mySkin, iconTextures);
         statsSection = new StatsBaseSection(serializedObject, mySkin, iconTextures);
         statsAdditionalSection = new StatsAdditionalSection(serializedObject, mySkin, iconTextures);
-        abilitiesSection = new AbilitiesSection(serializedObject, mySkin, iconTextures);        
+        abilitiesSection = new AbilitiesSection(serializedObject, mySkin, iconTextures);
     }
 
     protected virtual void Destroy()
-    {      
+    {
         baseSection = null;
         iconSection = null;
         statsSection = null;

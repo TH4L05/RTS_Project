@@ -31,18 +31,22 @@ namespace UnitEditor.UI.Section
 
         protected override void SectionGUI(Rect baseRect)
         {
-            MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
-            Rect sectionRect = new Rect(15f, 10f, 650f, baseRect.height - 15f);
+            GUILayout.BeginArea(baseRect);
+            {
+                MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
+                Rect sectionRect = new Rect(15f, 10f, 650f, baseRect.height - 15f);
 
-            GUILayout.BeginArea(sectionRect);
+                GUILayout.BeginArea(sectionRect);
 
-            EditorGUILayout.Space(5f);
-            EditorGUILayout.PropertyField(properties[0]);
-            EditorGUILayout.Space(5f);
-            EditorGUILayout.PropertyField(properties[1]);
-            EditorGUILayout.Space(5f);
-            EditorGUILayout.PropertyField(properties[2]);
+                EditorGUILayout.Space(5f);
+                EditorGUILayout.PropertyField(properties[0]);
+                EditorGUILayout.Space(5f);
+                EditorGUILayout.PropertyField(properties[1]);
+                EditorGUILayout.Space(5f);
+                EditorGUILayout.PropertyField(properties[2]);
 
+                GUILayout.EndArea();
+            }
             GUILayout.EndArea();
         }
 

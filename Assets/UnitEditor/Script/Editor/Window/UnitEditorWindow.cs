@@ -143,8 +143,10 @@ namespace UnitEditor.Window
                 propertiesArea = null;
             }
 
-            LoadFromFileWIndow.CloseWindow();
+            NewUnitWindow.CloseWindow();
             ComponentsWindow.CloseWindow();
+            SettingsWindow.CloseWindow();
+            LoadFromFileWIndow.CloseWindow();
         }
 
         #endregion

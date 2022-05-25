@@ -95,11 +95,50 @@ namespace UnitEditor.Window
 			}			
 			GUILayout.EndArea();
 		}
+	
+		private void OnDestroy()
+		{
+			IsOpen = false;
+		}
 
-		private void SetInfoMessage(int indx)
-        {
-            switch (indx)
-            {
+		#endregion
+
+		#region Initialize
+
+		private bool Initialize()
+		{
+			return true;
+		}
+
+        #endregion
+
+        #region Destroy
+        #endregion
+
+        #region Window
+
+        public static void OpenWindow()
+		{
+			window = GetWindow<NewUnitWindow>("Craete New Unit");
+
+			Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
+
+			window.maxSize = new Vector2(400f, 200f);
+			window.minSize = new Vector2(400f, 200f);
+			window.position = new Rect(mainWindowRect.x + 25f, mainWindowRect.y + (mainWindowRect.height) - 300f, 400f, 200f);
+		}
+
+		public static void CloseWindow()
+		{
+			if (IsOpen && window != null) window.Close();
+		}
+
+        #endregion
+
+        private void SetInfoMessage(int indx)
+		{
+			switch (indx)
+			{
 				case 0:
 					message = "Can not create new Unit with emtpy name";
 					messageType = MessageType.Warning;
@@ -111,40 +150,9 @@ namespace UnitEditor.Window
 					break;
 
 				default:
-                    break;
-            }
+					break;
+			}
 		}
-
-
-		private void OnDestroy()
-		{
-			IsOpen = false;
-		}
-
-		#endregion
-
-		#region Initialize
-
-		public static void OpenWindow()
-		{
-			window = GetWindow<NewUnitWindow>("Craete New Unit");
-
-			Rect mainWindowRect = UnitEditorWindow.GetWindowRect();
-
-			window.maxSize = new Vector2(400f, 200f);
-			window.minSize = new Vector2(400f, 200f);
-			window.position = new Rect(mainWindowRect.x + 25f, mainWindowRect.y + (mainWindowRect.height) - 300f, 400f, 200f);
-		}
-
-		private bool Initialize()
-		{
-			return true;
-		}
-
-		#endregion
-
-		#region Destroy
-		#endregion
 
 		private void CreateNewUnit()
         {
@@ -162,6 +170,5 @@ namespace UnitEditor.Window
 			NewUnitCreated?.Invoke();
 			Close();
 		}
-
 	}
 }

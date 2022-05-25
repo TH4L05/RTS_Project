@@ -67,30 +67,27 @@ namespace UnitEditor.UI.Section
 
             sectionRect = new Rect(baseRect.width - 265f, sectionRect.y, 125f, 135f);
             GUILayout.BeginArea(sectionRect);
+
             EditorGUILayout.BeginVertical();
             if (GUILayout.Button("Edit Components", GUILayout.Height(40f)))
             {
-                if (ComponentsWindow.IsOpen)
-                {
-                    ComponentsWindow.CloseWindow();
-                }
+                if (ComponentsWindow.IsOpen) ComponentsWindow.CloseWindow();
                 ComponentsWindow.OpenWindow();
-
-                var obj = DataHandler.Instance.ActiveObj;                
-                ComponentsWindow.SetObject(obj);
             }
+
             EditorGUILayout.Space(5f);
+
             if (GUILayout.Button("Load Data from File", GUILayout.Height(40f)))
             {
-                if (LoadFromFileWIndow.IsOpen)
-                {
-                    LoadFromFileWIndow.CloseWindow();
-                }
+                if (LoadFromFileWIndow.IsOpen) LoadFromFileWIndow.CloseWindow();
                 LoadFromFileWIndow.OpenWindow();
             }
             EditorGUILayout.Space(5f);
+
             GUILayout.Button("Add To Scene", GUILayout.Height(40f));
+
             EditorGUILayout.EndVertical();
+
             GUILayout.EndArea();
 
             sectionRect = new Rect(185f, sectionRect.y, 256f, 75f);

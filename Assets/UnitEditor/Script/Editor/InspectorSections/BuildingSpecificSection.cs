@@ -12,6 +12,7 @@ namespace UnitEditor.UI.Section
     public class BuildingSpecificSection : UnitDataSection
     {
         #region Fields
+
         private ReorderableList producedResourecesList;
         private ReorderableList suppliedStartResources;
 
@@ -56,7 +57,6 @@ namespace UnitEditor.UI.Section
             {
                 MyGUI.DrawColorRect(new Rect(0f, 0f, baseRect.width, baseRect.height), sectionColor);
                 Rect sectionRect = new Rect(15f, 10f, 650f, baseRect.height - 15f);
-                GUIStyle labelStyle = new GUIStyle(mySkin.GetStyle("baseLabelField"));
 
                 GUILayout.BeginArea(sectionRect);
                 {
@@ -68,7 +68,7 @@ namespace UnitEditor.UI.Section
 
                         EditorGUILayout.BeginVertical(GUILayout.Width(450f));
 
-                        EditorGUILayout.LabelField("ProducedResources", labelStyle);
+                        EditorGUILayout.LabelField("ProducedResources", mySkin.GetStyle("baseLabelField"));
 
                         EditorGUILayout.Space(2f);
 
@@ -77,7 +77,7 @@ namespace UnitEditor.UI.Section
 
                         EditorGUILayout.Space(10f);
 
-                        EditorGUILayout.LabelField("SuppliedResOnStart", labelStyle);
+                        EditorGUILayout.LabelField("SuppliedResOnStart", mySkin.GetStyle("baseLabelField"));
 
                         EditorGUILayout.Space(2f);
 

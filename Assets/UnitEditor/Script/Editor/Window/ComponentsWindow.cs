@@ -4,22 +4,38 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+using UnitEditor.Data;
+
 namespace UnitEditor.Window
 {
     public class ComponentsWindow : EditorWindow
     {
+        #region Fields
+
         private static ComponentsWindow window;
-        private static GameObject obj;
-        private static List<Component> componentList = new List<Component>();
-        private static List<Editor> editors = new List<Editor>();
+        private GameObject obj;
+        private List<Component> componentList = new List<Component>();
+        private List<Editor> editors = new List<Editor>();
         private static bool[] foldouts;
         private static Vector2 scrollPosition = Vector2.zero;
+
         public static bool IsOpen;
+
+        #endregion
+
+        #region UnityFunctions
 
         private void OnEnable()
         {
-            IsOpen = true;
+            bool setupSuccess = Initialize();
 
+            if (!setupSuccess)
+            {
+                Close();
+                Debug.LogError("LoadFromFileWIndow Setup = Failed");
+            }
+
+            IsOpen = true;
         }
 
         private void OnDestroy()
@@ -79,16 +95,18 @@ namespace UnitEditor.Window
             EditorGUILayout.EndScrollView();
         }
 
-        private static void Intialize()
+        #endregion
+
+        #region Initialize
+
+        private bool Initialize()
         {
-            if (obj == null) return;
+            obj = DataHandler.Instance.ActiveObj;
+            if (obj == null) return false;
 
             var components = obj.GetComponents(typeof(Component));
-
             var editor = Editor.CreateEditor(obj);
             editors.Add(editor);
-
-
 
             foreach (var component in components)
             {
@@ -96,19 +114,21 @@ namespace UnitEditor.Window
                 componentList.Add(component);
 
                 if (type == typeof(Transform)) continue;
-
                 editor = Editor.CreateEditor(component, type.ReflectedType);
                 editors.Add(editor);
             }
 
-            foldouts = new bool[editors.Count];            
+            foldouts = new bool[editors.Count];
+
+            return true;
         }
 
-        public static void SetObject(GameObject go)
-        {
-            obj = go;
-            Intialize();
-        }
+        #endregion
+
+        #region Destroy
+        #endregion
+
+        #region Window
 
         public static void OpenWindow()
         {
@@ -123,5 +143,7 @@ namespace UnitEditor.Window
         {
             if(IsOpen && window != null) window.Close();
         }
+
+        #endregion
     }
 }

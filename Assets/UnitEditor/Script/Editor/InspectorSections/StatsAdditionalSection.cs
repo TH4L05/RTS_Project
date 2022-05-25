@@ -111,10 +111,10 @@ namespace UnitEditor.UI.Section
                         labelRect = new Rect(15f, 0f, 180f, 15f);
                         EditorGUILayout.BeginHorizontal();
                         EditorGUI.LabelField(labelRect, properties[1 + i].name, mySkin.FindStyle("sliderLabelGrey"));
-                        properties[1].floatValue = EditorGUI.IntField(floatRect, (int)properties[1 + i].floatValue, mySkin.customStyles[6]);
+                        properties[1 + i].floatValue = EditorGUI.IntField(floatRect, (int)properties[1 + i].floatValue, mySkin.customStyles[6]);
                         EditorGUILayout.EndHorizontal();
 
-                        properties[1].floatValue = GUI.HorizontalSlider(sliderRect, properties[1 + i].floatValue, 0f, 999f, mySkin.FindStyle("sliderGrey"), mySkin.FindStyle("sliderThumbGrey"));
+                        properties[1 + i].floatValue = GUI.HorizontalSlider(sliderRect, properties[1 + i].floatValue, 0f, 99f, mySkin.FindStyle("sliderGrey"), mySkin.FindStyle("sliderThumbGrey"));
                         EditorGUILayout.EndVertical();
                     }
                     GUILayout.EndArea();
