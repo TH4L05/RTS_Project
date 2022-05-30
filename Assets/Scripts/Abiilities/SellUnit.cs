@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SellUnitAbility", menuName = "Data/Abilities/SellUnitAbility")]

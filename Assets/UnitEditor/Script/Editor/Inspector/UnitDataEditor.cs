@@ -5,12 +5,10 @@ using UnityEditor;
 
 using UnitEditor.Data;
 using UnitEditor.UI.Section;
-using UnitEditor.UI.Custom;
-
 
 public class UnitDataEditor : Editor
 {
-    #region PrivateFields
+    #region Fields
 
     protected Color sectionColor = new Color(0.45f, 0.45f, 0.45f);
     protected GUISkin mySkin;
@@ -48,8 +46,6 @@ public class UnitDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-
-
     protected virtual void OnGUI()
     {
         Rect baseSectionRect1a = new Rect(baseRect.x, baseRect.y, baseRect.width, 400f);
@@ -67,7 +63,7 @@ public class UnitDataEditor : Editor
 
     #endregion
 
-    #region Setup
+    #region Initialize
 
     protected virtual void Initialize()
     {
@@ -80,6 +76,10 @@ public class UnitDataEditor : Editor
         statsAdditionalSection = new StatsAdditionalSection(serializedObject, mySkin, iconTextures);
         abilitiesSection = new AbilitiesSection(serializedObject, mySkin, iconTextures);
     }
+
+    #endregion
+
+    #region Destroy
 
     protected virtual void Destroy()
     {

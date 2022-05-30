@@ -1,3 +1,5 @@
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SpawnNewUnitAbility", menuName = "Data/Abilities/SpawnNewUnitAbility")]

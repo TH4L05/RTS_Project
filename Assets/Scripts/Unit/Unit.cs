@@ -1,7 +1,7 @@
+/// <author> Thomas Krahl </author>
+
 using System;
 using UnityEngine;
-
-
 
 public class Unit : MonoBehaviour, IDamagable, ISelectable
 {
@@ -62,7 +62,6 @@ public class Unit : MonoBehaviour, IDamagable, ISelectable
     }
 
     #endregion;
-
 
     #region Setup
 

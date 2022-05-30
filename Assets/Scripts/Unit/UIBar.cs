@@ -1,3 +1,4 @@
+/// <author> Thomas Krahl </author>
 
 using UnityEngine;
 using UnityEngine.UI;

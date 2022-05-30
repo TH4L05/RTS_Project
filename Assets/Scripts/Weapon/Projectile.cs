@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -18,16 +18,12 @@ public class Projectile : MonoBehaviour
 
     #endregion
 
+    #region UnityFunctions
+
     private void OnEnable()
     {
         rbody = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
-    }
-
-    public void Setup(WeaponData data)
-    {
-        weaponData = data;
-        speed = weaponData.ProjectileSpeed;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -44,17 +40,20 @@ public class Projectile : MonoBehaviour
 
     }
 
-    private void CalcDamage()
-    {
-
-    }
-
     void Update()
     {
         if (!dectectHit)
         {
             MoveProjectile();
         }
+    }
+
+    #endregion
+
+    public void Setup(WeaponData data)
+    {
+        weaponData = data;
+        speed = weaponData.ProjectileSpeed;
     }
 
     public virtual void MoveProjectile()

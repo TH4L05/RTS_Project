@@ -1,3 +1,5 @@
+/// <author> Thomas Krahl </author>
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +22,8 @@ public enum DamageType
 [CreateAssetMenu(fileName = "NewWeaponData", menuName = "Data/WeaponData")]
 public class WeaponData : ScriptableObject
 {
+    #region Fields
+
     [Header("Base")]
     [SerializeField] private AttackType attackType = AttackType.Normal;
     
@@ -36,12 +40,18 @@ public class WeaponData : ScriptableObject
     [SerializeField] private GameObject projectileTemplate;
     [SerializeField] private float projectileSpeed;
 
+    #endregion
+
+    #region PublicFields 
+
     public AttackType AttackType => attackType;
     public DamageType DamageType => type;
     public float BaseDamage => baseDamage;
     public GameObject ProjectileTemplate => projectileTemplate;
     public float ProjectileSpeed => projectileSpeed;
     public float DamageTime => damageTime;
+
+    #endregion
 
     public float CalcDamage()
     {

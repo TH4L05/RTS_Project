@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -14,7 +14,28 @@ public class Weapon : MonoBehaviour
     private float damage;
     private PlayerString owner;
 
-    public WeaponData Data => weaponData;    
+    public WeaponData Data => weaponData;
+
+    #endregion
+
+    #region UnityFunctions
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var unit = other.GetComponent<Unit>();
+        if (unit.Owner == owner) return;
+        Debug.Log(other.gameObject.name + "takes Damage");
+        unit.TakeDamage(damage);     
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (projectileSpawn != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireCube(projectileSpawn.position, new Vector3(0.25f, 0.25f, 0.25f));
+        }    
+    } 
 
     #endregion
 
@@ -62,14 +83,6 @@ public class Weapon : MonoBehaviour
         }          
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        var unit = other.GetComponent<Unit>();
-        if (unit.Owner == owner) return;
-        Debug.Log(other.gameObject.name + "takes Damage");
-        unit.TakeDamage(damage);     
-    }
-
     private void ProjectileAttack()
     {
         var projectile = Instantiate(weaponData.ProjectileTemplate, projectileSpawn.position, projectileSpawn.rotation);
@@ -78,12 +91,4 @@ public class Weapon : MonoBehaviour
 
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        if (projectileSpawn != null)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireCube(projectileSpawn.position, new Vector3(0.25f, 0.25f, 0.25f));
-        }    
-    } 
 }

@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using UnitEditor.Window;
 using UnitEditor.UI.Toolbar;
 using UnitEditor.UI.ButttonList;
 using UnitEditor.Data;

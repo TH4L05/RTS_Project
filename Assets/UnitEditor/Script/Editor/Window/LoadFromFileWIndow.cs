@@ -1,12 +1,11 @@
 /// <author> Thomas Krahl </author>
 
 using System;
+
 using UnityEngine;
 using UnityEditor;
 
-using UnitEditor.Window;
 using UnitEditor.Data;
-using UnitEditor.UI;
 
 namespace UnitEditor.Window
 {
@@ -45,16 +44,15 @@ namespace UnitEditor.Window
 
 		private void OnGUI()
 		{
-			EditorGUILayout.BeginVertical();
+			EditorGUILayout.Space(5f);
+			EditorGUILayout.BeginHorizontal(GUILayout.Width(390f));
 
-			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.Space(10f);
+			EditorGUILayout.BeginVertical(GUILayout.Height(190f));
 
-			EditorGUILayout.BeginVertical();
 			EditorGUILayout.LabelField("FilePath");
-			filePath = EditorGUILayout.TextField(filePath);
-			EditorGUILayout.EndVertical();
-
-			EditorGUILayout.EndHorizontal();
+			filePath = EditorGUILayout.TextField(filePath, GUILayout.Width(300f));
+					
 			EditorGUILayout.Space(10f);
 
 			EditorGUILayout.BeginHorizontal();
@@ -69,6 +67,8 @@ namespace UnitEditor.Window
 			EditorGUILayout.EndHorizontal();
 
 			EditorGUILayout.EndVertical();
+
+			EditorGUILayout.EndHorizontal();
 		}
 
 		private void OnDestroy()
@@ -125,7 +125,6 @@ namespace UnitEditor.Window
                 }
 
 				string[] lineData = line.Split(';', StringSplitOptions.None);				
-				//Debug.Log("name: " + lineData[0]);
 
 				if (string.IsNullOrEmpty(lineData[0]))
                 {

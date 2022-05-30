@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+
 using UnityEngine;
 using static UnityEngine.Object;
-using UnityEngine.AI;
 using UnityEditor;
-using System.IO;
 
 namespace UnitEditor.Data
 {
@@ -34,6 +34,7 @@ namespace UnitEditor.Data
         #endregion
 
         public static readonly DataHandler Instance = new DataHandler();
+
         private DataHandler()
         {          
         }
@@ -221,7 +222,6 @@ namespace UnitEditor.Data
             return list[listIndex];
         }
 
-
         public bool UnitNameExistanceCheck(string name, UnitType type)
         {
             List<GameObject> list = GetList(type);
@@ -242,34 +242,6 @@ namespace UnitEditor.Data
             List<GameObject> list = GetList(type);
             list.Remove(obj);          
         }
-
-        #endregion
-
-        #region Other
-
-        public UnityEngine.Object[] LoadAllFromResources(string path)
-        {          
-            var loadedObjects = Resources.LoadAll(path);
-            return loadedObjects;
-        }
-
-        public object LoadAsset(Type type, string path)
-        {
-            var loadedObj = AssetDatabase.LoadAssetAtPath(path, type);
-            //Debug.Log(loadedObj);
-            return loadedObj;
-        }
-
-        public string GetEditorDataPath()
-        {
-            return editorDataPath;
-        }
-
-        public void SetActiveObj(GameObject go)
-        {
-            activeObj = go;
-        }
-
 
         #endregion
 
@@ -412,9 +384,32 @@ namespace UnitEditor.Data
             }
         }
 
-
-
         #endregion
+
+        #region Other
+
+        public UnityEngine.Object[] LoadAllFromResources(string path)
+        {          
+            var loadedObjects = Resources.LoadAll(path);
+            return loadedObjects;
+        }
+
+        public object LoadAsset(Type type, string path)
+        {
+            var loadedObj = AssetDatabase.LoadAssetAtPath(path, type);
+            //Debug.Log(loadedObj);
+            return loadedObj;
+        }
+
+        public string GetEditorDataPath()
+        {
+            return editorDataPath;
+        }
+
+        public void SetActiveObj(GameObject go)
+        {
+            activeObj = go;
+        }
 
         public string[] LoadLinesFromCSV(string path)
         {
@@ -429,6 +424,8 @@ namespace UnitEditor.Data
 
             return null;
         }
+
+        #endregion
     }
 }
 

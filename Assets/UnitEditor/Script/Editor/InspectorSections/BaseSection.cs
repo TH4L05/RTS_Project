@@ -124,6 +124,7 @@ namespace UnitEditor.UI.Section
         #region Destroy
         #endregion
 
+        #region ReorderableList
 
         private void DrawRequiredResouresListElements(Rect rect, int index, bool isActive, bool isFocused)
         {
@@ -139,6 +140,8 @@ namespace UnitEditor.UI.Section
             EditorGUI.LabelField(new Rect(rect.x + 230f, rect.y + 4f, 50f, 25f), "amount:");
             amount.intValue = EditorGUI.IntField(new Rect(rect.x + 300f, rect.y + 4f, 75f, 25f), amount.intValue);
         }
+
+        #endregion
     }
 }
 

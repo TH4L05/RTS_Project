@@ -1,3 +1,5 @@
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SetSpawnPointAbility", menuName = "Data/Abilities/SetSpawnPointAbility")]

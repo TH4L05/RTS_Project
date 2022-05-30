@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/// <author> Thomas Krahl </author>
 
+using UnityEngine;
 
 public enum ResourceType
 {

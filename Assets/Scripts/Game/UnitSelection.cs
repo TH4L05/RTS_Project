@@ -1,10 +1,10 @@
+/// <author> Thomas Krahl </author>
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class UnitSelection : MonoBehaviour
 {

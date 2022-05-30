@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Utils : MonoBehaviour
 {
-
     public static Vector2 GetMousePosition()
     {
         return Mouse.current.position.ReadValue();

@@ -6,14 +6,11 @@ using UnityEditor;
 using UnityEditorInternal;
 
 using UnitEditor.Data;
-using UnitEditor.UI.Section;
-using UnitEditor.UI.Custom;
-
 
 [CustomEditor(typeof(UnitEditorData))]
 public class SettingsEditor : Editor
 {
-    #region PrivateFields
+    #region Fields
 
     private GUISkin mySkin;
     private ReorderableList prefabList;
@@ -66,11 +63,9 @@ public class SettingsEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-
-
     #endregion
 
-    #region Setup
+    #region Initialize
 
     private void Initialize()
     {

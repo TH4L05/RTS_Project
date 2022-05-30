@@ -2,18 +2,21 @@
 
 using UnityEngine;
 using UnityEditor;
-using Object = UnityEngine.Object;
 
-using UnitEditor.Data;
 using UnitEditor.UI.Section;
-using UnitEditor.UI.Custom;
 
 namespace UnitEditor.Inspector
 {
     [CustomEditor(typeof(BuildingData))]
     public class BuildingDataEditor : UnitDataEditor
     {
+        #region Fields
+
         private BuildingSpecificSection buildingSpecificSection;
+
+        #endregion
+
+        #region Initialize
 
         protected override void Initialize()
         {
@@ -21,11 +24,19 @@ namespace UnitEditor.Inspector
             buildingSpecificSection = new BuildingSpecificSection(serializedObject, mySkin, iconTextures);
         }
 
+        #endregion
+
+        #region Destroy
+
         protected override void Destroy()
         {
             base.Destroy();
             buildingSpecificSection = null;
         }
+
+        #endregion
+
+        #region GUI
 
         protected override void OnGUI()
         {
@@ -33,6 +44,8 @@ namespace UnitEditor.Inspector
             Rect baseSectionRect4 = new Rect(baseRect.x, baseRect.y + 1600f, baseRect.width, 450f);
             buildingSpecificSection.OnGUI(baseSectionRect4);
         }
+
+        #endregion
     }
 }
 

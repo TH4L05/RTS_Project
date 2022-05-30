@@ -89,13 +89,6 @@ namespace UnitEditor.Window
 
         #region Initialize
 
-        [MenuItem("UnitEditor/UnitEditorWindow")]
-        public static void ShowWindow()
-        {
-            window = GetWindow<UnitEditorWindow>("UnitEditor");
-            window.minSize = new Vector2(650f, 350f);
-        }
-
         private void Initialize()
         {
             bool setupSuccess = DataHandler.Instance.Setup();
@@ -200,6 +193,17 @@ namespace UnitEditor.Window
                     propertiesArea.OnGUI();
                 GUILayout.EndArea();
             GUI.EndScrollView();
+        }
+
+        #endregion
+
+        #region Window
+
+        [MenuItem("UnitEditor/UnitEditorWindow")]
+        public static void ShowWindow()
+        {
+            window = GetWindow<UnitEditorWindow>("UnitEditor");
+            window.minSize = new Vector2(650f, 350f);
         }
 
         #endregion

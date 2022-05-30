@@ -19,7 +19,6 @@ namespace UnitEditor.UI.Toolbar
         #region Fields
 
         [SerializeField] private string[] toolBarStrings;
-        private UnitEditorWindow editorwindow;
         private int toolbarIndex;
         private int lastToolbarIndex;
 
@@ -54,6 +53,7 @@ namespace UnitEditor.UI.Toolbar
         public void OnGUI()
         {
             if (NewUnitWindow.IsOpen) return;
+
             var rect = new Rect(5f, 5f, 400f, 25f);
             toolbarIndex = GUI.Toolbar(rect, toolbarIndex, toolBarStrings);
 

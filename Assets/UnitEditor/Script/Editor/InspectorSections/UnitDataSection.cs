@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEditor;
+
 using UnitEditor.UI.Custom;
 
 namespace UnitEditor.UI.Section
@@ -40,6 +41,16 @@ namespace UnitEditor.UI.Section
         }
 
         #endregion
+        
+        #region Destroy
+
+        protected virtual void Destroy()
+        {
+            if (serializedObject == null) return;
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        #endregion
 
         #region OnGUI
 
@@ -51,16 +62,6 @@ namespace UnitEditor.UI.Section
 
         protected virtual void SectionGUI(Rect baseRect)
         {           
-        }
-
-        #endregion
-
-        #region Destroy
-
-        protected virtual void Destroy()
-        {
-            if (serializedObject == null) return;
-            serializedObject.ApplyModifiedProperties();
         }
 
         #endregion

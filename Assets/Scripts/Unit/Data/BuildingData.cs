@@ -1,6 +1,5 @@
-using System.Collections;
-using System;
-using System.Collections.Generic;
+/// <author> Thomas Krahl </author>
+
 using UnityEngine;
 
 

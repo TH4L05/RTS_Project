@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 using UnitEditor.Window;
 using UnitEditor.UI.Toolbar;
@@ -129,7 +127,6 @@ namespace UnitEditor.UI.ButttonList
         }
 
         #endregion
-
     }
 }
 
