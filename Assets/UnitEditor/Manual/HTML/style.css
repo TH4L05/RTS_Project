@@ -1,0 +1,29 @@
+
+#header h1
+{
+	padding-top:1px;
+	margin-left:10%;
+	color:darkred;
+	font-weight:bold;
+	font-size:60px;
+}
+
+
+#navigation{
+	margin-top:5px;
+	margin-left:5px;
+	width:500px;
+	float:left;
+	padding:10px;
+	border-right:2px solid silver;
+}
+
+
+section{
+	margin-top:5px;	
+	margin-left:525px;
+	margin-right:5px;
+	margin-bottom:5px;
+	padding:5px;
+	border-left:2px solid silver;
+}

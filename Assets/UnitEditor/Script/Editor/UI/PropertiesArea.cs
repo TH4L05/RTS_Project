@@ -30,6 +30,7 @@ namespace UnitEditor.UI.PropertiesArea
         {
             ButtonList.OnButtonPressed += CreateEditor;
             ButtonList.OnUnitGetsDeleted += DestroyEditor;
+            ButtonList.SetMessage += SetMessageCode;
             UnitEditorToolbar.ToolbarIndexChanged += DestroyEditor;
         }
 
@@ -41,6 +42,7 @@ namespace UnitEditor.UI.PropertiesArea
         {
             ButtonList.OnButtonPressed -= CreateEditor;
             ButtonList.OnUnitGetsDeleted -= DestroyEditor;
+            ButtonList.SetMessage -= SetMessageCode;
             UnitEditorToolbar.ToolbarIndexChanged -= DestroyEditor;
             DestroyEditor(0);
         }
@@ -63,8 +65,8 @@ namespace UnitEditor.UI.PropertiesArea
 
         public void OnGUI()
         {          
-            if (messageCode > 0)
-            {
+            if (messageCode != 0)
+            {              
                 ShowHelpBox();
             }
             else
@@ -90,7 +92,7 @@ namespace UnitEditor.UI.PropertiesArea
                     break;
 
                 case 10:
-                    message = "Error - NO object to load - object = null";
+                    message = "Error - could not create Editor - object = null";
                     messageType = MessageType.Error;
                     Debug.LogError(message);
                     break;
@@ -100,12 +102,15 @@ namespace UnitEditor.UI.PropertiesArea
                     messageType = MessageType.Error;
                     Debug.LogError(message);
                     break;
-
-                case 30:
-                    break;
             }
 
+            EditorGUILayout.Space(10f);
             EditorGUILayout.HelpBox(message, messageType);
+        }
+
+        private void SetMessageCode(int indx)
+        {
+            messageCode = indx;
         }
 
         #endregion
@@ -119,12 +124,13 @@ namespace UnitEditor.UI.PropertiesArea
         private void CreateEditor(GameObject go)
         {
             DestroyEditor(0);
-            messageCode = 0;
+            SetMessageCode(0);
+
             DataHandler.Instance.SetActiveObj(go);
 
             if (go == null)
             {
-                messageCode = 1;
+                SetMessageCode(10);
                 return;
             }
            
@@ -132,7 +138,7 @@ namespace UnitEditor.UI.PropertiesArea
        
             if (data == null)
             {
-                messageCode = 20;
+                SetMessageCode(20);
                 return;
             }
 

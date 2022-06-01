@@ -20,7 +20,7 @@ namespace UnitEditor.Window
         #region Fields
 
         private static LoadFromFileWIndow window;
-		private static GameObject obj;
+		private GameObject obj;
 		private string filePath;
 
 		public static bool IsOpen;
@@ -36,7 +36,7 @@ namespace UnitEditor.Window
 			if (!setupSuccess)
 			{
 				Close();
-				Debug.LogError("LoadFromFileWIndow Setup = Failed");
+				Debug.LogError("LoadFromFileWindow Initialize = Failed");
 			}
 
 			IsOpen = true;
@@ -144,6 +144,8 @@ namespace UnitEditor.Window
 
 		private void SetUnitData(string[] data)
         {
+
+
 			var unit = obj.GetComponent<Unit>();
 			var type = unit.UnitData.Type;
 			var unitData = unit.UnitData;

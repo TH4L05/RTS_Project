@@ -18,6 +18,7 @@ namespace UnitEditor.UI.ButttonList
         public static Action<GameObject> OnButtonPressed;
         public static Action<int> OnUnitGetsDeleted;
         public Action ResetScrollPosition;
+        public static Action<int> SetMessage;
 
         #endregion
 
@@ -66,7 +67,7 @@ namespace UnitEditor.UI.ButttonList
         {
             if (unitNames.Length == 0)
             {
-                OnButtonPressed?.Invoke(null);
+                SetMessage?.Invoke(1);
             }
             else
             {
@@ -102,6 +103,7 @@ namespace UnitEditor.UI.ButttonList
         {            
             type = (UnitType)index;
             LoadDataNames(type);
+            SetMessage?.Invoke(0);
         }
 
         private void ReloadList()
@@ -114,9 +116,15 @@ namespace UnitEditor.UI.ButttonList
         private void LoadDataNames(UnitType type)
         {
             activeUnitList = DataHandler.Instance.GetList(type);
-            if(activeUnitList.Count == 0) return;
-
-            unitNames = new string[activeUnitList.Count];
+            if (activeUnitList.Count == 0)
+            {
+                unitNames = new string[0];
+                return;
+            }
+            else
+            {
+                unitNames = new string[activeUnitList.Count];
+            }
 
             int index = 0;
             foreach (var unit in activeUnitList)

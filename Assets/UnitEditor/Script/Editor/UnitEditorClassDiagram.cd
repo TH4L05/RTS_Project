@@ -3,7 +3,7 @@
   <Class Name="UnitEditor.Data.DataHandler">
     <Position X="0.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAQEEJAACABCAQUAAAKQEYACEJEQKAAQUBgASoBBAAI=</HashCode>
+      <HashCode>AAQEEJgACABCAQUAAAKQEYACEJEQKAAQUBgASoBBAAI=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\DataHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -56,16 +56,8 @@
   </Class>
   <Class Name="UnitEditor.UI.Section.BaseSection">
     <Position X="11.5" Y="7.25" Width="1.5" />
-    <InheritanceLine Type="UnitEditor.UI.Section.UnitDataSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="16" Y="10.5" />
-        <Point X="16" Y="10.16" />
-        <Point X="12.188" Y="10.16" />
-        <Point X="12.188" Y="9.896" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAASAAAAAQAAAEAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAASAAAAAQAAAEAAAAIAAAAACAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\InspectorSections\BaseSection.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -219,21 +211,21 @@
   <Class Name="UnitEditor.UI.ButttonList.ButtonList">
     <Position X="7.5" Y="2.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAIEAAAAgAARAAAAAQIAABAABBAQAAAACAAAABIAA=</HashCode>
+      <HashCode>AAAAIEAAAAgAARAAAAAQIAIBAABBAQAAAACAAAABIAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\UI\ButtonList.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.PropertiesArea.PropertiesArea">
     <Position X="9.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAABAAAAAEAQAAAAAAAAAAAABAAAQACACAAEAAAAA=</HashCode>
+      <HashCode>CAAAABAAAAAEAQAAAAAIAAAAAABAAAQACACAAEAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\UI\PropertiesArea.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnitEditor.UI.Toolbar.UnitEditorToolbar">
     <Position X="5.25" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAgAAAQCAAAAAgAAAAIBAAQAAAAKAAAAAAAA=</HashCode>
+      <HashCode>gAAAAAAAAAAAAQCAAAAAgAAAAIBAAQAAAAKAAAAAAAA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\UI\UnitEditorToolbar.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -246,7 +238,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>MAABAAQAAAAAAQEAAAAEAAAAAAAAAAAIAASAAAAACCA=</HashCode>
+      <HashCode>MAABAAQAAAAAAQEAAAAEAAAAAAAAAAAIAASABAAACCA=</HashCode>
       <FileName>Assets\UnitEditor\Script\Editor\Window\NewUnitWindow.cs</FileName>
     </TypeIdentifier>
   </Class>

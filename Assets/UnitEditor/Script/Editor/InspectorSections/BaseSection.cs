@@ -54,6 +54,12 @@ namespace UnitEditor.UI.Section
         {
             Rect sectionRect = baseRect;
             GUILayout.BeginArea(baseRect);
+
+            GUILayout.BeginArea(new Rect(baseRect.width - 400f, baseRect.y, 40f, 20f));
+            GUILayout.Button("?");
+            GUILayout.EndArea();
+
+
             MyGUI.DrawColorRect(new Rect(0f, 0f, sectionRect.width, sectionRect.height), sectionColor);
             Texture2D iconTexture = iconTextures[0];
             if (properties[2].objectReferenceValue != null)
@@ -65,11 +71,11 @@ namespace UnitEditor.UI.Section
             sectionRect = new Rect(sectionRect.x + 5f, sectionRect.y + 5f, 150f, 150f);
             EditorGUI.DrawPreviewTexture(sectionRect, iconTexture);
 
-            sectionRect = new Rect(baseRect.width - 265f, sectionRect.y, 125f, 135f);
+            sectionRect = new Rect(baseRect.width - 150f, sectionRect.y, 125f, 135f);
             GUILayout.BeginArea(sectionRect);
 
             EditorGUILayout.BeginVertical();
-            if (GUILayout.Button("Edit Components", GUILayout.Height(40f)))
+            if (GUILayout.Button("Edit Components", GUILayout.Height(35f)))
             {
                 if (ComponentsWindow.IsOpen) ComponentsWindow.CloseWindow();
                 ComponentsWindow.OpenWindow();
@@ -77,14 +83,17 @@ namespace UnitEditor.UI.Section
 
             EditorGUILayout.Space(5f);
 
-            if (GUILayout.Button("Load Data from File", GUILayout.Height(40f)))
+            if (GUILayout.Button("Load Data from File", GUILayout.Height(35f)))
             {
                 if (LoadFromFileWIndow.IsOpen) LoadFromFileWIndow.CloseWindow();
                 LoadFromFileWIndow.OpenWindow();
             }
             EditorGUILayout.Space(5f);
 
-            GUILayout.Button("Add To Scene", GUILayout.Height(40f));
+            if (GUILayout.Button("Add To Scene", GUILayout.Height(35f)))
+            {
+                AddUnitToScene();
+            }
 
             EditorGUILayout.EndVertical();
 
@@ -109,8 +118,7 @@ namespace UnitEditor.UI.Section
 
             sectionRect = new Rect(baseRect.x + 5f, 200f, 450f, 185f);
             GUILayout.BeginArea(sectionRect);
-            GUIStyle labelStyle = new GUIStyle(mySkin.GetStyle("baseLabelField"));
-            EditorGUILayout.LabelField("Requrired Resources", labelStyle);
+            EditorGUILayout.LabelField("Requrired Resources", mySkin.GetStyle("baseLabelField"));
             EditorGUILayout.Space(2f);
             requiredResourecesList.elementHeight = 32f;
             requiredResourecesList.DoLayoutList();
@@ -142,6 +150,12 @@ namespace UnitEditor.UI.Section
         }
 
         #endregion
+
+
+        private void AddUnitToScene()
+        {
+            DataHandler.Instance.InstantiateActiveObject();
+        }
     }
 }
 

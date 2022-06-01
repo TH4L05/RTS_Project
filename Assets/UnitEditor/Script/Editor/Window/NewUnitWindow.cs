@@ -24,6 +24,7 @@ namespace UnitEditor.Window
 		private UnitType unitType;
 		private string unitName;
 		private string message;
+		private int messageID;
 		private MessageType messageType;
 
 		public static bool IsOpen;
@@ -39,7 +40,7 @@ namespace UnitEditor.Window
 			if (!setupSuccess)
 			{
 				Close();
-				Debug.LogError("New Unit Window Setup = Failed");
+				Debug.LogError("NewUnitWindow Initialize = Failed");
 			}
 
 			unitType = (UnitType)UnitEditorToolbar.ToolbarIndex;
@@ -50,7 +51,7 @@ namespace UnitEditor.Window
 		{			
 			Rect areaRect = new Rect(15f, 15f, 300f, 175f);		
 			GUILayout.BeginArea(areaRect);
-            {
+            {		
 				GUIStyle label1 = new GUIStyle();
 				label1.normal.textColor = Color.white;
 
@@ -72,8 +73,14 @@ namespace UnitEditor.Window
 				unitName = EditorGUI.TextField(rect, unitName);
 				if (string.IsNullOrEmpty(unitName))
 				{
-					SetInfoMessage(0);
+					messageID = 0;
 				}
+				else
+                {
+					if(messageID < 1) messageID = -1;
+                }
+
+				SetInfoMessage();
 
 				rect = new Rect(25f, rect.y + rect.height + 8f, 250f, 40f);
 				GUILayout.BeginArea(rect);
@@ -94,7 +101,7 @@ namespace UnitEditor.Window
 				EditorGUILayout.HelpBox(message, messageType);			
 				GUILayout.EndArea();
 			}			
-			GUILayout.EndArea();
+			GUILayout.EndArea();		
 		}
 	
 		private void OnDestroy()
@@ -136,9 +143,9 @@ namespace UnitEditor.Window
 
         #endregion
 
-        private void SetInfoMessage(int indx)
+        private void SetInfoMessage()
 		{
-			switch (indx)
+			switch (messageID)
 			{
 				case 0:
 					message = "Can not create new Unit with emtpy name";
@@ -150,7 +157,10 @@ namespace UnitEditor.Window
 					messageType = MessageType.Error;
 					break;
 
+				case -1:
 				default:
+					message = string.Empty;
+					messageType = MessageType.None;
 					break;
 			}
 		}
@@ -163,12 +173,15 @@ namespace UnitEditor.Window
 
 			if (unitExist)
             {
-				SetInfoMessage(1);
+				messageID = 1;
+				SetInfoMessage();
+				Debug.LogError(message);
 				return;
             }
 
-			DataHandler.Instance.CreateNewUnit(unitType, unitName);
-			NewUnitCreated?.Invoke();
+			bool success = DataHandler.Instance.CreateNewUnit(unitType, unitName);
+
+			if (success) NewUnitCreated?.Invoke();
 			Close();
 		}
 	}

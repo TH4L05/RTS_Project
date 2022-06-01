@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524617ed0b4bc9641b970378c79afc68, type: 3}
-  m_Name: Test
+  m_Name: TestUnit
   m_EditorClassIdentifier: 
-  name: Test
+  name: TestUnit
   type: 0
-  tooltip: TestUnit
-  buildTime: 20
-  deathTime: 20
+  tooltip: Building
+  buildTime: 0
+  deathTime: 0
   requiredResources:
   - resourceType: 0
-    amount: 25
+    amount: 0
   - resourceType: 1
-    amount: 10
+    amount: 0
   - resourceType: 2
     amount: 0
   - resourceType: 3
     amount: 0
-  healthMax: 5000
-  healthRegen: 10
-  healthRegenRate: 10
-  manaMax: 2000
-  manaRegen: 10
-  manaRegenRate: 10
+  healthMax: 1
+  healthRegen: 0
+  healthRegenRate: 0
+  manaMax: 0
+  manaRegen: 0
+  manaRegenRate: 0
   armor: 0
-  attackRange: 10
-  actionRange: 10
+  attackRange: 0
+  actionRange: 2
   attackSpeed: 1
   basedamage: 1
-  weapon: {fileID: 3169857386294250524, guid: b208a0a30d490c04f91227f2adb2f18a, type: 3}
+  weapon: {fileID: 0}
   abilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -47,10 +47,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 9b99130c38a257548a6edf79246eb822, type: 2}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 0790fa4306cbb184db39f55bd0463593, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   selectionInfoIcon: {fileID: 0}
   actionButtonIcon: {fileID: 0}
   actionButtonIconHighlighted: {fileID: 0}

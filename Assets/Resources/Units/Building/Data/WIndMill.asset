@@ -61,7 +61,7 @@ MonoBehaviour:
   - resourceType: 1
     amount: 0
   - resourceType: 2
-    amount: 0
+    amount: 1
   - resourceType: 3
     amount: 0
   suppliedResourcesOnStart:

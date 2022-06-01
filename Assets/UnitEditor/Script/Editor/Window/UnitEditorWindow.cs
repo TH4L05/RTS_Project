@@ -163,19 +163,36 @@ namespace UnitEditor.Window
 
         private void LeftAreaBottom()
         {
+            var newUnitGUIContent = new GUIContent("New Unit", "Create a new Unit");
+            var settingsGUIContent = new GUIContent("Settings", "Edit the Unit Editor Settings");
+            var manualGUIContent = new GUIContent("?", "Open the Manual");
+
+
             EditorGUILayout.Space(10f);
             EditorGUILayout.BeginHorizontal();
 
                 GUILayout.Button("", GUILayout.Width(11f), GUILayout.Height(0.1f));
-                if (GUILayout.Button("New Unit", GUILayout.Width(90f), GUILayout.Height(35f)))
+                if (GUILayout.Button(newUnitGUIContent, GUILayout.Width(90f), GUILayout.Height(35f)))
                 {
                     NewUnitWindow.OpenWindow();
                 }
 
-                if (GUILayout.Button("Settings", GUILayout.Width(90f), GUILayout.Height(35f)))
+                if (GUILayout.Button(settingsGUIContent, GUILayout.Width(90f), GUILayout.Height(35f)))
                 {
                     SettingsWindow.OpenWindow();
                 }
+
+                if (GUILayout.Button(manualGUIContent, GUILayout.Width(35f), GUILayout.Height(35f)))
+                {
+                    string prefix = "File:///";
+                    string dataPath = Application.dataPath;
+                    string projectPath = dataPath.Replace("Assets", "");
+                    string editorDataPath = DataHandler.Instance.EditorDataPath;
+
+                    string filepath = prefix + projectPath + editorDataPath +"/Manual/Manual.pdf";
+                    Debug.Log(filepath);
+                    Application.OpenURL(filepath);
+            }
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(15f);

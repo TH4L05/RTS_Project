@@ -61,7 +61,7 @@ namespace UnitEditor.UI.Section
         }
 
         protected virtual void SectionGUI(Rect baseRect)
-        {           
+        {
         }
 
         #endregion

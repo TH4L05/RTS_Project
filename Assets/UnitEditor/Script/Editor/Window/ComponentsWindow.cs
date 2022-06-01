@@ -33,7 +33,7 @@ namespace UnitEditor.Window
             if (!setupSuccess)
             {
                 Close();
-                Debug.LogError("LoadFromFileWIndow Setup = Failed");
+                Debug.LogError("ComponentsWindow Initialize = Failed");
             }
 
             IsOpen = true;

@@ -57,7 +57,7 @@ MonoBehaviour:
   actionButtonIconPressed: {fileID: 21300000, guid: a245496cdc83ee049a200a348e78ce76, type: 3}
   producedResources:
   - resourceType: 0
-    amount: 0
+    amount: 1
   - resourceType: 1
     amount: 0
   - resourceType: 2

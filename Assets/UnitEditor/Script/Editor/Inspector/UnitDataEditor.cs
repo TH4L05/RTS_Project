@@ -18,7 +18,7 @@ public class UnitDataEditor : Editor
     protected StatsBaseSection statsSection;
     protected StatsAdditionalSection statsAdditionalSection;
     protected AbilitiesSection abilitiesSection;
-    protected Rect baseRect = new Rect(20f, 15f, 1000f, 200f);
+    protected Rect baseRect = new Rect(20f, 15f, 950f, 200f);
 
     #endregion
 

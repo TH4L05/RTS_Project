@@ -23,7 +23,8 @@ public class ResourceSetup
 public enum UnitType
 {
     Building,
-    Character
+    Character,
+    //Hero
 }
 
 public class UnitData : ScriptableObject
@@ -146,8 +147,6 @@ public class UnitData : ScriptableObject
             var obj = Resources.Load("Abilities/" + data[21 + i], typeof(ScriptableObject));
             if (obj != null) abilities[i] = obj as Ability;
         }
-
-        //TODO: set icons from strings ?
     }
 }
 

@@ -54,7 +54,9 @@ namespace UnitEditor.UI.Toolbar
         {
             if (NewUnitWindow.IsOpen) return;
 
-            var rect = new Rect(5f, 5f, 400f, 25f);
+            int amount = Enum.GetValues(typeof(UnitType)).Length;
+
+            var rect = new Rect(5f, 5f, 200f * amount, 25f);
             toolbarIndex = GUI.Toolbar(rect, toolbarIndex, toolBarStrings);
 
             if (lastToolbarIndex != toolbarIndex)

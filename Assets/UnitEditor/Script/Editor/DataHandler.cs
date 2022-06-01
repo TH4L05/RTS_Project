@@ -143,7 +143,7 @@ namespace UnitEditor.Data
         private void CreateFolder(string parentFolder, string folderName)
         {
             AssetDatabase.CreateFolder(parentFolder, folderName);
-            Debug.Log($"<color=cyan>Created new Folder at : {parentFolder} with name : {folderName}</color>");
+            Debug.Log($"<color=#ACE8FF>Created new Folder with name : \"{folderName}\" at path: \"{parentFolder}\".</color>");
         }
 
         private bool CheckIfFolderExists(string path)
@@ -160,21 +160,21 @@ namespace UnitEditor.Data
 
         private void CheckUnitsFolder()
         {
-            bool folderExists = CheckIfFolderExists(editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName);
+            string path = editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName;
+            bool folderExists = CheckIfFolderExists(path);
+
             if (folderExists) return;
             CreateFolder(editorData.resourcesPath, editorData.unitsRootFolderName);
         }
 
-        private bool CheckUnitTypeFolder(string type)
+        private void CheckUnitTypeFolder(string type)
         {
-            string path = editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName + "/";
-            bool folderExists = CheckIfFolderExists(path + type);
-            if (!folderExists)
-            {
-                CreateFolder(path, type);
-                return false;
-            }
-            return true;
+            string path = editorData.resourcesPath + "/Resources/" + editorData.unitsRootFolderName;
+            bool folderExists = CheckIfFolderExists(path + "/" + type);
+
+            if (folderExists) return;
+            CreateFolder(path, type);
+            CreateFolder(path + "/" + type, "Data");
         }
 
         #endregion
@@ -187,8 +187,7 @@ namespace UnitEditor.Data
 
             foreach (var unitType in Enum.GetValues(typeof(UnitType)))
             {
-                if (unitType.ToString() == "Undefined") continue;               
-                if (!CheckUnitTypeFolder(unitType.ToString())) continue;
+                CheckUnitTypeFolder(unitType.ToString());
 
                 string listName = unitType.ToString();
                 List<GameObject> list = new List<GameObject>();
@@ -247,11 +246,33 @@ namespace UnitEditor.Data
 
         #region CreateUnit
 
-        public void CreateNewUnit(UnitType type, string name)
+        public bool CreateNewUnit(UnitType type, string name)
         {
             string path = editorData.resourcesPath + "Resources/" + editorData.unitsRootFolderName + "/" + type.ToString() +"/";
+
             var unitData = CreateUnitData(type, name, path);
-            CreateUnitObject(type, name, path, unitData);
+            if (unitData == null)
+            {
+                ShowMessage(true, true, name, path + "Data/");
+                return false;
+            }
+
+            ShowMessage(false, true, name, path + "Data/");
+
+            GameObject unit = CreateUnitObject(type, name, path, unitData);                   
+            if (unit == null)
+            {
+                ShowMessage(true, true, name, path);             
+                return false;
+            }
+
+            ShowMessage(false, true, name, path);
+
+            List<GameObject> list = GetList(type);
+            list.Add(unit);
+            list.Sort((x, y) => string.Compare(x.name, y.name));
+
+            return true;         
         }
 
         private UnitData CreateUnitData(UnitType type, string name, string path)
@@ -263,11 +284,9 @@ namespace UnitEditor.Data
                 default:
                     return unitData;
 
-
                 case UnitType.Building:
                     unitData = ScriptableObject.CreateInstance<BuildingData>();
                     break;
-
 
                 case UnitType.Character:
                     unitData = ScriptableObject.CreateInstance<CharacterData>();
@@ -280,7 +299,7 @@ namespace UnitEditor.Data
             return unitData;
         }
 
-        private void CreateUnitObject(UnitType type, string name, string path, UnitData data)
+        private GameObject CreateUnitObject(UnitType type, string name, string path, UnitData data)
         {
             GameObject newUnitObject = null;
             Unit unit = null;
@@ -288,23 +307,18 @@ namespace UnitEditor.Data
             switch (type)
             {
                 default:
-                    return;
+                    return null;
 
 
                 case UnitType.Building:
                     if (editorData.unitTemplates[0] == null)
                     {
                         Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
-                        return;
+                        return null;
                     }
                     newUnitObject = Instantiate(editorData.unitTemplates[0]);
                     unit = newUnitObject.GetComponent<Building>();
-                    unit.SetUnitData(data);
-
-                    // old creation without Prefab
-                    //unit = go.AddComponent<Character>();
-                    //go.AddComponent<NavMeshAgent>();
-                    //go.AddComponent<CapsuleCollider>();               
+                    unit.SetUnitData(data);            
                     break;
 
 
@@ -312,7 +326,7 @@ namespace UnitEditor.Data
                     if (editorData.unitTemplates[1] == null)
                     {
                         Debug.LogError(type.ToString() + " Template is missing !! - check editorData");
-                        return;
+                        return null;
                     }
                     newUnitObject = Instantiate(editorData.unitTemplates[1]);
                     unit = newUnitObject.GetComponent<Character>();
@@ -324,16 +338,14 @@ namespace UnitEditor.Data
             newUnitObject.layer = LayerMask.NameToLayer("Unit");
             newUnitObject.tag = type.ToString();
 
-            SaveAsPrefabAsset(newUnitObject, path);
-
-            List<GameObject> list = GetList(type);
-            list.Add(newUnitObject);
-            list.Sort((x, y) => string.Compare(x.name, y.name));          
+            var prefab = SaveAsPrefabAsset(newUnitObject, path);
+            DestroyImmediate(newUnitObject);          
+            return prefab;
         }
 
-        private void SaveAsPrefabAsset(GameObject obj, string path)
+        private GameObject SaveAsPrefabAsset(GameObject obj, string path)
         {
-            PrefabUtility.SaveAsPrefabAsset(obj, path + obj.name + ".prefab");
+            return PrefabUtility.SaveAsPrefabAsset(obj, path + obj.name + ".prefab");
         }
 
         #endregion
@@ -354,39 +366,67 @@ namespace UnitEditor.Data
 
         private void DeleteUnitData(string path, string name)
         {
-            bool deleteSuccess = false;
             string unitDataPath = path + "Data/" + name + ".asset";
-            deleteSuccess = AssetDatabase.DeleteAsset(unitDataPath);
-
-            if (deleteSuccess)
-            {
-                Debug.Log($"<color=#43F92A>{unitDataPath} deleted</color>");
-            }
-            else
-            {
-                Debug.LogError($"<color=red>ERROR !! - Could not delete {unitDataPath}</color>");
-            }
+            bool deleteSuccess = AssetDatabase.DeleteAsset(unitDataPath);
+            ShowMessage(deleteSuccess, false, name, path);
         }
 
         private void DeleteUnitObject(string path, string name)
-        {
-            bool deleteSuccess = false;
+        {          
             string unitObjectPath = path + name + ".prefab";
-            deleteSuccess = AssetDatabase.DeleteAsset(unitObjectPath);
-
-            if (deleteSuccess)
-            {
-                Debug.Log($"<color=#43F92A>{unitObjectPath} deleted</color>");
-            }
-            else
-            {
-                Debug.LogError($"<color=red>ERROR !! - Could not delete {unitObjectPath}</color>");
-            }
+            bool deleteSuccess = AssetDatabase.DeleteAsset(unitObjectPath);
+            ShowMessage(deleteSuccess, false, name, path);
         }
 
         #endregion
 
-        #region Other
+        #region
+
+        private void ShowMessage(bool error, bool created, string name, string path)
+        {
+            string message = string.Empty;
+
+            string mcreated = "has been created";
+            string mdeleted = "has been deleted";
+            string errorCreate = "ERROR!! - Could not create ";
+            string errorDelete = "ERROR!! - Could not delete ";
+
+            if (error)
+            {
+                message += "<color=#CC0000>";
+                if (created)
+                {
+                    message += errorCreate;
+                }
+                else
+                {
+                    message += errorDelete;
+                }
+                
+                message += " object with name: \"" + name + "\"";
+                message += "at path: \"" + path + "\"";
+                message += ".</color>";
+                Debug.LogError(message);
+            }
+            else
+            {
+                message += "<color=#43F92A>";
+                message += " object with name: \"" + name + "\"";
+                message += "at path: \"" + path + "\"";
+
+                if (created)
+                {
+                    message += mcreated;
+                }
+                else
+                {
+                    message += mdeleted;
+                }
+
+                message += ".</color>";
+                Debug.Log(message);
+            }
+        }
 
         public UnityEngine.Object[] LoadAllFromResources(string path)
         {          
@@ -423,6 +463,21 @@ namespace UnitEditor.Data
             }
 
             return null;
+        }
+
+        public void InstantiateActiveObject()
+        {
+            if (activeObj == null) return;
+
+            Vector3 position = Vector3.zero;
+            Ray ray = SceneView.lastActiveSceneView.camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 1.0f));
+
+            if (Physics.Raycast(ray, out var hitInfo))
+            {
+                position = hitInfo.point;
+            }
+
+            Instantiate(activeObj, position, Quaternion.identity);
         }
 
         #endregion
