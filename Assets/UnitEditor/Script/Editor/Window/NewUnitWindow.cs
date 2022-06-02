@@ -21,13 +21,16 @@ namespace UnitEditor.Window
         #region Fields
 
         private static NewUnitWindow window;
+		public static bool IsOpen;
+
 		private UnitType unitType;
+		private MessageType messageType;
 		private string unitName;
 		private string message;
 		private int messageID;
-		private MessageType messageType;
 
-		public static bool IsOpen;
+		private GUIStyle label1;
+		private GUIStyle label2;
 
 		#endregion
 
@@ -48,18 +51,24 @@ namespace UnitEditor.Window
 		}
 
 		private void OnGUI()
-		{			
-			Rect areaRect = new Rect(15f, 15f, 300f, 175f);		
+		{
+			GUI();
+		}
+	
+		private void OnDestroy()
+		{
+			IsOpen = false;
+		}
+
+        #endregion
+
+        #region GUI
+
+        private void GUI()
+        {
+			Rect areaRect = new Rect(15f, 15f, 300f, 175f);
 			GUILayout.BeginArea(areaRect);
-            {		
-				GUIStyle label1 = new GUIStyle();
-				label1.normal.textColor = Color.white;
-
-				GUIStyle label2 = new GUIStyle();
-				label2.fontStyle = FontStyle.Bold;
-				label2.normal.textColor = new Color(0.85f, 0.55f, 0f, 0.85f) ;
-				label2.fontSize = 15;
-
+			{
 				Rect rect = new Rect(25f, 2f, 150f, 25f);
 				EditorGUI.LabelField(rect, $"Create new Unit of Type: ", label1);
 
@@ -76,9 +85,9 @@ namespace UnitEditor.Window
 					messageID = 0;
 				}
 				else
-                {
-					if(messageID < 1) messageID = -1;
-                }
+				{
+					if (messageID < 1) messageID = -1;
+				}
 
 				SetInfoMessage();
 
@@ -97,24 +106,30 @@ namespace UnitEditor.Window
 				GUILayout.EndArea();
 
 				rect = new Rect(25f, rect.y + rect.height + 6f, 250f, 40f);
-				GUILayout.BeginArea(rect);				
-				EditorGUILayout.HelpBox(message, messageType);			
+				GUILayout.BeginArea(rect);
+				EditorGUILayout.HelpBox(message, messageType);
 				GUILayout.EndArea();
-			}			
-			GUILayout.EndArea();		
-		}
-	
-		private void OnDestroy()
-		{
-			IsOpen = false;
+			}
+			GUILayout.EndArea();
 		}
 
-		#endregion
+        #endregion
 
-		#region Initialize
 
-		private bool Initialize()
+        #region Initialize
+
+        private bool Initialize()
 		{
+			//TODO: add to skin file
+			label1 = new GUIStyle();
+			label1.normal.textColor = Color.white;
+
+			//TODO: add to skin file
+			label2 = new GUIStyle();
+			label2.fontStyle = FontStyle.Bold;
+			label2.normal.textColor = new Color(0.85f, 0.55f, 0f, 0.85f);
+			label2.fontSize = 15;
+
 			return true;
 		}
 

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 
+using UnityEditor;
 using UnityEngine;
 
 using UnitEditor.Window;
@@ -16,7 +17,6 @@ namespace UnitEditor.UI.ButttonList
         #region Events
 
         public static Action<GameObject> OnButtonPressed;
-        public static Action<int> OnUnitGetsDeleted;
         public Action ResetScrollPosition;
         public static Action<int> SetMessage;
 
@@ -25,10 +25,8 @@ namespace UnitEditor.UI.ButttonList
         #region Fields
 
         private string[] unitNames;
-        private int index;
         private UnitType type;
         private GUISkin mySkin;
-        private List<GameObject> activeUnitList;
 
         #endregion
 
@@ -44,6 +42,7 @@ namespace UnitEditor.UI.ButttonList
             unitNames = new string[1];
             UnitEditorToolbar.ToolbarIndexChanged += LoadList;
             NewUnitWindow.NewUnitCreated += ReloadList;
+            ConfirmationWindow.UnitDeleted += OnDeleteUnit;
 
             LoadList(0);
             mySkin = DataHandler.Instance.MySkin;
@@ -56,7 +55,8 @@ namespace UnitEditor.UI.ButttonList
         public void Destroy()
         {
             UnitEditorToolbar.ToolbarIndexChanged -= LoadList;
-            NewUnitWindow.NewUnitCreated -= ReloadList;         
+            NewUnitWindow.NewUnitCreated -= ReloadList;
+            ConfirmationWindow.UnitDeleted -= OnDeleteUnit;
         }
 
         #endregion
@@ -75,15 +75,17 @@ namespace UnitEditor.UI.ButttonList
                 for (int i = 0; i < unitNames.Length; i++)
                 {
                     GUILayout.BeginHorizontal();
+
                     if (GUILayout.Button(unitNames[i], mySkin.customStyles[10]))
-                    {
-                        index = i;
-                        OnButtonPressed?.Invoke(activeUnitList[index]);
+                    {                    
+                        GameObject obj = GetObjFromDataHandler(type, i);
+                        OnButtonPressed?.Invoke(obj);
                         ResetScrollPosition?.Invoke();
                     }
+
                     if (GUILayout.Button("X", GUILayout.Width(20f), GUILayout.Height(25f)))
                     {
-                        DeleteUnitButtonClicked(i);
+                        ConfirmationWindow.OpenWindow(type, i);                       
                     }
 
                     GUILayout.EndHorizontal();
@@ -92,12 +94,9 @@ namespace UnitEditor.UI.ButttonList
             }                      
         }
 
-        private void DeleteUnitButtonClicked(int indx)
-        {
-            OnUnitGetsDeleted?.Invoke(0);
-            DataHandler.Instance.DeleteUnit(type, indx);
-            ReloadList();
-        }
+        #endregion
+
+        #region List
 
         private void LoadList(int index)
         {            
@@ -109,13 +108,14 @@ namespace UnitEditor.UI.ButttonList
         private void ReloadList()
         {
             LoadDataNames(type);
-            OnButtonPressed?.Invoke(activeUnitList[0]);
+            GameObject obj = GetObjFromDataHandler(type, 0);
+            OnButtonPressed?.Invoke(obj);
             UnitEditorWindow.NeedRepaint();
         }
 
         private void LoadDataNames(UnitType type)
         {
-            activeUnitList = DataHandler.Instance.GetList(type);
+            var  activeUnitList = DataHandler.Instance.GetList(type);
             if (activeUnitList.Count == 0)
             {
                 unitNames = new string[0];
@@ -135,6 +135,16 @@ namespace UnitEditor.UI.ButttonList
         }
 
         #endregion
+
+        private GameObject GetObjFromDataHandler(UnitType type, int index)
+        {
+            return DataHandler.Instance.GetObjectFromList(type, index);            
+        }
+
+        private void OnDeleteUnit(int indx)
+        {
+            ReloadList();
+        }
     }
 }
 

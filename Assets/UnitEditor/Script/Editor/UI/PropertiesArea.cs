@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+using UnitEditor.Window;
 using UnitEditor.UI.Toolbar;
 using UnitEditor.UI.ButttonList;
 using UnitEditor.Data;
@@ -29,9 +30,9 @@ namespace UnitEditor.UI.PropertiesArea
         public void Initialize()
         {
             ButtonList.OnButtonPressed += CreateEditor;
-            ButtonList.OnUnitGetsDeleted += DestroyEditor;
             ButtonList.SetMessage += SetMessageCode;
             UnitEditorToolbar.ToolbarIndexChanged += DestroyEditor;
+            ConfirmationWindow.UnitDeleted += DestroyEditor;
         }
 
         #endregion
@@ -41,9 +42,9 @@ namespace UnitEditor.UI.PropertiesArea
         public void Destroy()
         {
             ButtonList.OnButtonPressed -= CreateEditor;
-            ButtonList.OnUnitGetsDeleted -= DestroyEditor;
             ButtonList.SetMessage -= SetMessageCode;
             UnitEditorToolbar.ToolbarIndexChanged -= DestroyEditor;
+            ConfirmationWindow.UnitDeleted -= DestroyEditor;
             DestroyEditor(0);
         }
 

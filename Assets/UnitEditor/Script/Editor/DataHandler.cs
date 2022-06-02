@@ -350,37 +350,47 @@ namespace UnitEditor.Data
 
         #endregion
 
-        #region DeleteUnit
+        #region DestroyUnit
 
-        public void DeleteUnit(UnitType type, int index)
+        public bool DeleteUnit(UnitType type, int index)
         {
             var obj = GetObjectFromList(type, index);
             string name = obj.name;
             string path = editorData.resourcesPath + "Resources/" + editorData.unitsRootFolderName + "/" + type.ToString() + "/";
 
-            DeleteUnitData(path, name);
-            DeleteUnitObject(path, name);
+            bool success = true;
+
+            success = DeleteUnitData(path, name);
+            if(!success) return false;
+
+            success = DeleteUnitObject(path, name);
+            if (!success) return false;
 
             DeleteFromList(type, obj);
+            return success;
         }
 
-        private void DeleteUnitData(string path, string name)
+        private bool DeleteUnitData(string path, string name)
         {
             string unitDataPath = path + "Data/" + name + ".asset";
             bool deleteSuccess = AssetDatabase.DeleteAsset(unitDataPath);
-            ShowMessage(deleteSuccess, false, name, path);
+            ShowMessage(!deleteSuccess, false, name, path);
+
+            return deleteSuccess;
         }
 
-        private void DeleteUnitObject(string path, string name)
-        {          
+        private bool DeleteUnitObject(string path, string name)
+        {
             string unitObjectPath = path + name + ".prefab";
             bool deleteSuccess = AssetDatabase.DeleteAsset(unitObjectPath);
-            ShowMessage(deleteSuccess, false, name, path);
+            ShowMessage(!deleteSuccess, false, name, path);
+
+            return deleteSuccess;
         }
 
         #endregion
 
-        #region
+        #region Mixed
 
         private void ShowMessage(bool error, bool created, string name, string path)
         {

@@ -189,7 +189,7 @@ namespace UnitEditor.Window
                     string projectPath = dataPath.Replace("Assets", "");
                     string editorDataPath = DataHandler.Instance.EditorDataPath;
 
-                    string filepath = prefix + projectPath + editorDataPath +"/Manual/Manual.pdf";
+                    string filepath = prefix + projectPath + editorDataPath + "/Manual/UnitEditorManual.pdf";
                     Debug.Log(filepath);
                     Application.OpenURL(filepath);
             }

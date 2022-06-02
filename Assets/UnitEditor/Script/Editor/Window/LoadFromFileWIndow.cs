@@ -44,6 +44,20 @@ namespace UnitEditor.Window
 
 		private void OnGUI()
 		{
+			GUI();
+		}
+
+		private void OnDestroy()
+		{
+			IsOpen = false;
+		}
+
+        #endregion
+
+        #region GUI
+
+        private void GUI()
+        {
 			EditorGUILayout.Space(5f);
 			EditorGUILayout.BeginHorizontal(GUILayout.Width(390f));
 
@@ -52,7 +66,7 @@ namespace UnitEditor.Window
 
 			EditorGUILayout.LabelField("FilePath");
 			filePath = EditorGUILayout.TextField(filePath, GUILayout.Width(300f));
-					
+
 			EditorGUILayout.Space(10f);
 
 			EditorGUILayout.BeginHorizontal();
@@ -71,16 +85,11 @@ namespace UnitEditor.Window
 			EditorGUILayout.EndHorizontal();
 		}
 
-		private void OnDestroy()
-		{
-			IsOpen = false;
-		}
+        #endregion
 
-		#endregion
+        #region Initialize
 
-		#region Initialize
-
-		private bool Initialize()
+        private bool Initialize()
 		{
 			obj = DataHandler.Instance.ActiveObj;
 			if (obj == null) return false;
